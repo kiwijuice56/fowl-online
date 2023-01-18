@@ -1,0 +1,116 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfbkdoy6c58mp"]
+
+[ext_resource type="Script" path="res://main/ui/lobby/lobby.gd" id="1_5fsoq"]
+[ext_resource type="Script" path="res://main/ui/lobby/character_menu.gd" id="2_l6vkm"]
+[ext_resource type="Texture2D" uid="uid://cyqcg4k2g68ht" path="res://icon.svg" id="3_eo3yw"]
+[ext_resource type="Script" path="res://main/ui/lobby/main_menu.gd" id="4_or06x"]
+
+[node name="Lobby" type="Control" node_paths=PackedStringArray("character_menu", "main_menu")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5fsoq")
+character_menu = NodePath("CharacterMenu")
+main_menu = NodePath("MainMenu")
+
+[node name="CharacterMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("go_button", "left_button", "right_button", "player_icon", "username")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.5
+offset_top = -130.5
+offset_right = 201.5
+offset_bottom = 130.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+script = ExtResource("2_l6vkm")
+go_button = NodePath("Button")
+left_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Left")
+right_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Right")
+player_icon = NodePath("HBoxContainer/VBoxContainer/Icon")
+username = NodePath("HBoxContainer/Username")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterMenu/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="CharacterMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_eo3yw")
+stretch_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Left" type="Button" parent="CharacterMenu/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "<"
+
+[node name="Right" type="Button" parent="CharacterMenu/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = ">"
+
+[node name="Username" type="LineEdit" parent="CharacterMenu/HBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Name..."
+
+[node name="Button" type="Button" parent="CharacterMenu"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Go"
+
+[node name="MainMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -98.5
+offset_right = 122.0
+offset_bottom = 98.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_or06x")
+title = NodePath("Label")
+join_button = NodePath("JoinButton")
+create_button = NodePath("CreateButton")
+
+[node name="Label" type="Label" parent="MainMenu"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_font_sizes/font_size = 90
+text = "Rook!"
+horizontal_alignment = 1
+
+[node name="JoinButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Join a game"
+
+[node name="CreateButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Create a game"

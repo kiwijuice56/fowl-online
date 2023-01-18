@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://main/ui/lobby/Lobby.tscn" id="1_5gjkg"]
+[ext_resource type="PackedScene" uid="uid://bqw5fuy0upiy4" path="res://main/game/card/Card.tscn" id="2_cqinv"]
+
+[node name="Main" type="Node"]
+
+[node name="Lobby" parent="." instance=ExtResource("1_5gjkg")]
+
+[node name="Game" type="Node3D" parent="."]
+visible = false
+
+[node name="Card" parent="Game" instance=ExtResource("2_cqinv")]
+
+[node name="Camera3D" type="Camera3D" parent="Game"]
+transform = Transform3D(1, 0, 0, 0, 0.889911, 0.456135, 0, -0.456135, 0.889911, 0, 1.94199, 1.76501)
+current = true

@@ -1,0 +1,53 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+_global_script_classes=[{
+"base": "Submenu",
+"class": &"CharacterMenu",
+"language": &"GDScript",
+"path": "res://main/ui/lobby/character_menu.gd"
+}, {
+"base": "Control",
+"class": &"Lobby",
+"language": &"GDScript",
+"path": "res://main/ui/lobby/lobby.gd"
+}, {
+"base": "Submenu",
+"class": &"MainMenu",
+"language": &"GDScript",
+"path": "res://main/ui/lobby/main_menu.gd"
+}, {
+"base": "Control",
+"class": &"Submenu",
+"language": &"GDScript",
+"path": "res://main/ui/submenu.gd"
+}]
+_global_script_class_icons={
+"CharacterMenu": "",
+"Lobby": "",
+"MainMenu": "",
+"Submenu": ""
+}
+
+[application]
+
+config/name="rook-online"
+run/main_scene="res://main/Main.tscn"
+config/features=PackedStringArray("4.0", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
