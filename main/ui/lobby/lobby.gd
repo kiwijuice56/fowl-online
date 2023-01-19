@@ -7,10 +7,16 @@ extends Control
 var rooms: Dictionary 
 
 func _ready() -> void:
-	character_menu.exited.connect(_on_start)
+	character_menu.go_selected.connect(_on_go_selected)
+	main_menu.profile_selected.connect(_on_profile_selected)
 
-func _on_start() -> void:
+func _on_go_selected() -> void:
+	await character_menu.exit()
 	main_menu.enter()
+
+func _on_profile_selected() -> void:
+	await main_menu.exit()
+	character_menu.enter()
 
 func _enter_tree() -> void:
 	pass

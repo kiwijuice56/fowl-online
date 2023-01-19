@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://ksyalipilnhr"]
 
-[ext_resource type="PackedScene" path="res://main/ui/lobby/Lobby.tscn" id="1_5gjkg"]
+[ext_resource type="PackedScene" uid="uid://cfbkdoy6c58mp" path="res://main/ui/lobby/Lobby.tscn" id="1_5gjkg"]
 [ext_resource type="PackedScene" uid="uid://bqw5fuy0upiy4" path="res://main/game/card/Card.tscn" id="2_cqinv"]
 
 [node name="Main" type="Node"]

@@ -79,7 +79,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Go"
 
-[node name="MainMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button")]
+[node name="MainMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -97,9 +97,10 @@ script = ExtResource("4_or06x")
 title = NodePath("Label")
 join_button = NodePath("JoinButton")
 create_button = NodePath("CreateButton")
+profile_button = NodePath("ProfileButton")
 
 [node name="Label" type="Label" parent="MainMenu"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 theme_override_font_sizes/font_size = 90
 text = "Rook!"
@@ -114,3 +115,50 @@ text = "Join a game"
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Create a game"
+
+[node name="ProfileButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Change user"
+
+[node name="MainMenu2" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -98.5
+offset_right = 122.0
+offset_bottom = 98.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_or06x")
+title = NodePath("Label")
+join_button = NodePath("JoinButton")
+create_button = NodePath("CreateButton")
+profile_button = NodePath("ProfileButton")
+
+[node name="Label" type="Label" parent="MainMenu2"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+theme_override_font_sizes/font_size = 90
+text = "Rook!"
+horizontal_alignment = 1
+
+[node name="JoinButton" type="Button" parent="MainMenu2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Join a game"
+
+[node name="CreateButton" type="Button" parent="MainMenu2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Create a game"
+
+[node name="ProfileButton" type="Button" parent="MainMenu2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Change user"
