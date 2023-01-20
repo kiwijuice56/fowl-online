@@ -1,20 +1,187 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfbkdoy6c58mp"]
+[gd_scene load_steps=13 format=3 uid="uid://c74puwxu5ubxk"]
 
 [ext_resource type="Script" path="res://main/ui/lobby/lobby.gd" id="1_5fsoq"]
-[ext_resource type="Script" path="res://main/ui/lobby/character_menu.gd" id="2_l6vkm"]
+[ext_resource type="Theme" uid="uid://bhjf3u3dj1bgt" path="res://main/ui/main_theme.tres" id="1_qhejk"]
 [ext_resource type="Texture2D" uid="uid://cyqcg4k2g68ht" path="res://icon.svg" id="3_eo3yw"]
-[ext_resource type="Script" path="res://main/ui/lobby/main_menu.gd" id="4_or06x"]
+[ext_resource type="Script" path="res://main/ui/lobby/join_menu/join_menu.gd" id="3_kwll3"]
+[ext_resource type="Script" path="res://main/ui/lobby/mini_lobby/mini_lobby_menu.gd" id="4_ucofp"]
+[ext_resource type="PackedScene" uid="uid://b7sik0nc1euhg" path="res://main/ui/lobby/mini_lobby/UserPanel.tscn" id="5_uekxm"]
+[ext_resource type="Script" path="res://main/ui/lobby/character_menu/character_menu.gd" id="7_4ifrh"]
+[ext_resource type="Script" path="res://main/ui/lobby/main_menu/main_menu.gd" id="9_8k6h8"]
 
-[node name="Lobby" type="Control" node_paths=PackedStringArray("character_menu", "main_menu")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0qmb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_028xl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kcr4s"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkgd4"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Lobby" type="Control" node_paths=PackedStringArray("character_menu", "main_menu", "join_menu", "mini_lobby_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_qhejk")
 script = ExtResource("1_5fsoq")
 character_menu = NodePath("CharacterMenu")
 main_menu = NodePath("MainMenu")
+join_menu = NodePath("JoinMenu")
+mini_lobby_menu = NodePath("MiniLobbyMenu")
+
+[node name="JoinMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("go_button", "quit_button", "code_line", "error_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -98.5
+offset_right = 200.0
+offset_bottom = 98.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_kwll3")
+go_button = NodePath("GoButton")
+quit_button = NodePath("QuitButton")
+code_line = NodePath("GameCode")
+error_label = NodePath("MarginContainer/ErrorLabel")
+empty_code_error = "Please enter a code above. This should be the three-word password given by a friend when they create a lobby, such as EAT-WOW-YAY"
+no_matching_code_error = "A lobby with that game code could not be found."
+
+[node name="MarginContainer" type="MarginContainer" parent="JoinMenu"]
+layout_mode = 2
+theme_override_constants/margin_top = 64
+
+[node name="ErrorLabel" type="Label" parent="JoinMenu/MarginContainer"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.811765, 0.811765, 1)
+theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
+
+[node name="GameCode" type="LineEdit" parent="JoinMenu"]
+custom_minimum_size = Vector2(400, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Enter game code..."
+
+[node name="GoButton" type="Button" parent="JoinMenu"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Go"
+
+[node name="QuitButton" type="Button" parent="JoinMenu"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[node name="MiniLobbyMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("code_label", "start_button", "leave_button", "user_container")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -98.5
+offset_right = 200.0
+offset_bottom = 98.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+script = ExtResource("4_ucofp")
+code_label = NodePath("GameCode")
+start_button = NodePath("StartButton")
+leave_button = NodePath("LeaveButton")
+user_container = NodePath("UserContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="MiniLobbyMenu"]
+layout_mode = 2
+theme_override_constants/margin_top = 64
+
+[node name="Label" type="Label" parent="MiniLobbyMenu/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Share this game code to let others join:"
+
+[node name="GameCode" type="LineEdit" parent="MiniLobbyMenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_h0qmb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_028xl")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_kcr4s")
+text = "EAT-WOW-YAY"
+alignment = 1
+editable = false
+
+[node name="CodeLabel" type="Label" parent="MiniLobbyMenu"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "EAT-WOW-YAY"
+horizontal_alignment = 1
+
+[node name="UserContainer" type="PanelContainer" parent="MiniLobbyMenu"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rkgd4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MiniLobbyMenu/UserContainer"]
+layout_mode = 2
+
+[node name="A" parent="MiniLobbyMenu/UserContainer/VBoxContainer" instance=ExtResource("5_uekxm")]
+layout_mode = 2
+
+[node name="B" parent="MiniLobbyMenu/UserContainer/VBoxContainer" instance=ExtResource("5_uekxm")]
+layout_mode = 2
+
+[node name="C" parent="MiniLobbyMenu/UserContainer/VBoxContainer" instance=ExtResource("5_uekxm")]
+layout_mode = 2
+
+[node name="D" parent="MiniLobbyMenu/UserContainer/VBoxContainer" instance=ExtResource("5_uekxm")]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MiniLobbyMenu"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Start Game"
+
+[node name="LeaveButton" type="Button" parent="MiniLobbyMenu"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Leave Game"
 
 [node name="CharacterMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("go_button", "left_button", "right_button", "player_icon", "username")]
 layout_mode = 1
@@ -30,42 +197,48 @@ offset_bottom = 130.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
-script = ExtResource("2_l6vkm")
+script = ExtResource("7_4ifrh")
 go_button = NodePath("Button")
-left_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Left")
-right_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Right")
-player_icon = NodePath("HBoxContainer/VBoxContainer/Icon")
-username = NodePath("HBoxContainer/Username")
+left_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Left")
+right_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Right")
+player_icon = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Icon")
+username = NodePath("MarginContainer/HBoxContainer/Username")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="CharacterMenu"]
+layout_mode = 2
+theme_override_constants/margin_top = 90
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CharacterMenu/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterMenu/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Icon" type="TextureRect" parent="CharacterMenu/HBoxContainer/VBoxContainer"]
+[node name="Icon" type="TextureRect" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("3_eo3yw")
 stretch_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Left" type="Button" parent="CharacterMenu/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Left" type="Button" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "<"
 
-[node name="Right" type="Button" parent="CharacterMenu/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Right" type="Button" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = ">"
 
-[node name="Username" type="LineEdit" parent="CharacterMenu/HBoxContainer"]
+[node name="Username" type="LineEdit" parent="CharacterMenu/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -76,10 +249,12 @@ placeholder_text = "Name..."
 [node name="Button" type="Button" parent="CharacterMenu"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Go"
 
 [node name="MainMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -93,72 +268,37 @@ offset_bottom = 98.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("4_or06x")
+theme_override_constants/separation = 8
+script = ExtResource("9_8k6h8")
 title = NodePath("Label")
 join_button = NodePath("JoinButton")
 create_button = NodePath("CreateButton")
 profile_button = NodePath("ProfileButton")
 
 [node name="Label" type="Label" parent="MainMenu"]
-custom_minimum_size = Vector2(0, 400)
+custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
 theme_override_font_sizes/font_size = 90
 text = "Rook!"
 horizontal_alignment = 1
 
 [node name="JoinButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Join a game"
 
 [node name="CreateButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Create a game"
 
 [node name="ProfileButton" type="Button" parent="MainMenu"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Change user"
-
-[node name="MainMenu2" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -122.0
-offset_top = -98.5
-offset_right = 122.0
-offset_bottom = 98.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("4_or06x")
-title = NodePath("Label")
-join_button = NodePath("JoinButton")
-create_button = NodePath("CreateButton")
-profile_button = NodePath("ProfileButton")
-
-[node name="Label" type="Label" parent="MainMenu2"]
-custom_minimum_size = Vector2(0, 400)
-layout_mode = 2
-theme_override_font_sizes/font_size = 90
-text = "Rook!"
-horizontal_alignment = 1
-
-[node name="JoinButton" type="Button" parent="MainMenu2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Join a game"
-
-[node name="CreateButton" type="Button" parent="MainMenu2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Create a game"
-
-[node name="ProfileButton" type="Button" parent="MainMenu2"]
-layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Change user"

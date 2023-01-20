@@ -11,4 +11,7 @@ func exit() -> void:
 	exited.emit()
 
 func toggle_input(input_enabled: bool) -> void:
-	pass
+	# When changing mouse filter, buttons will still be shown as "mouse hovering"
+	# This is a trick to refresh that... Probably not the best way
+	visible = false
+	visible = true

@@ -12,7 +12,12 @@ _global_script_classes=[{
 "base": "Submenu",
 "class": &"CharacterMenu",
 "language": &"GDScript",
-"path": "res://main/ui/lobby/character_menu.gd"
+"path": "res://main/ui/lobby/character_menu/character_menu.gd"
+}, {
+"base": "Submenu",
+"class": &"JoinMenu",
+"language": &"GDScript",
+"path": "res://main/ui/lobby/join_menu/join_menu.gd"
 }, {
 "base": "Control",
 "class": &"Lobby",
@@ -22,18 +27,31 @@ _global_script_classes=[{
 "base": "Submenu",
 "class": &"MainMenu",
 "language": &"GDScript",
-"path": "res://main/ui/lobby/main_menu.gd"
+"path": "res://main/ui/lobby/main_menu/main_menu.gd"
+}, {
+"base": "Submenu",
+"class": &"MiniLobbyMenu",
+"language": &"GDScript",
+"path": "res://main/ui/lobby/mini_lobby/mini_lobby_menu.gd"
 }, {
 "base": "Control",
 "class": &"Submenu",
 "language": &"GDScript",
 "path": "res://main/ui/submenu.gd"
+}, {
+"base": "HBoxContainer",
+"class": &"UserPanel",
+"language": &"GDScript",
+"path": "res://main/ui/lobby/mini_lobby/user_panel.gd"
 }]
 _global_script_class_icons={
 "CharacterMenu": "",
+"JoinMenu": "",
 "Lobby": "",
 "MainMenu": "",
-"Submenu": ""
+"MiniLobbyMenu": "",
+"Submenu": "",
+"UserPanel": ""
 }
 
 [application]
@@ -51,3 +69,4 @@ window/stretch/aspect="expand"
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.317647, 1)
