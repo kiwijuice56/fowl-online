@@ -8,6 +8,12 @@ extends Control
 
 var rooms: Dictionary 
 
+func _enter_tree() -> void:
+	if "--server" in OS.get_cmdline_args():
+		start_network(true)
+	else:
+		start_network(false)
+
 func _ready() -> void:
 	character_menu.character_confirmed.connect(_on_character_confirmed)
 	
@@ -55,10 +61,10 @@ func _on_create_selected() -> void:
 	mini_lobby_menu.enter()
 
 func _on_connected(id: int) -> void:
-	pass
+	print(id, " connected")
 
 func _on_disconnected(id: int) -> void:
-	pass
+	print(id, " disconnected")
 
 func start_network(is_server: bool) -> void:
 	var peer = ENetMultiplayerPeer.new()
