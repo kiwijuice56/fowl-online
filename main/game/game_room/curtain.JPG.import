@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bthccl33gxgek"
-path.s3tc="res://.godot/imported/laminate_floor_diff_4k.jpg-227e282562da4a59d4bf6b1ff4f52601.s3tc.ctex"
-path.etc2="res://.godot/imported/laminate_floor_diff_4k.jpg-227e282562da4a59d4bf6b1ff4f52601.etc2.ctex"
+uid="uid://cryryqg4647pv"
+path.s3tc="res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.s3tc.ctex"
+path.etc2="res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/laminate_floor_diff_4k.jpg"
-dest_files=["res://.godot/imported/laminate_floor_diff_4k.jpg-227e282562da4a59d4bf6b1ff4f52601.s3tc.ctex", "res://.godot/imported/laminate_floor_diff_4k.jpg-227e282562da4a59d4bf6b1ff4f52601.etc2.ctex"]
+source_file="res://main/game/game_room/curtain.JPG"
+dest_files=["res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.s3tc.ctex", "res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.etc2.ctex"]
 
 [params]
 

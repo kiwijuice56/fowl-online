@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://broa5euyud35p"
-path.s3tc="res://.godot/imported/dark_wood_diff_4k.jpg-6359f82f10f1927a52a6e1fcf4f7239c.s3tc.ctex"
-path.etc2="res://.godot/imported/dark_wood_diff_4k.jpg-6359f82f10f1927a52a6e1fcf4f7239c.etc2.ctex"
+uid="uid://t7rngnhsaybv"
+path.s3tc="res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.s3tc.ctex"
+path.etc2="res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/dark_wood_diff_4k.jpg"
-dest_files=["res://.godot/imported/dark_wood_diff_4k.jpg-6359f82f10f1927a52a6e1fcf4f7239c.s3tc.ctex", "res://.godot/imported/dark_wood_diff_4k.jpg-6359f82f10f1927a52a6e1fcf4f7239c.etc2.ctex"]
+source_file="res://main/game/game_room/grass.jpg"
+dest_files=["res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.s3tc.ctex", "res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.etc2.ctex"]
 
 [params]
 

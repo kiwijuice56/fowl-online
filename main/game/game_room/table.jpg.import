@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d31b22bcs7l08"
-path.s3tc="res://.godot/imported/wood_table_001_diff_4k.jpg-e5fa173a05013a847994f041be2137dc.s3tc.ctex"
-path.etc2="res://.godot/imported/wood_table_001_diff_4k.jpg-e5fa173a05013a847994f041be2137dc.etc2.ctex"
+path.s3tc="res://.godot/imported/table.jpg-23dfe4beaf441d8752ff995376008675.s3tc.ctex"
+path.etc2="res://.godot/imported/table.jpg-23dfe4beaf441d8752ff995376008675.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/wood_table_001_diff_4k.jpg"
-dest_files=["res://.godot/imported/wood_table_001_diff_4k.jpg-e5fa173a05013a847994f041be2137dc.s3tc.ctex", "res://.godot/imported/wood_table_001_diff_4k.jpg-e5fa173a05013a847994f041be2137dc.etc2.ctex"]
+source_file="res://main/game/game_room/table.jpg"
+dest_files=["res://.godot/imported/table.jpg-23dfe4beaf441d8752ff995376008675.s3tc.ctex", "res://.godot/imported/table.jpg-23dfe4beaf441d8752ff995376008675.etc2.ctex"]
 
 [params]
 

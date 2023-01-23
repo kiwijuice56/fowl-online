@@ -14,6 +14,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://main/ui/lobby/character_menu/character_menu.gd"
 }, {
+"base": "Label",
+"class": &"FpsLabel",
+"language": &"GDScript",
+"path": "res://main/ui/fps_label.gd"
+}, {
 "base": "Submenu",
 "class": &"JoinMenu",
 "language": &"GDScript",
@@ -46,6 +51,7 @@ _global_script_classes=[{
 }]
 _global_script_class_icons={
 "CharacterMenu": "",
+"FpsLabel": "",
 "JoinMenu": "",
 "Lobby": "",
 "MainMenu": "",
@@ -61,8 +67,13 @@ run/main_scene="res://main/Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+ProfileImages="*res://main/ui/profile_images/profile_images.gd"
+
 [display]
 
+window/size/viewport_width=800
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

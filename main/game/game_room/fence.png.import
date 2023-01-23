@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3pp0dmg1jo51"
-path.s3tc="res://.godot/imported/forest.jpg-0274dda12019c2368686a0217626bba0.s3tc.ctex"
-path.etc2="res://.godot/imported/forest.jpg-0274dda12019c2368686a0217626bba0.etc2.ctex"
+uid="uid://04l2u6pjdq5b"
+path.s3tc="res://.godot/imported/fence.png-5e0c76a99733f00a84a3c970488ef577.s3tc.ctex"
+path.etc2="res://.godot/imported/fence.png-5e0c76a99733f00a84a3c970488ef577.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/forest.jpg"
-dest_files=["res://.godot/imported/forest.jpg-0274dda12019c2368686a0217626bba0.s3tc.ctex", "res://.godot/imported/forest.jpg-0274dda12019c2368686a0217626bba0.etc2.ctex"]
+source_file="res://main/game/game_room/fence.png"
+dest_files=["res://.godot/imported/fence.png-5e0c76a99733f00a84a3c970488ef577.s3tc.ctex", "res://.godot/imported/fence.png-5e0c76a99733f00a84a3c970488ef577.etc2.ctex"]
 
 [params]
 

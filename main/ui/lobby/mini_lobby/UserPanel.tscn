@@ -7,8 +7,10 @@
 script = ExtResource("1_ojuba")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
 texture = ExtResource("2_cy5nh")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "jkljk (me)"

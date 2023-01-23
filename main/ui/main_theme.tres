@@ -1,31 +1,55 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://bhjf3u3dj1bgt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1end"]
-bg_color = Color(0.164706, 0.164706, 0.164706, 1)
+bg_color = Color(0.133333, 0.580392, 0.729412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.0941176, 0.443137, 0.658824, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.12549)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5idr0"]
-bg_color = Color(0.258824, 0.258824, 0.258824, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhius"]
+bg_color = Color(0.211765, 0.737255, 0.819608, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.180392, 0.690196, 0.788235, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.12549)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_klr5s"]
-bg_color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ek6h3"]
+bg_color = Color(0.0588235, 0.45098, 0.65098, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.0313726, 0.376471, 0.588235, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.12549)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
 [resource]
 Button/colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 Button/colors/font_disabled_color = Color(0.933333, 0.933333, 0.933333, 1)
 Button/styles/disabled = SubResource("StyleBoxFlat_t1end")
-Button/styles/focus = SubResource("StyleBoxFlat_t1end")
-Button/styles/hover = SubResource("StyleBoxFlat_5idr0")
+Button/styles/focus = SubResource("StyleBoxFlat_hhius")
+Button/styles/hover = SubResource("StyleBoxFlat_hhius")
 Button/styles/normal = SubResource("StyleBoxFlat_t1end")
-Button/styles/pressed = SubResource("StyleBoxFlat_klr5s")
+Button/styles/pressed = SubResource("StyleBoxFlat_ek6h3")

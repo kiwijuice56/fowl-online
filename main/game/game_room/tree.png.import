@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2jj4g6elmrx"
-path.s3tc="res://.godot/imported/window.png-2248c3a631e5aa25784d9e182e029640.s3tc.ctex"
-path.etc2="res://.godot/imported/window.png-2248c3a631e5aa25784d9e182e029640.etc2.ctex"
+uid="uid://cfk353x2otln0"
+path.s3tc="res://.godot/imported/tree.png-5132bfaad531fa971f1d4328b4fc2b20.s3tc.ctex"
+path.etc2="res://.godot/imported/tree.png-5132bfaad531fa971f1d4328b4fc2b20.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/window.png"
-dest_files=["res://.godot/imported/window.png-2248c3a631e5aa25784d9e182e029640.s3tc.ctex", "res://.godot/imported/window.png-2248c3a631e5aa25784d9e182e029640.etc2.ctex"]
+source_file="res://main/game/game_room/tree.png"
+dest_files=["res://.godot/imported/tree.png-5132bfaad531fa971f1d4328b4fc2b20.s3tc.ctex", "res://.godot/imported/tree.png-5132bfaad531fa971f1d4328b4fc2b20.etc2.ctex"]
 
 [params]
 

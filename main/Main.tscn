@@ -1,10 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://ksyalipilnhr"]
+[gd_scene load_steps=4 format=3 uid="uid://ksyalipilnhr"]
 
 [ext_resource type="PackedScene" uid="uid://c74puwxu5ubxk" path="res://main/ui/lobby/Lobby.tscn" id="1_5gjkg"]
 [ext_resource type="PackedScene" uid="uid://ybnk3r74u24l" path="res://main/game/game_room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
 
 [node name="Main" type="Node"]
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(800, 648)
+render_target_update_mode = 4
+
+[node name="GameRoom" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
+
 [node name="Lobby" parent="." instance=ExtResource("1_5gjkg")]
 
-[node name="GameRoom" parent="." instance=ExtResource("2_6rs61")]
+[node name="FpsContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="FpsLabel" type="Label" parent="FpsContainer" node_paths=PackedStringArray("timer")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 32.0
+offset_bottom = 31.0
+script = ExtResource("3_dvomx")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="FpsContainer/FpsLabel"]
+autostart = true

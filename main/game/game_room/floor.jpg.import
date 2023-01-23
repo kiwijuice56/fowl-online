@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfk353x2otln0"
-path.s3tc="res://.godot/imported/treeA.png-7f1acfd5be86479da54e7af55dbae8d6.s3tc.ctex"
-path.etc2="res://.godot/imported/treeA.png-7f1acfd5be86479da54e7af55dbae8d6.etc2.ctex"
+uid="uid://bthccl33gxgek"
+path.s3tc="res://.godot/imported/floor.jpg-22d1efd7a08b2f7e7025fa04360e102e.s3tc.ctex"
+path.etc2="res://.godot/imported/floor.jpg-22d1efd7a08b2f7e7025fa04360e102e.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/treeA.png"
-dest_files=["res://.godot/imported/treeA.png-7f1acfd5be86479da54e7af55dbae8d6.s3tc.ctex", "res://.godot/imported/treeA.png-7f1acfd5be86479da54e7af55dbae8d6.etc2.ctex"]
+source_file="res://main/game/game_room/floor.jpg"
+dest_files=["res://.godot/imported/floor.jpg-22d1efd7a08b2f7e7025fa04360e102e.s3tc.ctex", "res://.godot/imported/floor.jpg-22d1efd7a08b2f7e7025fa04360e102e.etc2.ctex"]
 
 [params]
 

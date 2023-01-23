@@ -1,16 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ybnk3r74u24l"]
+[gd_scene load_steps=7 format=3 uid="uid://ybnk3r74u24l"]
 
 [ext_resource type="PackedScene" uid="uid://bffx0t7dmbspy" path="res://main/game/card/PlayingCard.tscn" id="1_e8h6y"]
-[ext_resource type="PackedScene" uid="uid://b8c16voioym33" path="res://main/game/game_room/GameRoomScenery.tscn" id="2_5ahit"]
-[ext_resource type="Texture2D" uid="uid://d7bc74qkt8vc" path="res://assets/beige_wall_001_diff_4k.jpg" id="3_urv8y"]
+[ext_resource type="PackedScene" path="res://main/game/game_room/GameRoomScenery.tscn" id="2_5ahit"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7qdj"]
 shading_mode = 0
 specular_mode = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_osnii"]
-cull_mode = 2
-albedo_texture = ExtResource("3_urv8y")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
 sky_top_color = Color(0.270588, 0.6, 0.952941, 1)
@@ -24,7 +19,13 @@ sky_material = SubResource("ProceduralSkyMaterial_g31ks")
 background_mode = 2
 sky = SubResource("Sky_3s3kw")
 ambient_light_color = Color(0.988235, 0.988235, 0.988235, 1)
-ambient_light_sky_contribution = 0.89
+ambient_light_sky_contribution = 0.95
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+glow_bloom = 0.1
+adjustment_enabled = true
+adjustment_saturation = 1.1
 
 [node name="GameRoom" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00368514, -5.96046e-08, 1.5974e-05)
@@ -108,9 +109,6 @@ skeleton = NodePath("../..")
 [node name="GameRoomScenery" parent="." instance=ExtResource("2_5ahit")]
 transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0.382299, 0.351153)
 
-[node name="Cieling" parent="GameRoomScenery" index="1"]
-material_override = SubResource("StandardMaterial3D_osnii")
-
 [node name="Camera" parent="GameRoomScenery" index="9"]
 current = true
 
@@ -118,13 +116,16 @@ current = true
 environment = SubResource("Environment_i25mw")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.918446, 0.395545, 0, -0.395545, 0.918446, 0, 1.38, 1.292)
+transform = Transform3D(1, 0, 0, 0, 0.969015, 0.246999, 0, -0.246999, 0.969015, 0, 1.257, 1.292)
 current = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97845, 0.0492695)
 light_energy = 1.686
 shadow_enabled = true
+shadow_opacity = 0.74
+shadow_blur = 3.014
+distance_fade_begin = 0.0
 omni_range = 70.08
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
