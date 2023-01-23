@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8c16voioym33"]
+
+[ext_resource type="PackedScene" uid="uid://clwryq8shvwwf" path="res://assets/room.blend" id="1_nuo3l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cq6dq"]
+transparency = 1
+albedo_color = Color(0.898039, 1, 1, 0.443137)
+
+[node name="GameRoomScenery" instance=ExtResource("1_nuo3l")]
+
+[node name="Glass" parent="." index="10"]
+material_override = SubResource("StandardMaterial3D_cq6dq")

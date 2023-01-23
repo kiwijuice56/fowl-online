@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=3 uid="uid://ybnk3r74u24l"]
+
+[ext_resource type="PackedScene" uid="uid://bffx0t7dmbspy" path="res://main/game/card/PlayingCard.tscn" id="1_e8h6y"]
+[ext_resource type="PackedScene" uid="uid://b8c16voioym33" path="res://main/game/game_room/GameRoomScenery.tscn" id="2_5ahit"]
+[ext_resource type="Texture2D" uid="uid://d7bc74qkt8vc" path="res://assets/beige_wall_001_diff_4k.jpg" id="3_urv8y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7qdj"]
+shading_mode = 0
+specular_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_osnii"]
+cull_mode = 2
+albedo_texture = ExtResource("3_urv8y")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
+sky_top_color = Color(0.270588, 0.6, 0.952941, 1)
+sky_horizon_color = Color(1, 1, 1, 1)
+ground_bottom_color = Color(0.388235, 0.333333, 0.27451, 1)
+
+[sub_resource type="Sky" id="Sky_3s3kw"]
+sky_material = SubResource("ProceduralSkyMaterial_g31ks")
+
+[sub_resource type="Environment" id="Environment_i25mw"]
+background_mode = 2
+sky = SubResource("Sky_3s3kw")
+ambient_light_color = Color(0.988235, 0.988235, 0.988235, 1)
+ambient_light_sky_contribution = 0.89
+
+[node name="GameRoom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00368514, -5.96046e-08, 1.5974e-05)
+
+[node name="Table" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516, 0.308)
+material_override = SubResource("StandardMaterial3D_x7qdj")
+
+[node name="Deck1" type="Node3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, 0.19906, -0.979987, 0, 0.979987, 0.19906, -0.0145732, 0.564651, 0.594732)
+
+[node name="PlayingCard" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, -9.31323e-10, 0, 9.31323e-10, 0.08, 0.05, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard2" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard3" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
+skeleton = NodePath("../..")
+
+[node name="PlayingCard4" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="Deck2" type="Node3D" parent="Table"]
+transform = Transform3D(1, 0, 0, 0, -0.415614, -0.909541, 0, 0.909541, -0.415614, -0.0107577, 0.661032, -0.58129)
+
+[node name="PlayingCard" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.05, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard2" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard3" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
+skeleton = NodePath("../..")
+
+[node name="PlayingCard4" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="Deck3" type="Node3D" parent="Table"]
+transform = Transform3D(0.190672, -0.892854, 0.407989, 0, -0.415614, -0.909541, 0.981654, 0.173424, -0.079246, 0.675768, 0.661032, -0.0846692)
+
+[node name="PlayingCard" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.05, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard2" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard3" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
+skeleton = NodePath("../..")
+
+[node name="PlayingCard4" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="Deck4" type="Node3D" parent="Table"]
+transform = Transform3D(0.289566, 0.870574, -0.397808, 5.68247e-09, -0.415614, -0.909541, -0.957158, 0.263373, -0.120348, -0.59874, 0.661032, -0.0846692)
+
+[node name="PlayingCard" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.05, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard2" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="PlayingCard3" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
+skeleton = NodePath("../..")
+
+[node name="PlayingCard4" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
+skeleton = NodePath("../..")
+
+[node name="GameRoomScenery" parent="." instance=ExtResource("2_5ahit")]
+transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0.382299, 0.351153)
+
+[node name="Cieling" parent="GameRoomScenery" index="1"]
+material_override = SubResource("StandardMaterial3D_osnii")
+
+[node name="Camera" parent="GameRoomScenery" index="9"]
+current = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i25mw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.918446, 0.395545, 0, -0.395545, 0.918446, 0, 1.38, 1.292)
+current = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97845, 0.0492695)
+light_energy = 1.686
+shadow_enabled = true
+omni_range = 70.08
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.949365, 0.314175, 0, -0.314175, -0.949365, 0.266913, 2.89863, -4.34082)
+light_color = Color(1, 0.901961, 0.8, 1)
+light_energy = 16.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_blur = 1.827
+spot_range = 7.66
+
+[editable path="GameRoomScenery"]

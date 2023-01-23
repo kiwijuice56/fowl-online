@@ -56,7 +56,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="rook-online"
+config/name="fowl-online"
 run/main_scene="res://main/Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -68,5 +68,4 @@ window/stretch/aspect="expand"
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.317647, 1)

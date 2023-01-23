@@ -73,8 +73,8 @@ func start_network(is_server: bool) -> void:
 		multiplayer.peer_disconnected.connect(_on_disconnected)
 		peer.create_server(2004)
 		
-		print("server listening on localhost 2004")
+		print("server listening on 2600:1700:22b3:9010:8499:2545:3e20:d578 2004")
 	else:
-		peer.create_client("localhost", 2004)
+		peer.create_client("2600:1700:22b3:9010:8499:2545:3e20:d578", 2004)
 	
 	multiplayer.set_multiplayer_peer(peer)
