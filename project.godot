@@ -9,6 +9,11 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node",
+"class": &"Card",
+"language": &"GDScript",
+"path": "res://main/game/card/card.gd"
+}, {
 "base": "Submenu",
 "class": &"CharacterMenu",
 "language": &"GDScript",
@@ -60,6 +65,7 @@ _global_script_classes=[{
 "path": "res://main/ui/initial_menu/lobby/user_panel.gd"
 }]
 _global_script_class_icons={
+"Card": "",
 "CharacterMenu": "",
 "FpsLabel": "",
 "InitialMenu": "",

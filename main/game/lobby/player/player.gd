@@ -1,5 +1,13 @@
 class_name Player
 extends Node
 
-func request_bid(current: int) -> void:
-	pass
+var username: String
+var icon: int
+
+@rpc
+func request_bid(current: int) -> int:
+	return 70
+
+@rpc
+func request_card() -> Card:
+	return null

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://e0jxc72lmu2o"]
 
 [ext_resource type="PackedScene" uid="uid://ccj70tabaprug" path="res://main/ui/initial_menu/InitialMenu.tscn" id="1_5gjkg"]
-[ext_resource type="PackedScene" uid="uid://hp54hvbyvie4" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="PackedScene" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
 
 [node name="Main" type="Node"]
@@ -34,7 +34,10 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="FpsLabel" type="Label" parent="FpsContainer" node_paths=PackedStringArray("timer")]
-layout_mode = 2
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 32.0
+offset_bottom = 31.0
 script = ExtResource("3_dvomx")
 timer = NodePath("Timer")
 
