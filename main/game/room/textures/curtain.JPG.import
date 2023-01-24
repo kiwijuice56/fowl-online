@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cryryqg4647pv"
-path.s3tc="res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.s3tc.ctex"
-path.etc2="res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.etc2.ctex"
+path.s3tc="res://.godot/imported/curtain.JPG-aaf55f7fc770e94eb3f199e4577c974c.s3tc.ctex"
+path.etc2="res://.godot/imported/curtain.JPG-aaf55f7fc770e94eb3f199e4577c974c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://main/game/game_room/curtain.JPG"
-dest_files=["res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.s3tc.ctex", "res://.godot/imported/curtain.JPG-a7bf08d4603969bd9e21d93f03d8a63f.etc2.ctex"]
+source_file="res://main/game/room/textures/curtain.JPG"
+dest_files=["res://.godot/imported/curtain.JPG-aaf55f7fc770e94eb3f199e4577c974c.s3tc.ctex", "res://.godot/imported/curtain.JPG-aaf55f7fc770e94eb3f199e4577c974c.etc2.ctex"]
 
 [params]
 

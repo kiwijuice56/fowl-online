@@ -1,10 +1,10 @@
-class_name Lobby
+class_name InitialMenu
 extends Control
 
 @export var character_menu: CharacterMenu
 @export var main_menu: MainMenu
 @export var join_menu: JoinMenu
-@export var mini_lobby_menu: MiniLobbyMenu
+@export var mini_lobby_menu: LobbyMenu
 
 var rooms: Dictionary 
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7sik0nc1euhg"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://main/ui/lobby/mini_lobby/user_panel.gd" id="1_ojuba"]
+[ext_resource type="Script" path="res://main/ui/initial_menu/lobby/user_panel.gd" id="1_ojuba"]
 [ext_resource type="Texture2D" uid="uid://dovgx3fl08kyg" path="res://user_icon.svg" id="2_cy5nh"]
 
 [node name="UserPanel" type="HBoxContainer"]

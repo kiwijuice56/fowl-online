@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://by5gc3r3jtvhh"]
+
+[ext_resource type="Script" path="res://main/game/lobby/lobby.gd" id="1_25dbj"]
+
+[node name="Lobby" type="Node"]
+script = ExtResource("1_25dbj")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://main/game/lobby/player/Player.tscn")
+spawn_path = NodePath("..")

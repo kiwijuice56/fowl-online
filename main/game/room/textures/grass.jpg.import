@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://t7rngnhsaybv"
-path.s3tc="res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.s3tc.ctex"
-path.etc2="res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.etc2.ctex"
+path.s3tc="res://.godot/imported/grass.jpg-33fc137d307b6423484e6f12d19c268d.s3tc.ctex"
+path.etc2="res://.godot/imported/grass.jpg-33fc137d307b6423484e6f12d19c268d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://main/game/game_room/grass.jpg"
-dest_files=["res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.s3tc.ctex", "res://.godot/imported/grass.jpg-162046988e3a121a813d11e8a58e8b98.etc2.ctex"]
+source_file="res://main/game/room/textures/grass.jpg"
+dest_files=["res://.godot/imported/grass.jpg-33fc137d307b6423484e6f12d19c268d.s3tc.ctex", "res://.godot/imported/grass.jpg-33fc137d307b6423484e6f12d19c268d.etc2.ctex"]
 
 [params]
 

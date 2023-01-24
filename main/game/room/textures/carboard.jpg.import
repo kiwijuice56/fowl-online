@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d7bc74qkt8vc"
-path.s3tc="res://.godot/imported/wall.jpg-22d14b3b886a607b7a53d367ca027dfb.s3tc.ctex"
-path.etc2="res://.godot/imported/wall.jpg-22d14b3b886a607b7a53d367ca027dfb.etc2.ctex"
+uid="uid://dchup8vg6gh8b"
+path.s3tc="res://.godot/imported/carboard.jpg-71ca96009afc983052b73d5d5bca02bd.s3tc.ctex"
+path.etc2="res://.godot/imported/carboard.jpg-71ca96009afc983052b73d5d5bca02bd.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://main/game/game_room/wall.jpg"
-dest_files=["res://.godot/imported/wall.jpg-22d14b3b886a607b7a53d367ca027dfb.s3tc.ctex", "res://.godot/imported/wall.jpg-22d14b3b886a607b7a53d367ca027dfb.etc2.ctex"]
+source_file="res://main/game/room/textures/carboard.jpg"
+dest_files=["res://.godot/imported/carboard.jpg-71ca96009afc983052b73d5d5bca02bd.s3tc.ctex", "res://.godot/imported/carboard.jpg-71ca96009afc983052b73d5d5bca02bd.etc2.ctex"]
 
 [params]
 

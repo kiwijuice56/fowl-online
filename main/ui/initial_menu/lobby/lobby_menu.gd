@@ -1,4 +1,4 @@
-class_name MiniLobbyMenu
+class_name LobbyMenu
 extends Submenu
 
 @export var code_label: LineEdit

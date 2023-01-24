@@ -1,14 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://ybnk3r74u24l"]
+[gd_scene load_steps=7 format=3 uid="uid://hp54hvbyvie4"]
 
 [ext_resource type="PackedScene" uid="uid://bffx0t7dmbspy" path="res://main/game/card/PlayingCard.tscn" id="1_e8h6y"]
-[ext_resource type="PackedScene" path="res://main/game/game_room/GameRoomScenery.tscn" id="2_5ahit"]
+[ext_resource type="PackedScene" uid="uid://da1p1jp6v4ggc" path="res://main/game/room/GameRoomScenery.tscn" id="2_5ahit"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7qdj"]
 shading_mode = 0
 specular_mode = 2
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
-sky_top_color = Color(0.270588, 0.6, 0.952941, 1)
+sky_top_color = Color(0.270588, 0.564706, 0.952941, 1)
 sky_horizon_color = Color(1, 1, 1, 1)
 ground_bottom_color = Color(0.388235, 0.333333, 0.27451, 1)
 
@@ -25,7 +25,8 @@ ssil_enabled = true
 glow_enabled = true
 glow_bloom = 0.1
 adjustment_enabled = true
-adjustment_saturation = 1.1
+adjustment_contrast = 1.05
+adjustment_saturation = 1.2
 
 [node name="GameRoom" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00368514, -5.96046e-08, 1.5974e-05)
@@ -121,20 +122,22 @@ current = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97845, 0.0492695)
-light_energy = 1.686
+light_energy = 1.5
 shadow_enabled = true
-shadow_opacity = 0.74
-shadow_blur = 3.014
+shadow_bias = 0.05
+shadow_opacity = 0.87
+shadow_blur = 2.273
 distance_fade_begin = 0.0
 omni_range = 70.08
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.949365, 0.314175, 0, -0.314175, -0.949365, 0.266913, 2.89863, -4.34082)
-light_color = Color(1, 0.901961, 0.8, 1)
-light_energy = 16.0
+transform = Transform3D(1, 0, 0, 0, -0.964021, 0.265826, 0, -0.265826, -0.964021, 0.266913, 2.75228, -4.34082)
+light_color = Color(1, 0.843137, 0.478431, 1)
+light_energy = 24.0
+light_specular = 1.093
 shadow_enabled = true
 shadow_bias = 0.0
-shadow_blur = 1.827
+shadow_blur = 1.75
 spot_range = 7.66
 
 [editable path="GameRoomScenery"]
