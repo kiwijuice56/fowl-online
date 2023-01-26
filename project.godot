@@ -54,6 +54,16 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://main/game/lobby/player/player.gd"
 }, {
+"base": "Node",
+"class": &"Promise",
+"language": &"GDScript",
+"path": "res://main/promise.gd"
+}, {
+"base": "Node",
+"class": &"Routine",
+"language": &"GDScript",
+"path": "res://main/routine.gd"
+}, {
 "base": "Control",
 "class": &"Submenu",
 "language": &"GDScript",
@@ -74,6 +84,8 @@ _global_script_class_icons={
 "LobbyMenu": "",
 "MainMenu": "",
 "Player": "",
+"Promise": "",
+"Routine": "",
 "Submenu": "",
 "UserPanel": ""
 }

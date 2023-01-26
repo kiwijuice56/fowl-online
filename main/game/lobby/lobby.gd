@@ -1,23 +1,21 @@
 class_name Lobby
 extends Node
 
-# const suits: Array[Card.Suit] = [Card.Suit.RED, Card.Suit.YELLOW, Card.Suit.BLUE, Card.Suit.GREEN]
-
 # Should store dealer as 0 and players in clockwise order
 var players: Array[Player]
 
 var decks: Dictionary
-var tricks: Array[Card]
+var tricks: Array[Array]
 var scores: Array[int] 
 
 var current_bid: int
 var bid_winner: int
 var trump: Card.Suit
 
-var center_deck: Array[Card]
+var center_deck: Array[Array]
 
-var center_swap: Card
-var discard: Card
+var center_swap: Array[int]
+var discard: Array[int]
 
 func start_game() -> void:
 	play_hand()
@@ -29,14 +27,16 @@ func play_hand() -> void:
 	# start loop of tricks
 
 func deal_cards() -> void:
-	var cards: Array[Card] = []
+	var cards: Array[Array] = []
 	
 	# Create the deck with every possible card
 	for suit_idx in range(1, 5):
 		for card_idx in range(1, 16):
-			var new_card: Card = Card.new()
-			new_card.suit = Card.Suit.values()[suit_idx]
-			new_card.number = card_idx
+			# Cards are represented through an array of [suit, number] 
+			# for easier transmission
+			var new_card: Array[int] = [0, 0]
+			new_card[0] = Card.Suit.values()[suit_idx]
+			new_card[1] = card_idx
 			cards.append(new_card)
 	
 	# Deal it randomly among the players
@@ -45,9 +45,11 @@ func deal_cards() -> void:
 	for player_idx in range(4):
 		var player: Player = players[player_idx]
 		decks[player.name] = cards.slice(player_idx * 14, (player_idx + 1) * 14)
+	
+	# Keep the last card in the middle of the table
 	center_swap = cards[56]
 	
-	await remote_deal_cards()
+	await send_decks() 
 
 func take_bid() -> void:
 	var passed_players: Dictionary = {}
@@ -71,34 +73,61 @@ func take_bid() -> void:
 		bid_winner = bidding_idx
 		current_bid = clamp(next_bid, current_bid + 5, 200)
 		
-		await remote_update_bid()
+		await send_bid()
 
 func deal_center() -> void:
 	decks[players[bid_winner]].append(center_swap)
 	
-	await remote_update_center()
+	await send_center()
 	
 	discard = await players[bid_winner].request_card()
 	remove_card(decks[players[bid_winner].name], discard)
 	
-	await remote_update_discard()
+	await send_discard()
 
-func remove_card(deck: Array[Card], to_remove: Card) -> void:
+func remove_card(deck: Array[Array], to_remove: Array[int]) -> void:
 	for i in range(len(deck)):
-		if deck[i].equals(to_remove):
+		if deck[i] == to_remove:
 			deck.pop_at(i)
 			return
 
-# Interfacing the data with the players
+# Send the data to the players
 
-func remote_deal_cards() -> void:
-	print("Cards are being dealt ... ")
+func send_decks() -> void: 
+	print("Decks are being sent ... ")
+	var awaiting: Array[Callable] = []
+	for player in players:
+		awaiting.append(player.receive_deck.bind(decks[player.name]))
+	var promise: Promise = Promise.new()
+	await promise.all(awaiting)
+	print("Every player has their deck!")
 
-func remote_update_bid() -> void:
-	print("Giving bid to all players")
+func send_bid() -> void:
+	print("The bid is being sent ... ")
+	var awaiting: Array[Callable] = []
+	for player in players:
+		awaiting.append(player.receive_bid.bind(current_bid, bid_winner))
+	var promise: Promise = Promise.new()
+	await promise.all(awaiting)
+	print("Every player has the bid!")
 
-func remote_update_center() -> void:
-	print("Updating center for all players")
+func send_center() -> void:
+	print("Giving the center card to the bidder ... ")
+	var awaiting: Array[Callable] = []
+	for i in range(len(players)):
+		if i == bid_winner:
+			awaiting.append(players[i].receive_center.bind(center_swap))
+		else:
+			awaiting.append(players[i].remove_center)
+	var promise: Promise = Promise.new()
+	await promise.all(awaiting)
+	print("The bidder has the center")
 
-func remote_update_discard() -> void:
-	print("Updating discard for all players")
+func send_discard() -> void:
+	print("Notifying each player of the discard ... ")
+	var awaiting: Array[Callable] = []
+	for i in range(len(players)):
+		awaiting.append(players[i].remove_discard)
+	var promise: Promise = Promise.new()
+	await promise.all(awaiting)
+	print("Each player knows the discard is gone!")
