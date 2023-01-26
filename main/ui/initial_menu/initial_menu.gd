@@ -21,6 +21,7 @@ func _ready() -> void:
 	join_menu.join_abandoned.connect(_on_join_abandoned)
 	
 	mini_lobby_menu.game_abandoned.connect(_on_game_abandoned)
+	mini_lobby_menu.game_started.connect(_on_game_started)
 
 func _on_character_confirmed() -> void:
 	await character_menu.exit()
@@ -37,7 +38,7 @@ func _on_game_joined(code: String) -> void:
 		join_menu.display_error(join_menu.no_matching_code_error)
 	else:
 		await join_menu.exit()
-		lobby_manager.rpc("join_lobby", code, lobby_manager.local_player_id)
+		lobby_manager.rpc("join_lobby", code, lobby_manager.local_id, character_menu.selected_username, character_menu.selected_icon)
 		lobby_manager.local_lobby_code = code
 		mini_lobby_menu.enter()
 
@@ -45,8 +46,13 @@ func _on_join_abandoned() -> void:
 	await join_menu.exit()
 	main_menu.enter()
 
+func _on_game_started() -> void:
+	await mini_lobby_menu.exit()
+	lobby_manager.get_child(1).rpc("deal_cards")
+
 func _on_game_abandoned() -> void:
 	await mini_lobby_menu.exit()
+	lobby_manager.rpc("leave_lobby", lobby_manager.local_lobby_code, lobby_manager.local_id)
 	main_menu.enter()
 
 func _on_join_selected() -> void:
@@ -57,7 +63,8 @@ func _on_create_selected() -> void:
 	await main_menu.exit()
 	var code: String = lobby_manager.generate_code()
 	lobby_manager.rpc("create_lobby", code)
-	lobby_manager.rpc("join_lobby", code, lobby_manager.local_player_id)
+	await lobby_manager.get_node("MultiplayerSpawner").spawned
+	lobby_manager.rpc("join_lobby", code, lobby_manager.local_id, character_menu.selected_username, character_menu.selected_icon)
 	lobby_manager.local_lobby_code = code
 	
 	mini_lobby_menu.code_label.text = code

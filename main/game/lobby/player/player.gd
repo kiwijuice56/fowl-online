@@ -4,32 +4,13 @@ extends Node
 var username: String
 var icon: int
 
-@rpc
-func request_bid(current: int) -> int:
-	return 70
+var deck: Array[Card]
 
-@rpc
-func request_card() -> Array[int]:
-	return null
-
-# # # #
-
-@rpc
-func receive_deck(deck: Array[int]) -> void:
-	pass
-
-@rpc
-func receive_bid(bid: int, bid_winner: int) -> void:
-	pass
-
-@rpc
-func receive_center(center: Array[int]) -> void:
-	pass
-
-@rpc
-func remove_center() -> void:
-	pass
-
-@rpc
-func remove_discard() -> void:
-	pass
+@rpc(call_local) 
+func update_state(deck: Array[Card]) -> void:
+	self.deck = deck
+	if multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
+		print(str(multiplayer.get_unique_id()) + " deck: ")
+		for card in deck:
+			print(str(card.number) + " " + str(card.suit))
+		print()

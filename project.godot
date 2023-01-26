@@ -107,6 +107,10 @@ config/icon="res://icon.svg"
 
 ProfileImages="*res://main/ui/profile_images/profile_images.gd"
 
+[debug]
+
+gdscript/warnings/redundant_await=0
+
 [display]
 
 window/size/viewport_width=800

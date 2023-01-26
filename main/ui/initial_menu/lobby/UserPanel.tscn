@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://csido4bg2qwk2"]
 
 [ext_resource type="Script" path="res://main/ui/initial_menu/lobby/user_panel.gd" id="1_ojuba"]
 [ext_resource type="Texture2D" uid="uid://dovgx3fl08kyg" path="res://user_icon.svg" id="2_cy5nh"]
 
-[node name="UserPanel" type="HBoxContainer"]
+[node name="UserPanel" type="HBoxContainer" node_paths=PackedStringArray("name_label", "icon")]
 script = ExtResource("1_ojuba")
+name_label = NodePath("Label")
+icon = NodePath("TextureRect")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 2
+offset_right = 26.0
+offset_bottom = 29.0
 texture = ExtResource("2_cy5nh")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 2
+offset_left = 30.0
+offset_right = 110.0
+offset_bottom = 29.0
 theme_override_font_sizes/font_size = 18
 text = "jkljk (me)"
