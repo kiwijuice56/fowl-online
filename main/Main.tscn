@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://e0jxc72lmu2o"]
+[gd_scene load_steps=7 format=3 uid="uid://e0jxc72lmu2o"]
 
 [ext_resource type="PackedScene" uid="uid://ccj70tabaprug" path="res://main/ui/initial_menu/InitialMenu.tscn" id="1_5gjkg"]
-[ext_resource type="PackedScene" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="PackedScene" uid="uid://hiol8cr4qys5" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
+[ext_resource type="Script" path="res://main/game/lobby_manager/lobby_manager.gd" id="4_p3qgt"]
+[ext_resource type="PackedScene" uid="uid://by5gc3r3jtvhh" path="res://main/game/lobby/Lobby.tscn" id="5_qhve4"]
+[ext_resource type="PackedScene" uid="uid://bc2ryj1yvja3j" path="res://main/game/lobby/player/Player.tscn" id="6_8f3qx"]
 
 [node name="Main" type="Node"]
 
@@ -23,7 +26,8 @@ render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
 
-[node name="InitialMenu" parent="." instance=ExtResource("1_5gjkg")]
+[node name="InitialMenu" parent="." node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
+lobby_manager = NodePath("../Lobbies")
 
 [node name="FpsContainer" type="MarginContainer" parent="."]
 offset_right = 40.0
@@ -34,10 +38,7 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="FpsLabel" type="Label" parent="FpsContainer" node_paths=PackedStringArray("timer")]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 32.0
-offset_bottom = 31.0
+layout_mode = 2
 script = ExtResource("3_dvomx")
 timer = NodePath("Timer")
 
@@ -45,6 +46,9 @@ timer = NodePath("Timer")
 autostart = true
 
 [node name="Lobbies" type="Node" parent="."]
+script = ExtResource("4_p3qgt")
+lobby_scene = ExtResource("5_qhve4")
+player_scene = ExtResource("6_8f3qx")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Lobbies"]
 _spawnable_scenes = PackedStringArray("res://main/game/lobby/Lobby.tscn")

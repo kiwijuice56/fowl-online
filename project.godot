@@ -39,6 +39,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://main/game/lobby/lobby.gd"
 }, {
+"base": "Node",
+"class": &"LobbyManager",
+"language": &"GDScript",
+"path": "res://main/game/lobby_manager/lobby_manager.gd"
+}, {
 "base": "Submenu",
 "class": &"LobbyMenu",
 "language": &"GDScript",
@@ -81,6 +86,7 @@ _global_script_class_icons={
 "InitialMenu": "",
 "JoinMenu": "",
 "Lobby": "",
+"LobbyManager": "",
 "LobbyMenu": "",
 "MainMenu": "",
 "Player": "",

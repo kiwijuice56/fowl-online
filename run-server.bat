@@ -1,1 +1,1 @@
-"D:\software\installed\Godot\Godot_v4.0-beta9_win64.exe\Godot_v4.0-beta9_win64.exe" D:\software\projects\rook-online --server
+"D:\software\installed\Godot\Godot_v4.0-beta9_win64.exe\Godot_v4.0-beta9_win64.exe" D:\software\projects\rook-online --server --headless

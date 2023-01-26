@@ -1,8 +1,7 @@
 class_name InitialMenu
 extends Control
 
-# This class currently handles both the initial menu and creaitng lobbies
-# In the future, the networking may be refactored into the main class
+@export var lobby_manager: LobbyManager
 
 @export var character_menu: CharacterMenu
 @export var main_menu: MainMenu
@@ -10,12 +9,6 @@ extends Control
 @export var mini_lobby_menu: LobbyMenu
 
 var rooms: Dictionary 
-
-func _enter_tree() -> void:
-	if "--server" in OS.get_cmdline_args():
-		start_network(true)
-	else:
-		start_network(false)
 
 func _ready() -> void:
 	character_menu.character_confirmed.connect(_on_character_confirmed)
@@ -40,11 +33,12 @@ func _on_profile_selected() -> void:
 func _on_game_joined(code: String) -> void:
 	if code.is_empty():
 		join_menu.display_error(join_menu.empty_code_error)
-	elif false: # TODO: error when entering invalid lobby code
+	elif not lobby_manager.lobby_exists(code):
 		join_menu.display_error(join_menu.no_matching_code_error)
 	else:
 		await join_menu.exit()
-		# TODO: mini lobby screen
+		lobby_manager.rpc("join_lobby", code, lobby_manager.local_player_id)
+		lobby_manager.local_lobby_code = code
 		mini_lobby_menu.enter()
 
 func _on_join_abandoned() -> void:
@@ -61,23 +55,10 @@ func _on_join_selected() -> void:
 
 func _on_create_selected() -> void:
 	await main_menu.exit()
-	mini_lobby_menu.enter()
-
-func _on_connected(id: int) -> void:
-	print(id, " connected")
-
-func _on_disconnected(id: int) -> void:
-	print(id, " disconnected")
-
-func start_network(is_server: bool) -> void:
-	var peer = ENetMultiplayerPeer.new()
-	if is_server:
-		multiplayer.peer_connected.connect(_on_connected)
-		multiplayer.peer_disconnected.connect(_on_disconnected)
-		peer.create_server(2004)
-		
-		print("server listening on localhost 2004")
-	else:
-		peer.create_client("localhost", 2004)
+	var code: String = lobby_manager.generate_code()
+	lobby_manager.rpc("create_lobby", code)
+	lobby_manager.rpc("join_lobby", code, lobby_manager.local_player_id)
+	lobby_manager.local_lobby_code = code
 	
-	multiplayer.set_multiplayer_peer(peer)
+	mini_lobby_menu.code_label.text = code
+	mini_lobby_menu.enter()
