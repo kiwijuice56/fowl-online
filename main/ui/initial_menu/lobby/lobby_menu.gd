@@ -55,7 +55,8 @@ func enter() -> void:
 	toggle_input(true)
 
 func toggle_input(input_enabled: bool) -> void:
-	start_button.disabled = not input_enabled
+	start_button.disabled = not is_host or not input_enabled
+	start_button.visible = is_host
 	leave_button.disabled = not input_enabled
 	
 	var filter: int = Control.MOUSE_FILTER_STOP if input_enabled else Control.MOUSE_FILTER_IGNORE

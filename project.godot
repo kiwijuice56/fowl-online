@@ -24,6 +24,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://main/ui/fps_label.gd"
 }, {
+"base": "Node3D",
+"class": &"GameRoom",
+"language": &"GDScript",
+"path": "res://main/game/room/game_room.gd"
+}, {
 "base": "Control",
 "class": &"InitialMenu",
 "language": &"GDScript",
@@ -65,6 +70,11 @@ _global_script_classes=[{
 "path": "res://main/promise.gd"
 }, {
 "base": "Node",
+"class": &"RandomSoundSpawner",
+"language": &"GDScript",
+"path": "res://main/game/room/random_sound_spawner.gd"
+}, {
+"base": "Node",
 "class": &"Routine",
 "language": &"GDScript",
 "path": "res://main/routine.gd"
@@ -83,6 +93,7 @@ _global_script_class_icons={
 "Card": "",
 "CharacterMenu": "",
 "FpsLabel": "",
+"GameRoom": "",
 "InitialMenu": "",
 "JoinMenu": "",
 "Lobby": "",
@@ -91,6 +102,7 @@ _global_script_class_icons={
 "MainMenu": "",
 "Player": "",
 "Promise": "",
+"RandomSoundSpawner": "",
 "Routine": "",
 "Submenu": "",
 "UserPanel": ""

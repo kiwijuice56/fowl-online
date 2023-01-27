@@ -40,6 +40,8 @@ func _on_game_joined(code: String) -> void:
 		await join_menu.exit()
 		lobby_manager.rpc("join_lobby", code, lobby_manager.local_id, character_menu.selected_username, character_menu.selected_icon)
 		lobby_manager.local_lobby_code = code
+		mini_lobby_menu.code_label.text = code
+		mini_lobby_menu.is_host = false
 		mini_lobby_menu.enter()
 
 func _on_join_abandoned() -> void:
@@ -66,6 +68,6 @@ func _on_create_selected() -> void:
 	await lobby_manager.get_node("MultiplayerSpawner").spawned
 	lobby_manager.rpc("join_lobby", code, lobby_manager.local_id, character_menu.selected_username, character_menu.selected_icon)
 	lobby_manager.local_lobby_code = code
-	
 	mini_lobby_menu.code_label.text = code
+	mini_lobby_menu.is_host = true
 	mini_lobby_menu.enter()

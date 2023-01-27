@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://hiol8cr4qys5"]
+[gd_scene load_steps=13 format=3 uid="uid://hiol8cr4qys5"]
 
+[ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" uid="uid://gkw0lidpla0c" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
 [ext_resource type="PackedScene" uid="uid://da1p1jp6v4ggc" path="res://main/game/room/GameRoomScenery.tscn" id="2_5ahit"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7qdj"]
-shading_mode = 0
-specular_mode = 2
+[ext_resource type="Script" path="res://main/game/room/random_sound_spawner.gd" id="4_qibf6"]
+[ext_resource type="AudioStream" uid="uid://x2omfkrnbwb0" path="res://main/game/room/sounds/card_deal_1.wav" id="5_emmj7"]
+[ext_resource type="AudioStream" uid="uid://dblbwo1dh4xmp" path="res://main/game/room/sounds/card_deal_3.wav" id="7_q2g0r"]
+[ext_resource type="AudioStream" uid="uid://chapd4iye23r8" path="res://main/game/room/sounds/card_deal_4.wav" id="8_xlafy"]
+[ext_resource type="AudioStream" uid="uid://biaoj6tsyvug7" path="res://main/game/room/sounds/card_deal_5.wav" id="9_afdb7"]
+[ext_resource type="AudioStream" uid="uid://cwjrbfdptymp" path="res://main/game/room/sounds/card_deal_6.wav" id="10_x1pay"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
 sky_top_color = Color(0.270588, 0.564706, 0.952941, 1)
@@ -23,121 +26,95 @@ ambient_light_sky_contribution = 0.95
 ssao_enabled = true
 ssil_enabled = true
 glow_enabled = true
+glow_intensity = 0.98
 glow_bloom = 0.1
 adjustment_enabled = true
 adjustment_contrast = 1.05
-adjustment_saturation = 1.2
+adjustment_saturation = 1.4
 
-[node name="GameRoom" type="Node3D"]
+[node name="GameRoom" type="Node3D" node_paths=PackedStringArray("markers", "sounds", "timer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00368514, -5.96046e-08, 1.5974e-05)
+script = ExtResource("1_7akt0")
+markers = NodePath("Markers")
+sounds = NodePath("Sounds")
+card_scene = ExtResource("1_e8h6y")
+timer = NodePath("Timer")
 
-[node name="Table" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.516, 0.308)
-material_override = SubResource("StandardMaterial3D_x7qdj")
-
-[node name="Deck1" type="Node3D" parent="Table"]
-transform = Transform3D(1, 0, 0, 0, 0.19906, -0.979987, 0, 0.979987, 0.19906, -0.0145732, 0.564651, 0.594732)
-
-[node name="PlayingCard" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, -9.31323e-10, 0, 9.31323e-10, 0.08, 0.05, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard2" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard3" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
-skeleton = NodePath("../..")
-
-[node name="PlayingCard4" parent="Table/Deck1" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="Deck2" type="Node3D" parent="Table"]
-transform = Transform3D(1, 0, 0, 0, -0.415614, -0.909541, 0, 0.909541, -0.415614, -0.0107577, 0.661032, -0.58129)
-
-[node name="PlayingCard" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.05, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard2" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard3" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
-skeleton = NodePath("../..")
-
-[node name="PlayingCard4" parent="Table/Deck2" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="Deck3" type="Node3D" parent="Table"]
-transform = Transform3D(0.190672, -0.892854, 0.407989, 0, -0.415614, -0.909541, 0.981654, 0.173424, -0.079246, 0.675768, 0.661032, -0.0846692)
-
-[node name="PlayingCard" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.05, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard2" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard3" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
-skeleton = NodePath("../..")
-
-[node name="PlayingCard4" parent="Table/Deck3" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="Deck4" type="Node3D" parent="Table"]
-transform = Transform3D(0.289566, 0.870574, -0.397808, 5.68247e-09, -0.415614, -0.909541, -0.957158, 0.263373, -0.120348, -0.59874, 0.661032, -0.0846692)
-
-[node name="PlayingCard" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.05, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard2" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.1, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="PlayingCard3" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
-skeleton = NodePath("../..")
-
-[node name="PlayingCard4" parent="Table/Deck4" instance=ExtResource("1_e8h6y")]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0.15, 0, 0)
-skeleton = NodePath("../..")
-
-[node name="GameRoomScenery" parent="." instance=ExtResource("2_5ahit")]
+[node name="Scenery" parent="." instance=ExtResource("2_5ahit")]
 transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0.382299, 0.351153)
 
-[node name="Camera" parent="GameRoomScenery" index="9"]
+[node name="Camera" parent="Scenery" index="9"]
 current = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Scenery"]
+transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, 0, 4.617, 0.062)
+light_color = Color(1, 0.980392, 0.941176, 1)
+light_energy = 4.487
+light_specular = 0.023
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_opacity = 0.53
+shadow_blur = 3.059
+distance_fade_begin = 0.0
+omni_range = 1.156
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Scenery"]
+transform = Transform3D(-5, -2.00693e-07, -7.27817e-07, 0, -4.82011, 1.32913, -7.5498e-07, 1.32913, 4.82011, -1.33457, 11.8499, 23.4599)
+light_color = Color(1, 0.843137, 0.478431, 1)
+light_energy = 32.0
+light_size = 0.114
+light_specular = 0.182
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+shadow_opacity = 0.88
+shadow_blur = 1.75
+spot_range = 7.218
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Scenery"]
+transform = Transform3D(0.332363, 0.996871, 4.88833, 0.665891, -4.8642, 0.946674, 4.9443, 0.588091, -0.456097, 9.36417, 2.01787, 0.258731)
+visible = false
+light_color = Color(1, 0.478431, 0.490196, 1)
+light_energy = 1.2
+light_size = 0.114
+light_specular = 0.0
+shadow_bias = 0.214
+shadow_blur = 1.75
+spot_range = 7.66
+
+[node name="Markers" type="Node3D" parent="."]
+
+[node name="DeckSpawn" type="Marker3D" parent="Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.357354)
+
+[node name="Deal1" type="Marker3D" parent="Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.836373)
+
+[node name="Deal2" type="Marker3D" parent="Markers"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.478913, 0.95646, 0.362627)
+
+[node name="Deal3" type="Marker3D" parent="Markers"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95646, -0.0504727)
+
+[node name="Deal4" type="Marker3D" parent="Markers"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.476177, 0.95646, 0.367343)
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Deal" type="Node" parent="Sounds"]
+script = ExtResource("4_qibf6")
+sounds = [ExtResource("5_emmj7"), ExtResource("10_x1pay"), ExtResource("7_q2g0r"), ExtResource("8_xlafy"), ExtResource("9_afdb7")]
+volume = 3.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i25mw")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.969015, 0.246999, 0, -0.246999, 0.969015, 0, 1.257, 1.292)
+transform = Transform3D(0.999986, 0.00262589, -0.0045299, 0, 0.865151, 0.501511, 0.00523596, -0.501504, 0.86514, -0.04, 1.517, 1.257)
 current = true
+near = 0.053
+far = 4000.51
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97845, 0.0492695)
-light_energy = 1.5
-shadow_enabled = true
-shadow_bias = 0.05
-shadow_opacity = 0.87
-shadow_blur = 2.273
-distance_fade_begin = 0.0
-omni_range = 70.08
+[node name="Timer" type="Timer" parent="."]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.964021, 0.265826, 0, -0.265826, -0.964021, 0.266913, 2.75228, -4.34082)
-light_color = Color(1, 0.843137, 0.478431, 1)
-light_energy = 24.0
-light_specular = 1.093
-shadow_enabled = true
-shadow_bias = 0.0
-shadow_blur = 1.75
-spot_range = 7.66
-
-[editable path="GameRoomScenery"]
+[editable path="Scenery"]
