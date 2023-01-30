@@ -22,19 +22,34 @@ func create_stack() -> void:
 		new_card.global_position = markers.get_node("DeckSpawn").global_position
 		new_card.global_position.y += i * deck_offset
 	cards.reverse()
-	timer.start(5)
+	timer.start(1)
 	await timer.timeout
 	for i in range(56):
-		timer.start(0.11)
+		timer.start(0.02)
 		await timer.timeout
 		deal_card(i, 1 + i % 4, 0.12, i / 4.0 * deck_offset)
 		sounds.get_node("Deal").play_sound()
+	await timer.start(1)
+	for i in range(56):
+		timer.start(0.04)
+		await timer.timeout
+		hold_card(i, 1 + i % 4, 0.12, i / 4.0 * deck_offset)
+		# sounds.get_node("Deal").play_sound()
 
 func deal_card(card_idx: int, spot: int, duration: float, offset: float) -> void:
 	var tween: Tween = get_tree().create_tween()
 	var new_pos: Vector3 = markers.get_node("Deal" + str(spot)).global_position
 	new_pos.y += offset
 	var new_rot: Vector3 =  markers.get_node("Deal" + str(spot)).rotation
+	new_rot.y += randf_range(-rotation_random, rotation_random)
+	tween.tween_property(cards[card_idx], "global_position", new_pos, duration)
+	tween.parallel().tween_property(cards[card_idx], "rotation", new_rot, duration)
+
+func hold_card(card_idx: int, spot: int, duration: float, offset: float) -> void:
+	var tween: Tween = get_tree().create_tween()
+	var new_pos: Vector3 = markers.get_node("Hand" + str(spot)).global_position
+	new_pos.y += offset
+	var new_rot: Vector3 =  markers.get_node("Hand" + str(spot)).rotation
 	new_rot.y += randf_range(-rotation_random, rotation_random)
 	tween.tween_property(cards[card_idx], "global_position", new_pos, duration)
 	tween.parallel().tween_property(cards[card_idx], "rotation", new_rot, duration)

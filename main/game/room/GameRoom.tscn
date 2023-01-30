@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://hiol8cr4qys5"]
+[gd_scene load_steps=14 format=3 uid="uid://hiol8cr4qys5"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" uid="uid://gkw0lidpla0c" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
@@ -8,11 +8,13 @@
 [ext_resource type="AudioStream" uid="uid://dblbwo1dh4xmp" path="res://main/game/room/sounds/card_deal_3.wav" id="7_q2g0r"]
 [ext_resource type="AudioStream" uid="uid://chapd4iye23r8" path="res://main/game/room/sounds/card_deal_4.wav" id="8_xlafy"]
 [ext_resource type="AudioStream" uid="uid://biaoj6tsyvug7" path="res://main/game/room/sounds/card_deal_5.wav" id="9_afdb7"]
+[ext_resource type="Script" path="res://main/ui/fps_label.gd" id="10_85edn"]
 [ext_resource type="AudioStream" uid="uid://cwjrbfdptymp" path="res://main/game/room/sounds/card_deal_6.wav" id="10_x1pay"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
 sky_top_color = Color(0.270588, 0.564706, 0.952941, 1)
-sky_horizon_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(0.8, 0.960784, 1, 1)
+sky_curve = 0.0699775
 ground_bottom_color = Color(0.388235, 0.333333, 0.27451, 1)
 
 [sub_resource type="Sky" id="Sky_3s3kw"]
@@ -30,7 +32,7 @@ glow_intensity = 0.98
 glow_bloom = 0.1
 adjustment_enabled = true
 adjustment_contrast = 1.05
-adjustment_saturation = 1.4
+adjustment_saturation = 1.3
 
 [node name="GameRoom" type="Node3D" node_paths=PackedStringArray("markers", "sounds", "timer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00368514, -5.96046e-08, 1.5974e-05)
@@ -49,14 +51,13 @@ current = true
 [node name="OmniLight3D" type="OmniLight3D" parent="Scenery"]
 transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, 0, 4.617, 0.062)
 light_color = Color(1, 0.980392, 0.941176, 1)
-light_energy = 4.487
-light_specular = 0.023
+light_energy = 12.0
+light_specular = 0.039
 shadow_enabled = true
 shadow_bias = 0.05
-shadow_opacity = 0.53
 shadow_blur = 3.059
 distance_fade_begin = 0.0
-omni_range = 1.156
+omni_range = 0.994
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Scenery"]
 transform = Transform3D(-5, -2.00693e-07, -7.27817e-07, 0, -4.82011, 1.32913, -7.5498e-07, 1.32913, 4.82011, -1.33457, 11.8499, 23.4599)
@@ -67,20 +68,17 @@ light_specular = 0.182
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_reverse_cull_face = true
-shadow_opacity = 0.88
+shadow_opacity = 0.9
 shadow_blur = 1.75
 spot_range = 7.218
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="Scenery"]
-transform = Transform3D(0.332363, 0.996871, 4.88833, 0.665891, -4.8642, 0.946674, 4.9443, 0.588091, -0.456097, 9.36417, 2.01787, 0.258731)
-visible = false
-light_color = Color(1, 0.478431, 0.490196, 1)
-light_energy = 1.2
-light_size = 0.114
-light_specular = 0.0
-shadow_bias = 0.214
-shadow_blur = 1.75
-spot_range = 7.66
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Scenery"]
+transform = Transform3D(-2.43065, -1.10915, -4.22632, -0.333896, -4.77494, 1.44516, -4.35666, 0.984765, 2.24717, 1.53668e-06, 12.7256, -10.1692)
+light_color = Color(1, 0.94902, 0.839216, 1)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 10.0
+shadow_blur = 0.88
 
 [node name="Markers" type="Node3D" parent="."]
 
@@ -91,13 +89,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.357354)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.836373)
 
 [node name="Deal2" type="Marker3D" parent="Markers"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.478913, 0.95646, 0.362627)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.478913, 0.95646, 0.362627)
 
 [node name="Deal3" type="Marker3D" parent="Markers"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95646, -0.0504727)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.95646, -0.0504727)
 
 [node name="Deal4" type="Marker3D" parent="Markers"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.476177, 0.95646, 0.367343)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.476177, 0.95646, 0.367343)
+
+[node name="Hand1" type="Marker3D" parent="Markers"]
+transform = Transform3D(1, 0, 0, 0, -0.34202, 0.939693, 0, -0.939693, -0.34202, 0, 1.23164, 0.836373)
+
+[node name="Hand2" type="Marker3D" parent="Markers"]
+transform = Transform3D(-3.84391e-08, 0.939692, 0.34202, 2.99004e-08, -0.34202, 0.939692, 1, 4.63475e-08, -1.49502e-08, -0.429119, 1.23164, 0.388416)
+
+[node name="Hand3" type="Marker3D" parent="Markers"]
+transform = Transform3D(-1, -8.74228e-08, 0, 1.51808e-08, -0.173648, 0.984808, -8.60946e-08, 0.984808, 0.173648, -0.00123369, 1.23164, 0.0118295)
+
+[node name="Hand4" type="Marker3D" parent="Markers"]
+transform = Transform3D(-4.37114e-08, -0.939692, 0.34202, 0, -0.34202, -0.939692, 1, -4.10753e-08, 1.49502e-08, 0.470638, 1.23164, 0.348245)
 
 [node name="Sounds" type="Node" parent="."]
 
@@ -110,11 +120,23 @@ volume = 3.0
 environment = SubResource("Environment_i25mw")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999986, 0.00262589, -0.0045299, 0, 0.865151, 0.501511, 0.00523596, -0.501504, 0.86514, -0.04, 1.517, 1.257)
+transform = Transform3D(1, 0, 0, 0, 0.926529, 0.376224, 0, -0.376224, 0.926529, 0, 1.39, 1.278)
 current = true
 near = 0.053
 far = 4000.51
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="." node_paths=PackedStringArray("timer")]
+visible = false
+offset_left = 217.0
+offset_top = 217.0
+offset_right = 257.0
+offset_bottom = 240.0
+script = ExtResource("10_85edn")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Label"]
+autostart = true
 
 [editable path="Scenery"]
