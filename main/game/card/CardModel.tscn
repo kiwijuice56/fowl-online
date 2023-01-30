@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://gkw0lidpla0c"]
+[gd_scene load_steps=7 format=3 uid="uid://gkw0lidpla0c"]
 
 [ext_resource type="ArrayMesh" uid="uid://cohd2escc53ii" path="res://main/game/card/CardModel.obj" id="1_v6l54"]
 [ext_resource type="Texture2D" uid="uid://xhyogqen08s8" path="res://main/game/card/textures/card_back.png" id="2_es2ri"]
+[ext_resource type="Texture2D" uid="uid://caapi74vyhk42" path="res://main/game/card/textures/card_front.png" id="3_xj3ha"]
+[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="4_qrkjh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3dck"]
 transparency = 1
@@ -11,9 +13,46 @@ albedo_texture = ExtResource("2_es2ri")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wtb5f"]
 transparency = 1
 shading_mode = 0
+albedo_texture = ExtResource("3_xj3ha")
 
 [node name="PlayingCard" type="MeshInstance3D"]
-transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 mesh = ExtResource("1_v6l54")
 surface_material_override/0 = SubResource("StandardMaterial3D_o3dck")
 surface_material_override/1 = SubResource("StandardMaterial3D_wtb5f")
+
+[node name="MainNumber" type="Label3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.00215811, 0)
+double_sided = false
+render_priority = 1
+modulate = Color(1, 0, 0.266667, 1)
+text = "1
+"
+font = ExtResource("4_qrkjh")
+font_size = 256
+
+[node name="HelpNumber1" type="Label3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0.839555, -0.028209, -1.11505)
+double_sided = false
+render_priority = 1
+modulate = Color(1, 0, 0.266667, 1)
+outline_modulate = Color(0, 0, 0, 0)
+text = "1 red
+"
+font = ExtResource("4_qrkjh")
+font_size = 48
+outline_size = 0
+horizontal_alignment = 0
+
+[node name="HelpNumber2" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.865913, -0.0282027, 1.10921)
+double_sided = false
+render_priority = 1
+modulate = Color(1, 0, 0.266667, 1)
+outline_modulate = Color(0, 0, 0, 0)
+text = "1 red
+"
+font = ExtResource("4_qrkjh")
+font_size = 48
+outline_size = 0
+horizontal_alignment = 0
