@@ -18,15 +18,17 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
+stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
-size = Vector2i(800, 648)
+size = Vector2i(800, 600)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
 
 [node name="InitialMenu" parent="." node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
+visible = false
 lobby_manager = NodePath("../Lobbies")
 
 [node name="LobbyMenu" parent="InitialMenu" index="2" node_paths=PackedStringArray("lobby_manager")]

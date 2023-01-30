@@ -7,11 +7,14 @@ extends Node3D
 
 @export var card_scene: PackedScene
 
-@export var deck_offset: Vector2 = Vector2(0.01, 0.0008)
+@export var deck_offset: Vector2 = Vector2(0.01, 0.0018)
 @export var deck_imperfection: float = 0.01
-@export var deal_duration: float = 0.03
+@export var deal_duration: float = 0.3
 
-@export var hand_radius: float = 0.3
+@export var hand_span: float = PI / 1.8
+@export var hand_radius: float = 0.5
+@export var other_hand_radius: float = 0.3
+@export var other_hand_span: float = PI / 4
 
 var cards: Array[MeshInstance3D]
 var decks: Array[Array]
@@ -33,10 +36,30 @@ func create_stack() -> void:
 	cards.reverse()
 
 func deal_stack():
+	### TEMPORARY - just to get different card colors in testing
+	var all_cards: Array[Card] = []
+	
+	# Create the deck with every possible card
+	for suit_idx in range(4):
+		for card_idx in range(1, 16):
+			# Cards are represented through an array of [suit, number] 
+			# for easier transmission
+			var new_card: Card = Card.new()
+			new_card.suit = Card.Suit.values()[suit_idx]
+			new_card.number = card_idx
+			all_cards.append(new_card)
+	
+	all_cards.shuffle()
+	var player_deck: Array[Card] = all_cards.slice(0, 14)
+	###
+	
 	for _i in range(4):
 		decks.append([])
 	for i in range(56):
-		timer.start(0.03)
+		if i % 4 == 0:
+			cards[i].set_text(player_deck[len(decks[i % 4])].suit, player_deck[len(decks[i % 4])].number)
+		
+		timer.start(0.06)
 		await timer.timeout
 		decks[i % 4].append(cards[i])
 		deal_card(i)
@@ -66,27 +89,29 @@ func get_held_card_position(deck: int, deck_idx: int) -> Vector3:
 	var left_side: bool = deck_idx <= len(decks[deck]) / 2
 	if not left_side:
 		deck_idx -= 7
-	var angle_change: float = (PI / 2 / len(decks[deck])) * deck_idx
-	var initial_ray: Vector3 = hand_marker.get_global_transform().basis.y * hand_radius
+	else:
+		deck_idx = 7 - deck_idx
+	var angle_change: float = ((hand_span if deck == 0 else other_hand_span) / len(decks[deck])) * deck_idx
+	var initial_ray: Vector3 = hand_marker.get_global_transform().basis.y * (hand_radius if deck == 0 else other_hand_radius)
 	initial_ray = initial_ray.rotated(Vector3.UP, 2 * angle_change * (-1 if left_side else 1))
 	return hand_marker.global_position + initial_ray
 
 func hold_card(deck: int, deck_idx: int) -> void:
 	var hand_marker: Marker3D = markers.get_node("Hand" + str(deck + 1))
 	
-	var old_trans: Transform3D = decks[deck][deck_idx].global_transform
+	var old_pos: Vector3 = decks[deck][deck_idx].global_position 
+	var old_rot: Vector3 = decks[deck][deck_idx].rotation
+	
 	decks[deck][deck_idx].global_position = get_held_card_position(deck, deck_idx)
-#	if deck == 0:
-#		decks[deck][deck_idx].look_at(get_viewport().get_camera_3d().global_position, Vector3.UP)
-	#else:
 	decks[deck][deck_idx].look_at(hand_marker.global_position, Vector3.UP)
 	decks[deck][deck_idx].rotate(decks[deck][deck_idx].global_transform.basis.x.normalized(), PI / 2.5)
-	var new_trans: Transform3D = decks[deck][deck_idx].global_transform
 	
-	decks[deck][deck_idx].global_transform = old_trans
+	var new_pos: Vector3 = decks[deck][deck_idx].global_position
+	var new_rot: Vector3 = decks[deck][deck_idx].rotation
+	
+	decks[deck][deck_idx].global_position = old_pos
+	decks[deck][deck_idx].rotation = old_rot
 	
 	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(decks[deck][deck_idx], "global_transform", new_trans, deal_duration)
-
-func denote_cards(data: Array[Card]) -> void:
-	pass
+	tween.tween_property(decks[deck][deck_idx], "global_position", new_pos, deal_duration)
+	tween.parallel().tween_property(decks[deck][deck_idx], "rotation", new_rot, deal_duration)

@@ -14,6 +14,11 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://main/game/card/card.gd"
 }, {
+"base": "MeshInstance3D",
+"class": &"CardModel",
+"language": &"GDScript",
+"path": "res://main/game/card/card_model.gd"
+}, {
 "base": "Submenu",
 "class": &"CharacterMenu",
 "language": &"GDScript",
@@ -91,6 +96,7 @@ _global_script_classes=[{
 }]
 _global_script_class_icons={
 "Card": "",
+"CardModel": "",
 "CharacterMenu": "",
 "FpsLabel": "",
 "GameRoom": "",
@@ -125,9 +131,15 @@ gdscript/warnings/redundant_await=0
 
 [display]
 
-window/size/viewport_width=800
+window/size/viewport_width=1600
+window/size/viewport_height=1200
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[layer_names]
+
+3d_physics/layer_1="card"
+3d_physics/layer_2="hand"
 
 [rendering]
 
