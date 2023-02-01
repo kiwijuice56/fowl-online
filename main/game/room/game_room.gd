@@ -10,11 +10,16 @@ func _ready() -> void:
 	
 	deck.create_stack()
 	
-	await get_tree().create_timer(1)
+	var timer: SceneTreeTimer = get_tree().create_timer(5)
+	await timer.timeout
+	
+	timer = get_tree().create_timer(1)
+	await timer.timeout
 	
 	await deck.deal_stack()
 	
-	await get_tree().create_timer(1)
+	timer = get_tree().create_timer(1)
+	await timer.timeout
 	
 	await deck.hold_hand()
 

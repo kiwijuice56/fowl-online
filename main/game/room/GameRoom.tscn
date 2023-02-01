@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8aikmist4s6p"]
+[gd_scene load_steps=21 format=3 uid="uid://b8aikmist4s6p"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" uid="uid://gkw0lidpla0c" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
 [ext_resource type="PackedScene" uid="uid://da1p1jp6v4ggc" path="res://main/game/room/GameRoomScenery.tscn" id="2_5ahit"]
+[ext_resource type="PackedScene" uid="uid://cwxdlamjqxi85" path="res://main/game/room/Fan.blend" id="3_cnc32"]
 [ext_resource type="Script" path="res://main/game/room/deck.gd" id="4_nadv1"]
 [ext_resource type="Script" path="res://main/game/room/random_sound_spawner.gd" id="4_qibf6"]
 [ext_resource type="AudioStream" uid="uid://x2omfkrnbwb0" path="res://main/game/room/sounds/card_deal_1.wav" id="5_emmj7"]
@@ -12,6 +13,43 @@
 [ext_resource type="AudioStream" uid="uid://cwjrbfdptymp" path="res://main/game/room/sounds/card_deal_6.wav" id="10_x1pay"]
 [ext_resource type="Script" path="res://main/game/player_camera/player_camera.gd" id="11_aaxfr"]
 [ext_resource type="Texture2D" uid="uid://chhwmypr1pku6" path="res://main/game/crosshair.png" id="12_oh12u"]
+
+[sub_resource type="Animation" id="Animation_k1q14"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6ussn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.0872666, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xvsr4"]
+_data = {
+"RESET": SubResource("Animation_6ussn"),
+"spin": SubResource("Animation_k1q14")
+}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
 sky_top_color = Color(0.705882, 0.796078, 0.992157, 1)
@@ -52,7 +90,7 @@ transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 
 current = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Scenery"]
-transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, -1.86265e-09, 4.617, 0.062)
+transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, -3.72529e-09, 3.89637, 0.062)
 light_color = Color(1, 0.980392, 0.941176, 1)
 light_energy = 16.0
 light_specular = 0.024
@@ -60,41 +98,45 @@ shadow_enabled = true
 shadow_bias = 0.05
 shadow_blur = 3.059
 distance_fade_begin = 0.0
-omni_range = 0.87
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Scenery"]
-transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, 7.30157e-07, 4.617, -4.78168)
-visible = false
-light_color = Color(1, 0.980392, 0.941176, 1)
-light_energy = 0.5
-light_specular = 0.039
-shadow_enabled = true
-shadow_bias = 0.05
-shadow_blur = 3.059
-distance_fade_begin = 0.0
-omni_range = 0.506
+omni_range = 0.806
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Scenery"]
-transform = Transform3D(-5, -2.00693e-07, -7.27817e-07, 0, -4.82011, 1.32913, -7.5498e-07, 1.32913, 4.82011, -1.33457, 11.8499, 23.4599)
+transform = Transform3D(-5, 4.37114e-07, 0, -2.67307e-07, -3.05764, 3.95612, 3.45855e-07, 3.95612, 3.05764, -1.33457, 11.8499, 23.4599)
 light_color = Color(1, 0.843137, 0.478431, 1)
-light_energy = 24.0
+light_energy = 31.168
 light_size = 0.114
 light_specular = 0.182
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_reverse_cull_face = true
 shadow_opacity = 0.9
-shadow_blur = 1.75
-spot_range = 7.218
+shadow_blur = 2.596
+spot_range = 11.119
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Scenery"]
-transform = Transform3D(-2.43065, -1.10915, -4.22632, -0.333896, -4.77494, 1.44516, -4.35666, 0.984765, 2.24717, 1.53668e-06, 12.7256, -10.1692)
+transform = Transform3D(-2.43065, -1.10915, -4.22632, -0.333896, -4.77494, 1.44516, -4.35666, 0.984766, 2.24717, 1.53668e-06, 12.7256, -10.1692)
 light_color = Color(1, 0.94902, 0.839216, 1)
 light_energy = 0.5
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_normal_bias = 10.0
-shadow_blur = 0.88
+shadow_blur = 2.043
+
+[node name="Fan" parent="Scenery" instance=ExtResource("3_cnc32")]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 7.25698, 0.00170064)
+
+[node name="Body3" parent="Scenery/Fan" index="3"]
+transform = Transform3D(0.243228, 0, 0.0212798, 0, 0.244157, 0, -0.0212798, 0, 0.243228, 0, 0.332901, 0)
+
+[node name="Blade2" parent="Scenery/Fan/Body3" index="2"]
+transform = Transform3D(-0.981936, 0, -1.73015, 0, 0.789162, 0, 2.10577, 0, -0.806779, -3.63258, -0.126627, 7.79009)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Scenery/Fan"]
+autoplay = "spin"
+speed_scale = 0.3
+libraries = {
+"": SubResource("AnimationLibrary_xvsr4")
+}
 
 [node name="GameDeck" type="Node3D" parent="." node_paths=PackedStringArray("sounds", "timer")]
 script = ExtResource("4_nadv1")
@@ -180,3 +222,4 @@ size_flags_vertical = 6
 texture = ExtResource("12_oh12u")
 
 [editable path="Scenery"]
+[editable path="Scenery/Fan"]
