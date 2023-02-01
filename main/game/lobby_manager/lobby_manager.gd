@@ -39,7 +39,7 @@ func start_network(is_server: bool) -> void:
 	local_id = peer.get_unique_id()
 	multiplayer.set_multiplayer_peer(peer)
 
-@rpc(any_peer)
+@rpc("any_peer")
 func create_lobby(code: String) -> void:
 	if local_id != get_multiplayer_authority():
 		return
@@ -49,7 +49,7 @@ func create_lobby(code: String) -> void:
 	add_child(new_lobby)
 	print(str(local_id) + ": Lobby " + code + " created")
 
-@rpc(any_peer)
+@rpc("any_peer")
 func delete_lobby(code: String) -> void:
 	if local_id != get_multiplayer_authority():
 		return
@@ -61,7 +61,7 @@ func delete_lobby(code: String) -> void:
 	remove_child(get_node(code))
 	print(str(local_id) + ": Lobby " + code + " deleted")
 
-@rpc(any_peer, call_local)
+@rpc("any_peer", "call_local")
 func join_lobby(code: String, player: int, username: String, icon: int) -> void:
 	if local_id == get_multiplayer_authority():
 		var new_player: Player = player_scene.instantiate()
@@ -72,7 +72,7 @@ func join_lobby(code: String, player: int, username: String, icon: int) -> void:
 		print(str(local_id) + ": Player " + str(player) + " joined lobby " + code)
 	player_joined_lobby.emit(code, player, username, icon)
 
-@rpc(any_peer, call_local)
+@rpc("any_peer", "call_local")
 func leave_lobby(code: String, player: int) -> void:
 	if local_id == get_multiplayer_authority():
 		get_node(code).remove_child(get_node(code).get_node(str(player)))

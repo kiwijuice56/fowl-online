@@ -18,7 +18,7 @@ var center_deck: Array[Array]
 var center_swap: Array[int]
 var discard: Array[int]
 
-@rpc(any_peer)
+@rpc("any_peer")
 func start_game() -> void:
 	if lobby_manager.local_id == get_multiplayer_authority():
 		pass
@@ -27,7 +27,7 @@ func start_game() -> void:
 func play_hand() -> void:
 	deal_cards()
 
-@rpc(any_peer)
+@rpc("any_peer")
 func deal_cards() -> void:
 	if multiplayer.get_unique_id() != get_multiplayer_authority():
 		return

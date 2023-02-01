@@ -1,16 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://hiol8cr4qys5"]
+[gd_scene load_steps=17 format=3 uid="uid://b8aikmist4s6p"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" uid="uid://gkw0lidpla0c" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
 [ext_resource type="PackedScene" uid="uid://da1p1jp6v4ggc" path="res://main/game/room/GameRoomScenery.tscn" id="2_5ahit"]
+[ext_resource type="Script" path="res://main/game/room/deck.gd" id="4_nadv1"]
 [ext_resource type="Script" path="res://main/game/room/random_sound_spawner.gd" id="4_qibf6"]
 [ext_resource type="AudioStream" uid="uid://x2omfkrnbwb0" path="res://main/game/room/sounds/card_deal_1.wav" id="5_emmj7"]
 [ext_resource type="AudioStream" uid="uid://dblbwo1dh4xmp" path="res://main/game/room/sounds/card_deal_3.wav" id="7_q2g0r"]
 [ext_resource type="AudioStream" uid="uid://chapd4iye23r8" path="res://main/game/room/sounds/card_deal_4.wav" id="8_xlafy"]
 [ext_resource type="AudioStream" uid="uid://biaoj6tsyvug7" path="res://main/game/room/sounds/card_deal_5.wav" id="9_afdb7"]
-[ext_resource type="Script" path="res://main/ui/fps_label.gd" id="10_85edn"]
-[ext_resource type="Script" path="res://main/game/room/camera.gd" id="10_o4iyd"]
 [ext_resource type="AudioStream" uid="uid://cwjrbfdptymp" path="res://main/game/room/sounds/card_deal_6.wav" id="10_x1pay"]
+[ext_resource type="Script" path="res://main/game/player_camera/player_camera.gd" id="11_aaxfr"]
+[ext_resource type="Texture2D" uid="uid://chhwmypr1pku6" path="res://main/game/crosshair.png" id="12_oh12u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
 sky_top_color = Color(0.705882, 0.796078, 0.992157, 1)
@@ -35,15 +36,14 @@ adjustment_enabled = true
 adjustment_contrast = 1.05
 adjustment_saturation = 1.3
 
-[node name="GameRoom" type="Node3D" node_paths=PackedStringArray("markers", "sounds", "timer")]
+[sub_resource type="BoxShape3D" id="BoxShape3D_qp1iu"]
+size = Vector3(0.01, 0.01, 0.8)
+
+[node name="GameRoom" type="Node3D" node_paths=PackedStringArray("deck", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00368514, -5.96046e-08, 1.5974e-05)
 script = ExtResource("1_7akt0")
-markers = NodePath("Markers")
-sounds = NodePath("Sounds")
-timer = NodePath("Timer")
-card_scene = ExtResource("1_e8h6y")
-hand_radius = 0.3
-other_hand_radius = 0.2
+deck = NodePath("GameDeck")
+camera = NodePath("PlayerHead/PlayerCamera")
 
 [node name="Scenery" parent="." instance=ExtResource("2_5ahit")]
 transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0.382299, 0.351153)
@@ -96,34 +96,40 @@ shadow_bias = 0.0
 shadow_normal_bias = 10.0
 shadow_blur = 0.88
 
-[node name="Markers" type="Node3D" parent="."]
+[node name="GameDeck" type="Node3D" parent="." node_paths=PackedStringArray("sounds", "timer")]
+script = ExtResource("4_nadv1")
+sounds = NodePath("../Sounds")
+timer = NodePath("Timer")
+card_scene = ExtResource("1_e8h6y")
 
-[node name="DeckSpawn" type="Marker3D" parent="Markers"]
+[node name="DeckSpawn" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.357354)
 
-[node name="Deal1" type="Marker3D" parent="Markers"]
+[node name="Deal1" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.836373)
 
-[node name="Deal2" type="Marker3D" parent="Markers"]
+[node name="Deal2" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.478913, 0.95646, 0.362627)
 
-[node name="Deal3" type="Marker3D" parent="Markers"]
+[node name="Deal3" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.95646, -0.0504727)
 
-[node name="Deal4" type="Marker3D" parent="Markers"]
+[node name="Deal4" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.476177, 0.95646, 0.367343)
 
-[node name="Hand1" type="Marker3D" parent="Markers"]
+[node name="Hand1" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(-1, 8.21506e-08, -2.99004e-08, 0, -0.34202, -0.939693, -8.74228e-08, -0.939693, 0.34202, 0, 1.28984, 1.17374)
 
-[node name="Hand2" type="Marker3D" parent="Markers"]
+[node name="Hand2" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(0.625687, 0.674201, -0.392388, -0.00436332, -0.499981, -0.866025, -0.780063, 0.543572, -0.309889, -0.429119, 1.34461, 0.388416)
 
-[node name="Hand3" type="Marker3D" parent="Markers"]
+[node name="Hand3" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(1, 0, 0, 0, -0.34202, -0.939693, 0, 0.939693, -0.34202, -0.00123369, 1.31587, -0.166175)
 
-[node name="Hand4" type="Marker3D" parent="Markers"]
+[node name="Hand4" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(0.690882, -0.626107, 0.361483, -4.37114e-08, -0.499999, -0.866025, 0.722967, 0.598321, -0.345441, 0.470638, 1.34461, 0.348245)
+
+[node name="Timer" type="Timer" parent="GameDeck"]
 
 [node name="Sounds" type="Node" parent="."]
 
@@ -135,33 +141,42 @@ volume = 3.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_i25mw")
 
-[node name="Pivot" type="Marker3D" parent="."]
+[node name="PlayerHead" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39, 1.278)
 
-[node name="Camera3D" type="Camera3D" parent="Pivot"]
+[node name="PlayerCamera" type="Camera3D" parent="PlayerHead" node_paths=PackedStringArray("hitbox")]
 current = true
 fov = 65.0
 size = 1.256
 near = 0.075
 far = 40.0
-script = ExtResource("10_o4iyd")
+script = ExtResource("11_aaxfr")
+hitbox = NodePath("VisionSelector")
 mouse_sensitivity = 0.003
 
-[node name="RayCast3D" type="RayCast3D" parent="Pivot/Camera3D"]
-target_position = Vector3(0, 0, -1)
+[node name="VisionSelector" type="Area3D" parent="PlayerHead/PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.496023)
+collision_layer = 2
 
-[node name="Timer" type="Timer" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerHead/PlayerCamera/VisionSelector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.242683)
+shape = SubResource("BoxShape3D_qp1iu")
 
-[node name="Label" type="Label" parent="." node_paths=PackedStringArray("timer")]
-visible = false
-offset_left = 217.0
-offset_top = 217.0
-offset_right = 257.0
-offset_bottom = 240.0
-script = ExtResource("10_85edn")
-timer = NodePath("Timer")
-
-[node name="Timer" type="Timer" parent="Label"]
-autostart = true
+[node name="TextureRect" type="TextureRect" parent="PlayerHead/PlayerCamera"]
+modulate = Color(1, 1, 1, 0.447059)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("12_oh12u")
 
 [editable path="Scenery"]

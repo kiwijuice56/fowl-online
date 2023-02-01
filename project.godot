@@ -8,112 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "Node",
-"class": &"Card",
-"language": &"GDScript",
-"path": "res://main/game/card/card.gd"
-}, {
-"base": "MeshInstance3D",
-"class": &"CardModel",
-"language": &"GDScript",
-"path": "res://main/game/card/card_model.gd"
-}, {
-"base": "Submenu",
-"class": &"CharacterMenu",
-"language": &"GDScript",
-"path": "res://main/ui/initial_menu/character_menu/character_menu.gd"
-}, {
-"base": "Label",
-"class": &"FpsLabel",
-"language": &"GDScript",
-"path": "res://main/ui/fps_label.gd"
-}, {
-"base": "Node3D",
-"class": &"GameRoom",
-"language": &"GDScript",
-"path": "res://main/game/room/game_room.gd"
-}, {
-"base": "Control",
-"class": &"InitialMenu",
-"language": &"GDScript",
-"path": "res://main/ui/initial_menu/initial_menu.gd"
-}, {
-"base": "Submenu",
-"class": &"JoinMenu",
-"language": &"GDScript",
-"path": "res://main/ui/initial_menu/join_menu/join_menu.gd"
-}, {
-"base": "Node",
-"class": &"Lobby",
-"language": &"GDScript",
-"path": "res://main/game/lobby/lobby.gd"
-}, {
-"base": "Node",
-"class": &"LobbyManager",
-"language": &"GDScript",
-"path": "res://main/game/lobby_manager/lobby_manager.gd"
-}, {
-"base": "Submenu",
-"class": &"LobbyMenu",
-"language": &"GDScript",
-"path": "res://main/ui/initial_menu/lobby/lobby_menu.gd"
-}, {
-"base": "Submenu",
-"class": &"MainMenu",
-"language": &"GDScript",
-"path": "res://main/ui/initial_menu/main_menu/main_menu.gd"
-}, {
-"base": "Node",
-"class": &"Player",
-"language": &"GDScript",
-"path": "res://main/game/lobby/player/player.gd"
-}, {
-"base": "Node",
-"class": &"Promise",
-"language": &"GDScript",
-"path": "res://main/promise.gd"
-}, {
-"base": "Node",
-"class": &"RandomSoundSpawner",
-"language": &"GDScript",
-"path": "res://main/game/room/random_sound_spawner.gd"
-}, {
-"base": "Node",
-"class": &"Routine",
-"language": &"GDScript",
-"path": "res://main/routine.gd"
-}, {
-"base": "Control",
-"class": &"Submenu",
-"language": &"GDScript",
-"path": "res://main/ui/submenu.gd"
-}, {
-"base": "HBoxContainer",
-"class": &"UserPanel",
-"language": &"GDScript",
-"path": "res://main/ui/initial_menu/lobby/user_panel.gd"
-}]
-_global_script_class_icons={
-"Card": "",
-"CardModel": "",
-"CharacterMenu": "",
-"FpsLabel": "",
-"GameRoom": "",
-"InitialMenu": "",
-"JoinMenu": "",
-"Lobby": "",
-"LobbyManager": "",
-"LobbyMenu": "",
-"MainMenu": "",
-"Player": "",
-"Promise": "",
-"RandomSoundSpawner": "",
-"Routine": "",
-"Submenu": "",
-"UserPanel": ""
-}
-
 [application]
 
 config/name="fowl-online"
@@ -131,8 +25,8 @@ gdscript/warnings/redundant_await=0
 
 [display]
 
-window/size/viewport_width=1600
-window/size/viewport_height=1200
+window/size/viewport_width=800
+window/size/viewport_height=600
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

@@ -28,6 +28,7 @@ animation/fps=30
 animation/trimming=false
 import_script/path=""
 _subresources={}
+meshes/handle_gltf_embedded_images=1
 blender/nodes/visible=0
 blender/nodes/punctual_lights=true
 blender/nodes/cameras=true

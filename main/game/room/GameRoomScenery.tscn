@@ -10,5 +10,8 @@ subsurf_scatter_strength = 0.64
 
 [node name="GameRoomScenery" instance=ExtResource("1_b6m21")]
 
+[node name="Camera" parent="." index="9"]
+visible = false
+
 [node name="Glass" parent="." index="10"]
 material_override = SubResource("StandardMaterial3D_cq6dq")

@@ -2,6 +2,9 @@ class_name CardModel
 extends MeshInstance3D
 
 @export var colors: Array[Color]
+@export var select_time: float = 0.1
+
+var selected: bool = false
 
 func set_text(suit: Card.Suit, number: int) -> void:
 	$MainNumber.text = str(number)
@@ -18,3 +21,15 @@ func set_text(suit: Card.Suit, number: int) -> void:
 	$MainNumber.modulate = colors[suit - 1]
 	$HelpNumber1.modulate = colors[suit - 1]
 	$HelpNumber2.modulate = colors[suit - 1]
+
+func select() -> void:
+	if selected:
+		return
+	selected = true
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector3(0.0625, 0.0625, 0.0625), select_time)
+
+func deselect() -> void:
+	selected = false
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector3(0.055, 0.055, 0.055), select_time)
