@@ -28,6 +28,7 @@ func enter() -> void:
 	tween.tween_property(join_button, "modulate:a", 1.0, 0.1)
 	tween.tween_property(create_button, "modulate:a", 1.0, 0.1)
 	tween.tween_property(profile_button, "modulate:a", 1.0, 0.1)
+	show_title()
 	
 	await tween.finished
 	toggle_input(true)
@@ -56,3 +57,11 @@ func toggle_input(input_enabled: bool) -> void:
 	profile_button.mouse_filter = filter
 	
 	super.toggle_input(input_enabled)
+
+func hide_title() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(title, "modulate:a", 0.0, 0.1)
+
+func show_title() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(title, "modulate:a", 1.0, 0.1)

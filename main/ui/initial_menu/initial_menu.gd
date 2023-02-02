@@ -57,10 +57,12 @@ func _on_game_abandoned() -> void:
 	main_menu.enter()
 
 func _on_join_selected() -> void:
+	main_menu.hide_title()
 	await main_menu.exit()
 	join_menu.enter()
 
 func _on_create_selected() -> void:
+	main_menu.hide_title()
 	await main_menu.exit()
 	var code: String = lobby_manager.generate_code()
 	lobby_manager.rpc("create_lobby", code)
