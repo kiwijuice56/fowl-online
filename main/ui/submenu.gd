@@ -1,5 +1,6 @@
 class_name Submenu
 extends Control
+# Interface class for every screen in the game, establishing basic state control methods and signals
 
 signal exited
 signal entered

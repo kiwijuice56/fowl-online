@@ -1,11 +1,24 @@
 class_name LobbyManager
 extends Node
+# Handles lobbies for all clients on the server
+
+# The LobbyManager works through the `run-server.bat` file, which runs the game with the "--server" flag. 
+# The game instance created with the batch file becomes the multiplayer authority, allowing clients to 
+# request to create and join lobbies. Lobby nodes are synced across all clients with the MultiplayerSpawner
+# node, allowing clients to access lobby names and the player's connected to each.
+
+# For clients connected to the server, the LobbyManager node is the interface to request tasks from 
+# the authority.
+
+# Note that this implementation is rather insecure and prone to hackers, but it's unlikely that much
+# could be accomplished except messing with the game state for connected clients.
 
 @export var lobby_scene: PackedScene
 @export var player_scene: PackedScene
 
 var code_words: PackedStringArray
 
+# Information about the client
 var local_id: int
 var local_lobby_code: String
 var local_username: String
@@ -70,6 +83,12 @@ func join_lobby(code: String, player: int, username: String, icon: int) -> void:
 		new_player.username = username
 		get_node(code).add_child(new_player)
 		print(str(local_id) + ": Player " + str(player) + " joined lobby " + code)
+		# We need to update the UI for all clients only after the new player is added
+		# Hence, this method is necessary to stop race conditions with the authority
+		rpc("add_new_player", code, player, username, icon)
+
+@rpc("any_peer", "call_local")
+func add_new_player(code: String, player: int, username: String, icon: int) -> void:
 	player_joined_lobby.emit(code, player, username, icon)
 
 @rpc("any_peer", "call_local")

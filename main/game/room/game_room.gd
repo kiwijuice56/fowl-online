@@ -1,6 +1,6 @@
 class_name GameRoom
 extends Node3D
-# Manages the visuals of the game
+# Top-level manager for the 3D gameplay, including the camera
 
 @export var deck: GameDeck
 @export var camera: PlayerCamera

@@ -1,7 +1,8 @@
 class_name FpsLabel
 extends Label
+# Updates the FPS label every second
 
-@export @onready var timer: Timer = $Timer
+@onready var timer: Timer = $Timer
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)

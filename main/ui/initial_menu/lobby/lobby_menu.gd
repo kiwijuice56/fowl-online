@@ -22,17 +22,31 @@ func _ready() -> void:
 	start_button.pressed.connect(_on_game_started)
 	visible = false
 
-func _on_player_joined(_code: String, id: int, username: String, icon: int) -> void:
-	var new_panel: UserPanel = player_panel_scene.instantiate()
-	new_panel.initialize(username, icon, id == lobby_manager.local_id)
-	player_list.add_child(new_panel)
-	new_panel.name = str(id)
+func _on_player_joined(code: String, id: int, username: String, icon: int) -> void:
+	if not code == lobby_manager.local_lobby_code:
+		return
+	for child in player_list.get_children():
+		child.queue_free()
+	for player in lobby_manager.get_node(code).get_children():
+		if player is MultiplayerSpawner:
+			continue
+		var new_panel: UserPanel = player_panel_scene.instantiate()
+		new_panel.initialize(player.username, player.icon, player.name == str(lobby_manager.local_id))
+		player_list.add_child(new_panel)
+		new_panel.name = str(id)
 
-func _on_player_left(_code: String, id: int) -> void:
-	for i in range(player_list.get_child_count()):
-		if player_list.get_child(i).name == str(id):
-			player_list.remove_child(player_list.get_child(i))
-			return
+func _on_player_left(code: String, id: int) -> void:
+	if not code == lobby_manager.local_lobby_code:
+		return
+	for child in player_list.get_children():
+		child.queue_free()
+	for player in lobby_manager.get_node(code).get_children():
+		if player is MultiplayerSpawner:
+			continue
+		var new_panel: UserPanel = player_panel_scene.instantiate()
+		new_panel.initialize(player.username, player.icon, player.name == str(lobby_manager.local_id))
+		player_list.add_child(new_panel)
+		new_panel.name = str(id)
 
 func _on_game_started() -> void:
 	game_started.emit(lobby_manager.local_lobby_code)

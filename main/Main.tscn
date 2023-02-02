@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://e0jxc72lmu2o"]
+[gd_scene load_steps=11 format=3 uid="uid://e0jxc72lmu2o"]
 
 [ext_resource type="PackedScene" uid="uid://ccj70tabaprug" path="res://main/ui/initial_menu/InitialMenu.tscn" id="1_5gjkg"]
 [ext_resource type="PackedScene" uid="uid://hiol8cr4qys5" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
 [ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="4_ca8vy"]
 [ext_resource type="Script" path="res://main/game/lobby_manager/lobby_manager.gd" id="4_p3qgt"]
+[ext_resource type="Script" path="res://main/game_menu.gd" id="5_cesxa"]
 [ext_resource type="PackedScene" uid="uid://by5gc3r3jtvhh" path="res://main/game/lobby/Lobby.tscn" id="5_qhve4"]
 [ext_resource type="PackedScene" uid="uid://bc2ryj1yvja3j" path="res://main/game/lobby/player/Player.tscn" id="6_8f3qx"]
 
@@ -49,6 +50,7 @@ grow_vertical = 2
 theme = ExtResource("2_550ex")
 
 [node name="InitialMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
+visible = false
 layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -110,7 +112,6 @@ size_flags_vertical = 4
 size_flags_vertical = 2
 
 [node name="GameMenu" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -119,6 +120,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_cesxa")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/GameMenu"]
 layout_mode = 1
@@ -236,10 +238,9 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="FpsLabel" type="Label" parent="UI/FpsContainer" node_paths=PackedStringArray("timer")]
+[node name="FpsLabel" type="Label" parent="UI/FpsContainer"]
 layout_mode = 2
 script = ExtResource("3_dvomx")
-timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="UI/FpsContainer/FpsLabel"]
 autostart = true

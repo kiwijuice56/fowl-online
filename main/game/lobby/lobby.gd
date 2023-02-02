@@ -1,12 +1,18 @@
 class_name Lobby
 extends Node
+# Represents a lobby of players in a match
 
 @onready var lobby_manager: LobbyManager = get_parent()
+
+# We need this reference to handle the game visuals 
 @onready var game_room: GameRoom = get_tree().get_root().get_node("Main/ViewportContainer/SubViewport/GameRoom")
+
+# We need this reference to handle transitions when the game starts and ends
+@onready var initial_menu: InitialMenu = get_tree().get_root().get_node("Main/UI/InitialMenu")
 
 var local_player: Player 
 
-# Should store dealer as 0 and players in clockwise order
+# Should store the dealer at index 0 and hold players in clockwise order
 var players: Array
 
 var tricks: Array[Array]
@@ -22,23 +28,35 @@ var center_swap: Array[int]
 var discard: Array[int]
 
 @rpc("any_peer", "call_local")
-func start_game() -> void:
+func start_game(code: String) -> void:
+	# Due to the nature of RPC, this method is called for this lobby node on ALL clients, so we need
+	# to ensure that we don't start a game for a client that isn't in this lobby
+	
+	if lobby_manager.local_id != get_multiplayer_authority() and lobby_manager.local_lobby_code != code:
+		return
+	
 	players = get_children()
-	players.remove_at(0) # MultiplayerSpawner node
+	players.remove_at(0) # This is a MultiplayerSpawner node, so remove it from the player list
 	
 	if lobby_manager.local_id == get_multiplayer_authority():
+		await await_players_synced()
+		
 		deal_cards()
 		await await_players_synced()
 		
 		rpc("play_hand")
 		await await_players_synced()
-		
 	else:
 		game_room.player = get_node(str(multiplayer.get_unique_id()))
 		local_player = game_room.player
-		play_hand()
+		await initial_menu.mini_lobby_menu.exit()
+		get_node(str(multiplayer.get_unique_id())).rpc("set_synced", true)
 
+@rpc("any_peer")
 func play_hand() -> void:
+	if lobby_manager.local_lobby_code != str(name):
+		return
+	
 	game_room.deck.create_stack()
 	await game_room.deck.deal_stack()
 	await game_room.deck.hold_hand()
@@ -69,4 +87,4 @@ func await_players_synced() -> void:
 
 func desync_players() -> void:
 	for player in players:
-		player.is_synced = false
+		player.rpc("set_synced", false)
