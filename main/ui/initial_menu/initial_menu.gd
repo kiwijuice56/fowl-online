@@ -2,7 +2,6 @@ class_name InitialMenu
 extends Control
 
 @export var lobby_manager: LobbyManager
-
 @export var character_menu: CharacterMenu
 @export var main_menu: MainMenu
 @export var join_menu: JoinMenu

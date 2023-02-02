@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://e0jxc72lmu2o"]
+[gd_scene load_steps=10 format=3 uid="uid://e0jxc72lmu2o"]
 
 [ext_resource type="PackedScene" uid="uid://ccj70tabaprug" path="res://main/ui/initial_menu/InitialMenu.tscn" id="1_5gjkg"]
 [ext_resource type="PackedScene" uid="uid://hiol8cr4qys5" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="Theme" uid="uid://bhjf3u3dj1bgt" path="res://main/ui/main_theme.tres" id="2_550ex"]
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
+[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="4_ca8vy"]
 [ext_resource type="Script" path="res://main/game/lobby_manager/lobby_manager.gd" id="4_p3qgt"]
 [ext_resource type="PackedScene" uid="uid://by5gc3r3jtvhh" path="res://main/game/lobby/Lobby.tscn" id="5_qhve4"]
 [ext_resource type="PackedScene" uid="uid://bc2ryj1yvja3j" path="res://main/game/lobby/player/Player.tscn" id="6_8f3qx"]
@@ -29,11 +31,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
-stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
-size = Vector2i(600, 400)
+size = Vector2i(800, 600)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
@@ -45,9 +46,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_550ex")
 
 [node name="InitialMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
-visible = false
 layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -57,7 +58,7 @@ lobby_manager = NodePath("../../Lobbies")
 visible = true
 layout_mode = 1
 anchors_preset = 15
-color = Color(0, 0, 0.192157, 0.392157)
+color = Color(0.0627451, 0.317647, 0.509804, 0.376471)
 
 [node name="JoinMenu" parent="UI/InitialMenu" index="1"]
 layout_mode = 1
@@ -81,6 +82,9 @@ offset_top = -174.5
 offset_right = 144.0
 offset_bottom = 174.5
 
+[node name="Icon" parent="UI/InitialMenu/CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer" index="0"]
+size_flags_horizontal = 4
+
 [node name="MainMenu" parent="UI/InitialMenu" index="4"]
 layout_mode = 1
 anchors_preset = 8
@@ -88,7 +92,12 @@ offset_top = -283.0
 offset_bottom = 283.0
 
 [node name="Label" parent="UI/InitialMenu/MainMenu" index="0"]
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_fonts/font = ExtResource("4_ca8vy")
 theme_override_font_sizes/font_size = 100
+
+[node name="Spacing" parent="UI/InitialMenu/MainMenu" index="1"]
+theme_override_constants/margin_top = 48
 
 [node name="JoinButton" parent="UI/InitialMenu/MainMenu" index="2"]
 size_flags_vertical = 0
@@ -100,51 +109,125 @@ size_flags_vertical = 4
 size_flags_vertical = 2
 
 [node name="GameMenu" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="UI/GameMenu/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/PanelContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 48
 
-[node name="BidLabel" type="Label" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="BidLabel" type="Label" parent="UI/GameMenu/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 20
-text = "Bid: 200"
+text = "Bid: 50"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="Label" type="Label" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="UI/GameMenu/PanelContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Trump: "
 
-[node name="TrumpColor" type="ColorRect" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+[node name="TrumpColor" type="ColorRect" parent="UI/GameMenu/PanelContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 color = Color(1, 0, 0, 1)
 
+[node name="BidMenu" type="Control" parent="UI/GameMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GameMenu/BidMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -151.5
+offset_top = -75.5
+offset_right = 111.5
+offset_bottom = 35.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/BidMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "Place Your Bid!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="BidLabel" type="Label" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "70
+"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Add" type="Button" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "▲"
+
+[node name="Subtract" type="Button" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "▼"
+
+[node name="ConfirmButton" type="Button" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Bid it!"
+
 [node name="FpsContainer" type="MarginContainer" parent="UI"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 8

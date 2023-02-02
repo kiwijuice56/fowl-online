@@ -14,6 +14,12 @@ signal character_confirmed
 
 func _ready() -> void:
 	go_button.pressed.connect(emit_signal.bind("character_confirmed"))
+	left_button.pressed.connect(shift_icon.bind(-1))
+	right_button.pressed.connect(shift_icon.bind(1))
+
+func shift_icon(shift: int) -> void:
+	selected_icon = (selected_icon + shift) % len(ProfileImages.images)
+	player_icon.texture = ProfileImages.images[selected_icon]
 
 func exit() -> void:
 	super.exit()
@@ -22,7 +28,7 @@ func exit() -> void:
 	selected_username = username.text
 	
 	var tween: Tween = create_tween().set_parallel(true)
-	tween.tween_property(self, "modulate:a", 0.0, 0.025)
+	tween.tween_property(self, "modulate:a", 0.0, 0.1)
 	
 	await tween.finished
 	visible = false
@@ -32,7 +38,7 @@ func enter() -> void:
 	visible = true
 	
 	var tween: Tween = create_tween().set_parallel(true)
-	tween.tween_property(self, "modulate:a", 1.0, 0.025)
+	tween.tween_property(self, "modulate:a", 1.0, 0.1)
 	
 	await tween.finished
 	toggle_input(true)

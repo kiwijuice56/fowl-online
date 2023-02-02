@@ -14,7 +14,7 @@ var is_synced: bool = false:
 signal synced
 
 @rpc("call_local")
-func update_state(deck: Array) -> void:
-	self.deck = deck
+func update_state(new_deck: Array) -> void:
+	self.deck = new_deck
 	if str(multiplayer.get_unique_id()) == str(name):
 		self.is_synced = true

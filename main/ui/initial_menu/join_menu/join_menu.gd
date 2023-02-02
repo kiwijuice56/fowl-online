@@ -37,10 +37,10 @@ func enter() -> void:
 	var tween: Tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_IN)
 	
-	tween.tween_property(go_button, "modulate:a", 1.0, 0.05)
-	tween.tween_property(quit_button, "modulate:a", 1.0, 0.05)
-	tween.tween_property(code_line, "modulate:a", 1.0, 0.05)
-	tween.tween_property(error_label, "modulate:a", 1.0, 0.05)
+	tween.tween_property(go_button, "modulate:a", 1.0, 0.1)
+	tween.tween_property(quit_button, "modulate:a", 1.0, 0.1)
+	tween.tween_property(code_line, "modulate:a", 1.0, 0.1)
+	tween.tween_property(error_label, "modulate:a", 1.0, 0.1)
 	
 	await tween.finished
 	toggle_input(true)
@@ -52,10 +52,10 @@ func exit() -> void:
 	var tween: Tween = create_tween().set_parallel(true)
 	tween.set_ease(Tween.EASE_IN)
 	
-	tween.tween_property(go_button, "modulate:a", 0.0, 0.05)
-	tween.tween_property(quit_button, "modulate:a", 0.0, 0.05)
-	tween.tween_property(code_line, "modulate:a", 0.0, 0.05)
-	tween.tween_property(error_label, "modulate:a", 0.0, 0.05)
+	tween.tween_property(go_button, "modulate:a", 0.0, 0.1)
+	tween.tween_property(quit_button, "modulate:a", 0.0, 0.1)
+	tween.tween_property(code_line, "modulate:a", 0.0, 0.1)
+	tween.tween_property(error_label, "modulate:a", 0.0, 0.1)
 	
 	await tween.finished
 

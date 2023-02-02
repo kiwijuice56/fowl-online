@@ -1,12 +1,14 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bhjf3u3dj1bgt"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bhjf3u3dj1bgt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1end"]
-bg_color = Color(0.133333, 0.580392, 0.729412, 1)
+[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="1_qqk7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ph8ja"]
+bg_color = Color(0.0705882, 0.372549, 0.478431, 0.568627)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.0941176, 0.443137, 0.658824, 1)
+border_color = Color(0.0627451, 0.34902, 0.52549, 0.72549)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -22,6 +24,21 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 border_color = Color(0.180392, 0.690196, 0.788235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.12549)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1end"]
+bg_color = Color(0.133333, 0.580392, 0.729412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.0941176, 0.443137, 0.658824, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -46,9 +63,10 @@ shadow_size = 4
 shadow_offset = Vector2(0, 2)
 
 [resource]
+default_font = ExtResource("1_qqk7p")
 Button/colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
 Button/colors/font_disabled_color = Color(0.933333, 0.933333, 0.933333, 1)
-Button/styles/disabled = SubResource("StyleBoxFlat_t1end")
+Button/styles/disabled = SubResource("StyleBoxFlat_ph8ja")
 Button/styles/focus = SubResource("StyleBoxFlat_hhius")
 Button/styles/hover = SubResource("StyleBoxFlat_hhius")
 Button/styles/normal = SubResource("StyleBoxFlat_t1end")

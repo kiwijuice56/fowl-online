@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="fowl-online"
+config/name="Fowl!"
 run/main_scene="res://main/Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://main/ui/profile_images/profile1.png"
 
 [autoload]
 
@@ -21,12 +21,13 @@ ProfileImages="*res://main/ui/profile_images/profile_images.gd"
 
 [debug]
 
+gdscript/warnings/integer_division=0
 gdscript/warnings/redundant_await=0
 
 [display]
 
-window/size/viewport_width=1200
-window/size/viewport_height=800
+window/size/viewport_width=800
+window/size/viewport_height=600
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

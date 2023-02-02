@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://main/ui/initial_menu/lobby/lobby_menu.gd" id="4_da7kp"]
 [ext_resource type="PackedScene" uid="uid://csido4bg2qwk2" path="res://main/ui/initial_menu/lobby/UserPanel.tscn" id="5_bjjs7"]
 [ext_resource type="Script" path="res://main/ui/initial_menu/character_menu/character_menu.gd" id="6_tqxow"]
-[ext_resource type="Texture2D" uid="uid://cyqcg4k2g68ht" path="res://icon.svg" id="7_n0eyn"]
+[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="7_3nenu"]
 [ext_resource type="Script" path="res://main/ui/initial_menu/main_menu/main_menu.gd" id="8_kofmm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0qmb"]
@@ -220,9 +220,10 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Icon" type="TextureRect" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = ExtResource("7_n0eyn")
-stretch_mode = 2
+texture = ExtResource("7_3nenu")
+expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
