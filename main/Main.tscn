@@ -50,7 +50,6 @@ grow_vertical = 2
 theme = ExtResource("2_550ex")
 
 [node name="InitialMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
-visible = false
 layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -112,6 +111,7 @@ size_flags_vertical = 4
 size_flags_vertical = 2
 
 [node name="GameMenu" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
