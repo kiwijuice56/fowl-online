@@ -279,13 +279,19 @@ create_button = NodePath("CreateButton")
 profile_button = NodePath("ProfileButton")
 
 [node name="Label" type="Label" parent="MainMenu"]
-custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
+size_flags_vertical = 10
 theme_override_colors/font_outline_color = Color(0.109804, 0.219608, 0.321569, 1)
 theme_override_constants/outline_size = 24
 theme_override_font_sizes/font_size = 90
 text = "Fowl!"
 horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Spacing" type="MarginContainer" parent="MainMenu"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_top = 150
 
 [node name="JoinButton" type="Button" parent="MainMenu"]
 custom_minimum_size = Vector2(0, 64)

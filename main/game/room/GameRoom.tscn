@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b8aikmist4s6p"]
+[gd_scene load_steps=21 format=3 uid="uid://hiol8cr4qys5"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" uid="uid://gkw0lidpla0c" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
@@ -14,6 +14,21 @@
 [ext_resource type="Script" path="res://main/game/player_camera/player_camera.gd" id="11_aaxfr"]
 [ext_resource type="Texture2D" uid="uid://chhwmypr1pku6" path="res://main/game/crosshair.png" id="12_oh12u"]
 
+[sub_resource type="Animation" id="Animation_6ussn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body3:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.0872666, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_k1q14"]
 resource_name = "spin"
 loop_mode = 1
@@ -28,21 +43,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_6ussn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body3:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0.0872666, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xvsr4"]
@@ -126,7 +126,7 @@ shadow_blur = 2.043
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 7.25698, 0.00170064)
 
 [node name="Body3" parent="Scenery/Fan" index="3"]
-transform = Transform3D(0.243228, 0, 0.0212798, 0, 0.244157, 0, -0.0212798, 0, 0.243228, 0, 0.332901, 0)
+transform = Transform3D(0.243228, 0, 0.0212797, 0, 0.244157, 0, -0.0212797, 0, 0.243228, 0, 0.332901, 0)
 
 [node name="Blade2" parent="Scenery/Fan/Body3" index="2"]
 transform = Transform3D(-0.981936, 0, -1.73015, 0, 0.789162, 0, 2.10577, 0, -0.806779, -3.63258, -0.126627, 7.79009)

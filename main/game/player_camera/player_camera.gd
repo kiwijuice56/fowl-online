@@ -11,7 +11,7 @@ signal card_selected(card: MeshInstance3D)
 func _ready() -> void:
 	hitbox.area_entered.connect(_on_area_entered)
 	hitbox.area_exited.connect(_on_area_exited)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event) -> void:
 	if event is InputEventMouseMotion:

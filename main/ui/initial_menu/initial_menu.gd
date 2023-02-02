@@ -48,9 +48,9 @@ func _on_join_abandoned() -> void:
 	await join_menu.exit()
 	main_menu.enter()
 
-func _on_game_started() -> void:
+func _on_game_started(code: String) -> void:
 	await mini_lobby_menu.exit()
-	lobby_manager.get_child(1).rpc("deal_cards")
+	lobby_manager.get_node(code).rpc("start_game")
 
 func _on_game_abandoned() -> void:
 	await mini_lobby_menu.exit()

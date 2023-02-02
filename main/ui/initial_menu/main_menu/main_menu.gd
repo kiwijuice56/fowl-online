@@ -25,16 +25,9 @@ func enter() -> void:
 	super.enter()
 	
 	var tween: Tween = create_tween().set_parallel(true)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(title, "custom_minimum_size:y", 0.0, 0.15)
-	
-	await tween.finished
-	
-	tween = create_tween().set_parallel(true)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(join_button, "modulate:a", 1.0, 0.025)
-	tween.tween_property(create_button, "modulate:a", 1.0, 0.025)
-	tween.tween_property(profile_button, "modulate:a", 1.0, 0.025)
+	tween.tween_property(join_button, "modulate:a", 1.0, 0.1)
+	tween.tween_property(create_button, "modulate:a", 1.0, 0.1)
+	tween.tween_property(profile_button, "modulate:a", 1.0, 0.1)
 	
 	await tween.finished
 	toggle_input(true)
@@ -44,12 +37,10 @@ func exit() -> void:
 	toggle_input(false)
 	
 	var tween: Tween = create_tween().set_parallel(true)
-	tween.set_ease(Tween.EASE_IN)
 	
-	tween.tween_property(join_button, "modulate:a", 0.0, 0.025)
-	tween.tween_property(create_button, "modulate:a", 0.0, 0.025)
-	tween.tween_property(profile_button, "modulate:a", 0.0, 0.025)
-	tween.tween_property(title, "custom_minimum_size:y", 350.0, 0.15)
+	tween.tween_property(join_button, "modulate:a", 0.0, 0.1)
+	tween.tween_property(create_button, "modulate:a", 0.0, 0.1)
+	tween.tween_property(profile_button, "modulate:a", 0.0, 0.1)
 	
 	await tween.finished
 

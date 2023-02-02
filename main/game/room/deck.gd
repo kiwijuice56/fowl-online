@@ -2,6 +2,8 @@ class_name GameDeck
 extends Node3D
 # Manages the visual representation of the player decks
 
+@onready var game_room: GameRoom = get_parent()
+
 @export var sounds: Node
 @export var timer: Timer
 
@@ -41,9 +43,10 @@ func deal_stack():
 	for _i in range(4):
 		decks.append([])
 	for i in range(56):
-		# # Only the player cards should have text on them
-		# if i % 4 == 0:
-		# 	cards[i].set_text(player_deck[len(decks[i % 4])].suit, player_deck[len(decks[i % 4])].number)
+		# Only the player cards should have text on them
+		if i % 4 == 0:
+			var card: Array = game_room.player.deck[len(decks[i % 4])]
+			cards[i].set_text(card[0], card[1])
 		
 		timer.start(deal_delay)
 		await timer.timeout

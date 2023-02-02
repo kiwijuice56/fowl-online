@@ -4,13 +4,17 @@ extends Node
 var username: String
 var icon: int
 
-var deck: Array[Card]
+var deck: Array
+var is_synced: bool = false:
+	set(val):
+		is_synced = val
+		if is_synced:
+			synced.emit()
+
+signal synced
 
 @rpc("call_local")
-func update_state(deck: Array[Card]) -> void:
+func update_state(deck: Array) -> void:
 	self.deck = deck
-	if multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
-		print(str(multiplayer.get_unique_id()) + " deck: ")
-		for card in deck:
-			print(str(card.number) + " " + str(card.suit))
-		print()
+	if str(multiplayer.get_unique_id()) == str(name):
+		self.is_synced = true

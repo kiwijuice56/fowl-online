@@ -25,8 +25,8 @@ gdscript/warnings/redundant_await=0
 
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=600
+window/size/viewport_width=1200
+window/size/viewport_height=800
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

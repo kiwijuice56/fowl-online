@@ -1,11 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://e0jxc72lmu2o"]
+[gd_scene load_steps=8 format=3 uid="uid://e0jxc72lmu2o"]
 
 [ext_resource type="PackedScene" uid="uid://ccj70tabaprug" path="res://main/ui/initial_menu/InitialMenu.tscn" id="1_5gjkg"]
-[ext_resource type="PackedScene" uid="uid://b8aikmist4s6p" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="PackedScene" uid="uid://hiol8cr4qys5" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
 [ext_resource type="Script" path="res://main/game/lobby_manager/lobby_manager.gd" id="4_p3qgt"]
 [ext_resource type="PackedScene" uid="uid://by5gc3r3jtvhh" path="res://main/game/lobby/Lobby.tscn" id="5_qhve4"]
 [ext_resource type="PackedScene" uid="uid://bc2ryj1yvja3j" path="res://main/game/lobby/player/Player.tscn" id="6_8f3qx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnb1v"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 0.709804)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Main" type="Node"]
 
@@ -18,40 +29,50 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
+stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
-size = Vector2i(800, 600)
+size = Vector2i(600, 400)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
 
-[node name="InitialMenu" parent="." node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InitialMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
 visible = false
+layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-lobby_manager = NodePath("../Lobbies")
+lobby_manager = NodePath("../../Lobbies")
 
-[node name="ColorRect" parent="InitialMenu" index="0"]
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+[node name="ColorRect" parent="UI/InitialMenu" index="0"]
+visible = true
+layout_mode = 1
+anchors_preset = 15
+color = Color(0, 0, 0.192157, 0.392157)
 
-[node name="JoinMenu" parent="InitialMenu" index="1"]
+[node name="JoinMenu" parent="UI/InitialMenu" index="1"]
 layout_mode = 1
 anchors_preset = 8
 offset_top = -199.0
 offset_bottom = 199.0
 
-[node name="LobbyMenu" parent="InitialMenu" index="2" node_paths=PackedStringArray("lobby_manager")]
+[node name="LobbyMenu" parent="UI/InitialMenu" index="2" node_paths=PackedStringArray("lobby_manager")]
 layout_mode = 1
 anchors_preset = 8
 offset_top = -158.0
 offset_bottom = 158.0
-lobby_manager = NodePath("../../Lobbies")
+lobby_manager = NodePath("../../../Lobbies")
 
-[node name="CharacterMenu" parent="InitialMenu" index="3"]
+[node name="CharacterMenu" parent="UI/InitialMenu" index="3"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -60,25 +81,70 @@ offset_top = -174.5
 offset_right = 144.0
 offset_bottom = 174.5
 
-[node name="MainMenu" parent="InitialMenu" index="4"]
+[node name="MainMenu" parent="UI/InitialMenu" index="4"]
 layout_mode = 1
 anchors_preset = 8
 offset_top = -283.0
 offset_bottom = 283.0
 
-[node name="Label" parent="InitialMenu/MainMenu" index="0"]
-size_flags_vertical = 10
+[node name="Label" parent="UI/InitialMenu/MainMenu" index="0"]
+theme_override_font_sizes/font_size = 100
 
-[node name="JoinButton" parent="InitialMenu/MainMenu" index="1"]
+[node name="JoinButton" parent="UI/InitialMenu/MainMenu" index="2"]
 size_flags_vertical = 0
 
-[node name="CreateButton" parent="InitialMenu/MainMenu" index="2"]
+[node name="CreateButton" parent="UI/InitialMenu/MainMenu" index="3"]
 size_flags_vertical = 4
 
-[node name="ProfileButton" parent="InitialMenu/MainMenu" index="3"]
+[node name="ProfileButton" parent="UI/InitialMenu/MainMenu" index="4"]
 size_flags_vertical = 2
 
-[node name="FpsContainer" type="MarginContainer" parent="."]
+[node name="GameMenu" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/GameMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="BidLabel" type="Label" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "Bid: 200"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Trump: "
+
+[node name="TrumpColor" type="ColorRect" parent="UI/GameMenu/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+
+[node name="FpsContainer" type="MarginContainer" parent="UI"]
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 8
@@ -86,12 +152,12 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="FpsLabel" type="Label" parent="FpsContainer" node_paths=PackedStringArray("timer")]
+[node name="FpsLabel" type="Label" parent="UI/FpsContainer" node_paths=PackedStringArray("timer")]
 layout_mode = 2
 script = ExtResource("3_dvomx")
 timer = NodePath("Timer")
 
-[node name="Timer" type="Timer" parent="FpsContainer/FpsLabel"]
+[node name="Timer" type="Timer" parent="UI/FpsContainer/FpsLabel"]
 autostart = true
 
 [node name="Lobbies" type="Node" parent="."]
@@ -103,4 +169,4 @@ player_scene = ExtResource("6_8f3qx")
 _spawnable_scenes = PackedStringArray("res://main/game/lobby/Lobby.tscn")
 spawn_path = NodePath("..")
 
-[editable path="InitialMenu"]
+[editable path="UI/InitialMenu"]
