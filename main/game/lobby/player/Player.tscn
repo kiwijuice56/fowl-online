@@ -9,6 +9,9 @@ properties/0/sync = false
 properties/1/path = NodePath(".:icon")
 properties/1/spawn = true
 properties/1/sync = false
+properties/2/path = NodePath(".:id")
+properties/2/spawn = true
+properties/2/sync = false
 
 [node name="Player" type="Node"]
 script = ExtResource("1_ig4cf")

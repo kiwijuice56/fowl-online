@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://by5gc3r3jtvhh"]
+[gd_scene load_steps=3 format=3 uid="uid://by5gc3r3jtvhh"]
 
 [ext_resource type="Script" path="res://main/game/lobby/lobby.gd" id="1_25dbj"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7sw42"]
+properties/0/path = NodePath(".:code")
+properties/0/spawn = true
+properties/0/sync = false
 
 [node name="Lobby" type="Node"]
 script = ExtResource("1_25dbj")
@@ -8,3 +13,6 @@ script = ExtResource("1_25dbj")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://main/game/lobby/player/Player.tscn")
 spawn_path = NodePath("..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7sw42")

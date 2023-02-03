@@ -28,7 +28,7 @@ func _on_player_joined(code: String, id: int, username: String, icon: int) -> vo
 	for child in player_list.get_children():
 		child.queue_free()
 	for player in lobby_manager.get_node(code).get_children():
-		if player is MultiplayerSpawner:
+		if not player is Player:
 			continue
 		var new_panel: UserPanel = player_panel_scene.instantiate()
 		new_panel.initialize(player.username, player.icon, player.name == str(lobby_manager.local_id))
@@ -41,7 +41,7 @@ func _on_player_left(code: String, id: int) -> void:
 	for child in player_list.get_children():
 		child.queue_free()
 	for player in lobby_manager.get_node(code).get_children():
-		if player is MultiplayerSpawner:
+		if not player is Player:
 			continue
 		var new_panel: UserPanel = player_panel_scene.instantiate()
 		new_panel.initialize(player.username, player.icon, player.name == str(lobby_manager.local_id))

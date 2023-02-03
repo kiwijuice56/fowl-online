@@ -3,6 +3,7 @@ extends Node
 
 var username: String
 var icon: int
+var id: int
 
 var deck: Array
 var is_synced: bool = false:
@@ -22,4 +23,3 @@ func update_state(new_deck: Array) -> void:
 @rpc("call_local", "any_peer")
 func set_synced(val) -> void:
 	self.is_synced = val
-

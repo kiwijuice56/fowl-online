@@ -29,8 +29,11 @@ func change_bid(amount: int) -> void:
 		add_button.disabled = current_bid == 200
 
 func get_player_bid() -> int:
-	var tween: Tween = get_tree().create_tween().set_parallel(true)
+	last_bid = current_bid
+	
+	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate:a", 1.0, 0.1)
+	visible = true
 	
 	confirm_button.text = "Pass..."
 	
@@ -40,8 +43,11 @@ func get_player_bid() -> int:
 	
 	await confirm_button.pressed
 	
-	tween = get_tree().create_tween().set_parallel(true)
+	tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.1)
+	await tween.finished
+	visible = false
+	
 	return current_bid
 
 func update_bid(bid: int) -> void:

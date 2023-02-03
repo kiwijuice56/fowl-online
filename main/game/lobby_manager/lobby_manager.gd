@@ -58,6 +58,7 @@ func create_lobby(code: String) -> void:
 		return
 	
 	var new_lobby: Lobby = lobby_scene.instantiate()
+	new_lobby.code = code
 	new_lobby.name = code
 	add_child(new_lobby)
 	print(str(local_id) + ": Lobby " + code + " created")
@@ -81,6 +82,7 @@ func join_lobby(code: String, player: int, username: String, icon: int) -> void:
 		new_player.name = str(player)
 		new_player.icon = icon
 		new_player.username = username
+		new_player.id = player
 		get_node(code).add_child(new_player)
 		print(str(local_id) + ": Player " + str(player) + " joined lobby " + code)
 		# We need to update the UI for all clients only after the new player is added

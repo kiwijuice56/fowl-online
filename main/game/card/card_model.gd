@@ -15,12 +15,16 @@ func set_text(suit: Card.Suit, number: int) -> void:
 		2: col_text = "yellow"
 		3: col_text = "blue"
 		4: col_text = "green"
-	$HelpNumber1.text = str(number) + " " + col_text
-	$HelpNumber2.text = str(number) + " " + col_text
-	
-	$MainNumber.modulate = colors[suit - 1]
-	$HelpNumber1.modulate = colors[suit - 1]
-	$HelpNumber2.modulate = colors[suit - 1]
+	if suit == 0:
+		$HelpNumber1.text = "fowl"
+		$HelpNumber2.text = "fowl"
+	else:
+		$HelpNumber1.text = str(number) + " " + col_text
+		$HelpNumber2.text = str(number) + " " + col_text
+		
+		$MainNumber.modulate = colors[suit - 1]
+		$HelpNumber1.modulate = colors[suit - 1]
+		$HelpNumber2.modulate = colors[suit - 1]
 
 func select() -> void:
 	if selected:
