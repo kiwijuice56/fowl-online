@@ -10,6 +10,9 @@ extends Node
 # We need this reference to handle transitions when the game starts and ends
 @onready var initial_menu: InitialMenu = get_tree().get_root().get_node("Main/UI/InitialMenu")
 
+# We need this reference to handle transitions when the game starts and ends
+@onready var game_menu: GameMenu = get_tree().get_root().get_node("Main/UI/GameMenu")
+
 var local_player: Player 
 
 # Should store the dealer at index 0 and hold players in clockwise order
@@ -40,27 +43,40 @@ func start_game(code: String) -> void:
 	
 	if lobby_manager.local_id == get_multiplayer_authority():
 		await await_players_synced()
-		
-		deal_cards()
-		await await_players_synced()
-		
-		rpc("play_hand")
-		await await_players_synced()
+		game_loop()
 	else:
 		game_room.player = get_node(str(multiplayer.get_unique_id()))
 		local_player = game_room.player
 		await initial_menu.mini_lobby_menu.exit()
 		get_node(str(multiplayer.get_unique_id())).rpc("set_synced", true)
 
+func game_loop() -> void:
+	while true:
+		deal_cards()
+		await await_players_synced()
+		
+		rpc("play_hand")
+		await await_players_synced()
+
 @rpc("any_peer")
 func play_hand() -> void:
 	if lobby_manager.local_lobby_code != str(name):
 		return
 	
+	# TODO get the player bid and sync across all clients
+	
 	game_room.deck.create_stack()
 	await game_room.deck.deal_stack()
 	await game_room.deck.hold_hand()
 	local_player.is_synced = true
+
+@rpc
+func get_player_bid(id: int) -> void:
+	if lobby_manager.local_lobby_code != str(name):
+		return
+	
+	if id == lobby_manager.local_id:
+		current_bid = await game_menu.bid_menu.get_player_bid()
 
 func deal_cards() -> void:
 	var cards: Array = []
@@ -83,8 +99,5 @@ func await_players_synced() -> void:
 	for player in players:
 		if not player.is_synced:
 			await player.synced
-	desync_players()
-
-func desync_players() -> void:
 	for player in players:
 		player.rpc("set_synced", false)

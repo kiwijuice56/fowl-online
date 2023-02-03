@@ -12,6 +12,8 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="UserPanel" type="HBoxContainer" node_paths=PackedStringArray("name_label", "icon_rect")]
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_constants/separation = 16
 script = ExtResource("1_ojuba")
 name_label = NodePath("Label")
@@ -28,9 +30,10 @@ texture = ExtResource("2_8m3ro")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(76, 0)
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("3_qlwpb")
 theme_override_font_sizes/font_size = 20
-text = "jkljk (me)"
+text = "WWWW"
 vertical_alignment = 1

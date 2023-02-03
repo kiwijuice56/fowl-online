@@ -26,9 +26,9 @@ func exit() -> void:
 	toggle_input(false)
 	
 	if len(username.text) == 0:
-		selected_username = "player " + str(randi() % 1000)
+		selected_username = "p" + str(randi() % 100)
 	else:
-		selected_username = username.text
+		selected_username = username.text.substr(0, 4)
 	
 	var tween: Tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "modulate:a", 0.0, 0.1)
