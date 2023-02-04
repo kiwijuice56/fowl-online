@@ -8,4 +8,4 @@ func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 
 func _on_timer_timeout() -> void:
-	text = str(Engine.get_frames_per_second())
+	text = "fps: " + str(Engine.get_frames_per_second())

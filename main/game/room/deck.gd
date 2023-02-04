@@ -45,7 +45,7 @@ func deal_stack():
 	for i in range(56):
 		# Only the player cards should have text on them
 		if i % 4 == 0:
-			var card: Array = game_room.player.deck[len(decks[i % 4])]
+			var card: Array = game_room.lobby.decks[game_room.player_idx][len(decks[i % 4])]
 			cards[i].set_text(card[0], card[1])
 		
 		timer.start(deal_delay)

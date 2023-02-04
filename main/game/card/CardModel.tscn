@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://gkw0lidpla0c"]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="ArrayMesh" uid="uid://cohd2escc53ii" path="res://main/game/card/CardModel.obj" id="1_v6l54"]
 [ext_resource type="Texture2D" uid="uid://xhyogqen08s8" path="res://main/game/card/textures/card_back.png" id="2_es2ri"]
 [ext_resource type="Texture2D" uid="uid://caapi74vyhk42" path="res://main/game/card/textures/card_front.png" id="3_xj3ha"]
 [ext_resource type="Script" path="res://main/game/card/card_model.gd" id="4_icirg"]
-[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="4_qrkjh"]
+[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/theme/arlrdbd.ttf" id="4_qrkjh"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3dck"]
 render_priority = 1

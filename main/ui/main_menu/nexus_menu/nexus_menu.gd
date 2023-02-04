@@ -1,5 +1,5 @@
-class_name MainMenu
-extends Submenu
+class_name NexusMenu
+extends Menu
 
 @export var title: Control
 @export var join_button: Button

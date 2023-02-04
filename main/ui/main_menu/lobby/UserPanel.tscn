@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://csido4bg2qwk2"]
+[gd_scene load_steps=5 format=3 uid="uid://cgebjfbasv5nu"]
 
-[ext_resource type="Script" path="res://main/ui/initial_menu/lobby/user_panel.gd" id="1_ojuba"]
-[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="2_8m3ro"]
-[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="3_qlwpb"]
+[ext_resource type="Script" path="res://main/ui/main_menu/lobby/user_panel.gd" id="1_017pk"]
+[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="2_ehr51"]
+[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/theme/arlrdbd.ttf" id="3_guw65"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ac3yf"]
 bg_color = Color(0.384314, 0.552941, 0.788235, 0.545098)
@@ -12,10 +12,11 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="UserPanel" type="HBoxContainer" node_paths=PackedStringArray("name_label", "icon_rect")]
+custom_minimum_size = Vector2(148, 0)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/separation = 16
-script = ExtResource("1_ojuba")
+script = ExtResource("1_017pk")
 name_label = NodePath("Label")
 icon_rect = NodePath("PanelContainer/TextureRect")
 
@@ -26,14 +27,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_ac3yf")
 [node name="TextureRect" type="TextureRect" parent="PanelContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture = ExtResource("2_8m3ro")
+texture = ExtResource("2_ehr51")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="."]
 custom_minimum_size = Vector2(76, 0)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("3_qlwpb")
+theme_override_fonts/font = ExtResource("3_guw65")
 theme_override_font_sizes/font_size = 20
 text = "WWWW"
 vertical_alignment = 1

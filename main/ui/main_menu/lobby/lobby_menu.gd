@@ -1,5 +1,5 @@
 class_name LobbyMenu
-extends Submenu
+extends Menu
 
 @export var player_panel_scene: PackedScene
 @export var lobby_manager: LobbyManager
@@ -31,7 +31,7 @@ func _on_player_joined(code: String, id: int, username: String, icon: int) -> vo
 		if not player is Player:
 			continue
 		var new_panel: UserPanel = player_panel_scene.instantiate()
-		new_panel.initialize(player.username, player.icon, player.name == str(lobby_manager.local_id))
+		new_panel.initialize(player.username, player.icon)
 		player_list.add_child(new_panel)
 		new_panel.name = str(id)
 
@@ -44,7 +44,7 @@ func _on_player_left(code: String, id: int) -> void:
 		if not player is Player:
 			continue
 		var new_panel: UserPanel = player_panel_scene.instantiate()
-		new_panel.initialize(player.username, player.icon, player.name == str(lobby_manager.local_id))
+		new_panel.initialize(player.username, player.icon)
 		player_list.add_child(new_panel)
 		new_panel.name = str(id)
 

@@ -5,7 +5,8 @@ extends Node3D
 @export var deck: GameDeck
 @export var camera: PlayerCamera
 
-var player: Player
+var lobby: Lobby
+var player_idx: int
 
 func _ready() -> void:
 	camera.card_selected.connect(_on_card_selected)

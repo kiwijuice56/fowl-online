@@ -1,5 +1,5 @@
 class_name BidMenu
-extends Submenu
+extends Menu
 
 @export var bid_label: Label
 
@@ -16,7 +16,7 @@ func _ready() -> void:
 
 func change_bid(amount: int) -> void:
 	current_bid += amount
-	current_bid = min(200, max(last_bid, current_bid))
+	current_bid = min(200, max(max(70, last_bid), current_bid))
 	bid_label.text = str(current_bid)
 	
 	if current_bid == last_bid:
@@ -25,17 +25,19 @@ func change_bid(amount: int) -> void:
 		add_button.disabled = false
 	else:
 		confirm_button.text = "Bid it!"
-		subtract_button.disabled = false
+		subtract_button.disabled = current_bid == 70
 		add_button.disabled = current_bid == 200
 
-func get_player_bid() -> int:
-	last_bid = current_bid
-	
+func get_player_bid(bid: int) -> int:
+	last_bid = bid
+	current_bid = max(70, bid)
+	bid_label.text = str(current_bid)
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate:a", 1.0, 0.1)
 	visible = true
 	
-	confirm_button.text = "Pass..."
+	# All players get the chance to pass except the first bidder, which must at least bid 70
+	confirm_button.text = "Pass..." if last_bid != 65 else "Bid it!"
 	
 	subtract_button.disabled = true
 	add_button.disabled = false
@@ -49,7 +51,4 @@ func get_player_bid() -> int:
 	visible = false
 	
 	return current_bid
-
-func update_bid(bid: int) -> void:
-	current_bid = bid
-	bid_label.text = str(current_bid)
+	

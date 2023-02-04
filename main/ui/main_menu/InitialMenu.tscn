@@ -1,13 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccj70tabaprug"]
+[gd_scene load_steps=13 format=3 uid="uid://6wefijj51jly"]
 
-[ext_resource type="Theme" uid="uid://bhjf3u3dj1bgt" path="res://main/ui/main_theme.tres" id="1_dwebr"]
-[ext_resource type="Script" path="res://main/ui/initial_menu/initial_menu.gd" id="2_81ub6"]
-[ext_resource type="Script" path="res://main/ui/initial_menu/join_menu/join_menu.gd" id="3_sosfw"]
-[ext_resource type="Script" path="res://main/ui/initial_menu/lobby/lobby_menu.gd" id="4_da7kp"]
-[ext_resource type="PackedScene" uid="uid://csido4bg2qwk2" path="res://main/ui/initial_menu/lobby/UserPanel.tscn" id="5_bjjs7"]
-[ext_resource type="Script" path="res://main/ui/initial_menu/character_menu/character_menu.gd" id="6_tqxow"]
-[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="7_3nenu"]
-[ext_resource type="Script" path="res://main/ui/initial_menu/main_menu/main_menu.gd" id="8_kofmm"]
+[ext_resource type="Theme" uid="uid://bh7vxw1ci2lww" path="res://main/ui/theme/main_theme.tres" id="1_u61rs"]
+[ext_resource type="Script" path="res://main/ui/main_menu/initial_menu.gd" id="2_dxs23"]
+[ext_resource type="Script" path="res://main/ui/main_menu/join_menu/join_menu.gd" id="3_3gs3r"]
+[ext_resource type="Script" path="res://main/ui/main_menu/lobby/lobby_menu.gd" id="4_b1iyr"]
+[ext_resource type="PackedScene" uid="uid://cgebjfbasv5nu" path="res://main/ui/main_menu/lobby/UserPanel.tscn" id="5_jchd1"]
+[ext_resource type="Script" path="res://main/ui/main_menu/character_menu/character_menu.gd" id="6_s3xr4"]
+[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="7_8icet"]
+[ext_resource type="Script" path="res://main/ui/main_menu/nexus_menu/nexus_menu.gd" id="8_84tca"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0qmb"]
 
@@ -31,17 +31,17 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="InitialMenu" type="Control" node_paths=PackedStringArray("character_menu", "main_menu", "join_menu", "mini_lobby_menu")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("character_menu", "main_menu", "join_menu", "mini_lobby_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_dwebr")
-script = ExtResource("2_81ub6")
+theme = ExtResource("1_u61rs")
+script = ExtResource("2_dxs23")
 character_menu = NodePath("CharacterMenu")
-main_menu = NodePath("MainMenu")
+main_menu = NodePath("NexusMenu")
 join_menu = NodePath("JoinMenu")
 mini_lobby_menu = NodePath("LobbyMenu")
 
@@ -68,7 +68,7 @@ offset_bottom = 98.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("3_sosfw")
+script = ExtResource("3_3gs3r")
 go_button = NodePath("GoButton")
 quit_button = NodePath("QuitButton")
 code_line = NodePath("GameCode")
@@ -126,8 +126,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 8
-script = ExtResource("4_da7kp")
-player_panel_scene = ExtResource("5_bjjs7")
+script = ExtResource("4_b1iyr")
+player_panel_scene = ExtResource("5_jchd1")
 code_label = NodePath("GameCode")
 start_button = NodePath("StartButton")
 leave_button = NodePath("LeaveButton")
@@ -198,7 +198,7 @@ offset_bottom = 130.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 8
-script = ExtResource("6_tqxow")
+script = ExtResource("6_s3xr4")
 go_button = NodePath("GoButton")
 left_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Left")
 right_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/Right")
@@ -220,7 +220,7 @@ theme_override_constants/separation = 8
 [node name="Icon" type="TextureRect" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = ExtResource("7_3nenu")
+texture = ExtResource("7_8icet")
 expand_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer"]
@@ -257,7 +257,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Go"
 
-[node name="MainMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
+[node name="NexusMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
 visible = false
 layout_mode = 0
 anchor_left = 0.5
@@ -272,13 +272,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 8
-script = ExtResource("8_kofmm")
+script = ExtResource("8_84tca")
 title = NodePath("Label")
 join_button = NodePath("JoinButton")
 create_button = NodePath("CreateButton")
 profile_button = NodePath("ProfileButton")
 
-[node name="Label" type="Label" parent="MainMenu"]
+[node name="Label" type="Label" parent="NexusMenu"]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_colors/font_outline_color = Color(0.109804, 0.219608, 0.321569, 1)
@@ -288,26 +288,26 @@ text = "Fowl!"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Spacing" type="MarginContainer" parent="MainMenu"]
+[node name="Spacing" type="MarginContainer" parent="NexusMenu"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/margin_top = 150
 
-[node name="JoinButton" type="Button" parent="MainMenu"]
+[node name="JoinButton" type="Button" parent="NexusMenu"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Join a game"
 
-[node name="CreateButton" type="Button" parent="MainMenu"]
+[node name="CreateButton" type="Button" parent="NexusMenu"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Create a game"
 
-[node name="ProfileButton" type="Button" parent="MainMenu"]
+[node name="ProfileButton" type="Button" parent="NexusMenu"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 focus_mode = 0

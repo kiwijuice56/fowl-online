@@ -1,12 +1,12 @@
-class_name InitialMenu
-extends Control
+class_name MainMenu
+extends Menu
 # Manager for all of the sub-menus seen at the start of the game, such as the lobby
 # and character select screens
 
 # Rreferences to each submenu
 @export var lobby_manager: LobbyManager
 @export var character_menu: CharacterMenu
-@export var main_menu: MainMenu
+@export var main_menu: NexusMenu
 @export var join_menu: JoinMenu
 @export var mini_lobby_menu: LobbyMenu
 
@@ -88,3 +88,17 @@ func _on_create_selected() -> void:
 	
 	mini_lobby_menu.is_host = true
 	mini_lobby_menu.enter()
+
+func exit() -> void:
+	super.exit()
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.1)
+	await tween.finished
+	visible = false
+
+func enter() -> void:
+	super.enter()
+	visible = true
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, 0.1)
+	await tween.finished

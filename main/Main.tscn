@@ -1,28 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://e0jxc72lmu2o"]
+[gd_scene load_steps=9 format=3 uid="uid://dsrdb5x5wst11"]
 
-[ext_resource type="PackedScene" uid="uid://ccj70tabaprug" path="res://main/ui/initial_menu/InitialMenu.tscn" id="1_5gjkg"]
-[ext_resource type="PackedScene" uid="uid://hiol8cr4qys5" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
-[ext_resource type="Theme" uid="uid://bhjf3u3dj1bgt" path="res://main/ui/main_theme.tres" id="2_550ex"]
+[ext_resource type="PackedScene" uid="uid://6wefijj51jly" path="res://main/ui/main_menu/InitialMenu.tscn" id="1_5gjkg"]
+[ext_resource type="PackedScene" uid="uid://bdlkibjajsmej" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="Theme" uid="uid://bh7vxw1ci2lww" path="res://main/ui/theme/main_theme.tres" id="2_550ex"]
+[ext_resource type="PackedScene" uid="uid://c5f1tnwwspmwa" path="res://main/ui/game_menu/GameMenu.tscn" id="3_a44c0"]
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
-[ext_resource type="FontFile" uid="uid://cdgc2e7qo20qw" path="res://main/ui/arlrdbd.ttf" id="4_ca8vy"]
 [ext_resource type="Script" path="res://main/game/lobby_manager/lobby_manager.gd" id="4_p3qgt"]
-[ext_resource type="Script" path="res://main/game_menu.gd" id="5_cesxa"]
 [ext_resource type="PackedScene" uid="uid://by5gc3r3jtvhh" path="res://main/game/lobby/Lobby.tscn" id="5_qhve4"]
-[ext_resource type="Script" path="res://main/ui/game_menu/bid_menu.gd" id="6_2htfb"]
 [ext_resource type="PackedScene" uid="uid://bc2ryj1yvja3j" path="res://main/game/lobby/player/Player.tscn" id="6_8f3qx"]
-[ext_resource type="PackedScene" uid="uid://csido4bg2qwk2" path="res://main/ui/initial_menu/lobby/UserPanel.tscn" id="6_gb08v"]
-[ext_resource type="Texture2D" uid="uid://dy6a7voe7vla4" path="res://main/ui/game_menu/card_icon.png" id="7_cjs0y"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnb1v"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.168627, 0.168627, 0.168627, 0.709804)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [node name="Main" type="Node"]
 
@@ -35,11 +20,11 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
-stretch_shrink = 3
+stretch_shrink = 4
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
-size = Vector2i(266, 200)
+size = Vector2i(200, 150)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
@@ -53,321 +38,37 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_550ex")
 
-[node name="GameMenu" type="Control" parent="UI" node_paths=PackedStringArray("bid_menu")]
+[node name="GameMenu" parent="UI" instance=ExtResource("3_a44c0")]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_cesxa")
-bid_menu = NodePath("BidMenu")
 
-[node name="InfoOverlay" type="MarginContainer" parent="UI/GameMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay"]
-layout_mode = 2
-
-[node name="TopPanel" type="PanelContainer" parent="UI/GameMenu/InfoOverlay/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel"]
-layout_mode = 2
-theme_override_constants/separation = 48
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer"]
-layout_mode = 2
-
-[node name="Header" type="Label" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Bidder"
-horizontal_alignment = 1
-
-[node name="UserPanel" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/VBoxContainer" instance=ExtResource("6_gb08v")]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer"]
-layout_mode = 2
-
-[node name="Header" type="Label" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Bid"
-horizontal_alignment = 1
-
-[node name="BidLabel" type="Label" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
-theme_override_font_sizes/font_size = 20
-text = "50"
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Header" type="Label" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Trump"
-
-[node name="TrumpIcon" type="TextureRect" parent="UI/GameMenu/InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/VBoxContainer3"]
-modulate = Color(1, 0, 0, 1)
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-texture = ExtResource("7_cjs0y")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="UI/GameMenu/InfoOverlay/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 20
-text = "Eric's turn!"
-horizontal_alignment = 1
-
-[node name="RightPanel" type="PanelContainer" parent="UI/GameMenu/InfoOverlay"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/RightPanel"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="ContainerA" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer"]
-layout_mode = 2
-
-[node name="ScoreLabelA" type="Label" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer/ContainerA"]
-layout_mode = 2
-text = "Score: 100"
-
-[node name="UserPanel" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer/ContainerA" instance=ExtResource("6_gb08v")]
-layout_mode = 2
-
-[node name="UserPanel2" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer/ContainerA" instance=ExtResource("6_gb08v")]
-layout_mode = 2
-
-[node name="TeamB" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer"]
-layout_mode = 2
-
-[node name="ScoreLabelB" type="Label" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer/TeamB"]
-layout_mode = 2
-text = "Score: 50"
-
-[node name="UserPanel3" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer/TeamB" instance=ExtResource("6_gb08v")]
-layout_mode = 2
-
-[node name="UserPanel4" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer/TeamB" instance=ExtResource("6_gb08v")]
-layout_mode = 2
-
-[node name="HideLabel" type="Label" parent="UI/GameMenu/InfoOverlay/RightPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 0.466667)
-text = "(press h to hide)"
-horizontal_alignment = 1
-
-[node name="ChatContainer" type="PanelContainer" parent="UI/GameMenu/InfoOverlay"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/GameMenu/InfoOverlay/ChatContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Text" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Match started!"
-
-[node name="Text2" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text3" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text4" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text5" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text6" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text7" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text8" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text9" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text10" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="Text11" type="Label" parent="UI/GameMenu/InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "> Eric bid 100."
-
-[node name="BidMenu" type="Control" parent="UI/GameMenu" node_paths=PackedStringArray("bid_label", "add_button", "subtract_button", "confirm_button")]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = -32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("6_2htfb")
-bid_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/BidLabel")
-add_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Add")
-subtract_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Subtract")
-confirm_button = NodePath("MarginContainer/VBoxContainer/ConfirmButton")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/GameMenu/BidMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -131.5
-offset_top = -82.0
-offset_right = 131.5
-offset_bottom = 82.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/BidMenu/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 8
-
-[node name="Header" type="Label" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
-theme_override_constants/outline_size = 8
-theme_override_font_sizes/font_size = 20
-text = "Your bid"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 16
-
-[node name="BidLabel" type="Label" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(114, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
-theme_override_constants/outline_size = 16
-theme_override_font_sizes/font_size = 64
-text = "200"
-horizontal_alignment = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-
-[node name="Add" type="Button" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme_override_font_sizes/font_size = 32
-text = "▲"
-
-[node name="Subtract" type="Button" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "▼"
-
-[node name="ConfirmButton" type="Button" parent="UI/GameMenu/BidMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Bid it!"
-
-[node name="InitialMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
+[node name="MainMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
 layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 lobby_manager = NodePath("../../Lobbies")
 
-[node name="ColorRect" parent="UI/InitialMenu" index="0"]
+[node name="ColorRect" parent="UI/MainMenu" index="0"]
+visible = true
 layout_mode = 1
 anchors_preset = 15
 color = Color(0.0627451, 0.317647, 0.509804, 0.376471)
 
-[node name="JoinMenu" parent="UI/InitialMenu" index="1"]
+[node name="JoinMenu" parent="UI/MainMenu" index="1"]
 layout_mode = 1
 anchors_preset = 8
 offset_top = -199.0
 offset_bottom = 199.0
 
-[node name="LobbyMenu" parent="UI/InitialMenu" index="2" node_paths=PackedStringArray("lobby_manager")]
+[node name="LobbyMenu" parent="UI/MainMenu" index="2" node_paths=PackedStringArray("lobby_manager")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 offset_top = -158.0
 offset_bottom = 158.0
 lobby_manager = NodePath("../../../Lobbies")
 
-[node name="CharacterMenu" parent="UI/InitialMenu" index="3"]
+[node name="CharacterMenu" parent="UI/MainMenu" index="3"]
 visible = true
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 1
@@ -377,31 +78,14 @@ offset_top = -174.5
 offset_right = 144.0
 offset_bottom = 174.5
 
-[node name="Icon" parent="UI/InitialMenu/CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer" index="0"]
+[node name="Icon" parent="UI/MainMenu/CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer" index="0"]
 size_flags_horizontal = 4
 
-[node name="MainMenu" parent="UI/InitialMenu" index="4"]
-layout_mode = 1
-anchors_preset = 8
-offset_top = -283.0
-offset_bottom = 283.0
+[node name="NexusMenu" parent="UI/MainMenu" index="4"]
+visible = true
 
-[node name="Label" parent="UI/InitialMenu/MainMenu" index="0"]
-theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
-theme_override_fonts/font = ExtResource("4_ca8vy")
-theme_override_font_sizes/font_size = 100
-
-[node name="Spacing" parent="UI/InitialMenu/MainMenu" index="1"]
-theme_override_constants/margin_top = 48
-
-[node name="JoinButton" parent="UI/InitialMenu/MainMenu" index="2"]
-size_flags_vertical = 0
-
-[node name="CreateButton" parent="UI/InitialMenu/MainMenu" index="3"]
-size_flags_vertical = 4
-
-[node name="ProfileButton" parent="UI/InitialMenu/MainMenu" index="4"]
-size_flags_vertical = 2
+[node name="Spacing" parent="UI/MainMenu/NexusMenu" index="1"]
+theme_override_constants/margin_top = 64
 
 [node name="FpsContainer" type="MarginContainer" parent="UI"]
 layout_mode = 0
@@ -428,4 +112,5 @@ player_scene = ExtResource("6_8f3qx")
 _spawnable_scenes = PackedStringArray("res://main/game/lobby/Lobby.tscn")
 spawn_path = NodePath("..")
 
-[editable path="UI/InitialMenu"]
+[editable path="UI/GameMenu"]
+[editable path="UI/MainMenu"]

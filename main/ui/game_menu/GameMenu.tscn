@@ -1,0 +1,320 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5f1tnwwspmwa"]
+
+[ext_resource type="Script" path="res://main/ui/game_menu/game_menu.gd" id="1_rlvnq"]
+[ext_resource type="PackedScene" uid="uid://cgebjfbasv5nu" path="res://main/ui/main_menu/lobby/UserPanel.tscn" id="2_82hko"]
+[ext_resource type="Script" path="res://main/ui/game_menu/info_overlay.gd" id="2_pdwke"]
+[ext_resource type="Texture2D" uid="uid://dy6a7voe7vla4" path="res://main/ui/game_menu/card_icon.png" id="3_bp2kf"]
+[ext_resource type="Script" path="res://main/ui/game_menu/bid_menu.gd" id="4_pxbxi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnb1v"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.168627, 0.168627, 0.168627, 0.709804)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="GameMenu" type="Control" node_paths=PackedStringArray("bid_menu", "info_overlay")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rlvnq")
+bid_menu = NodePath("BidMenu")
+info_overlay = NodePath("InfoOverlay")
+
+[node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "bidder_container", "bid_container", "trump_container", "container_a", "container_b")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("2_pdwke")
+player_panel_scene = ExtResource("2_82hko")
+scoreboard = NodePath("RightPanel")
+bidder_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/BidderContainer")
+bid_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/BidContainer")
+trump_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/TrumpContainer")
+container_a = NodePath("RightPanel/VBoxContainer/ContainerA")
+container_b = NodePath("RightPanel/VBoxContainer/ContainerB")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoOverlay"]
+layout_mode = 2
+
+[node name="TopPanel" type="PanelContainer" parent="InfoOverlay/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InfoOverlay/VBoxContainer/TopPanel"]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="BidderContainer" type="VBoxContainer" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer"]
+custom_minimum_size = Vector2(143, 0)
+layout_mode = 2
+
+[node name="Header" type="Label" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/BidderContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bidder"
+horizontal_alignment = 1
+
+[node name="UserPanel" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/BidderContainer" instance=ExtResource("2_82hko")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BidContainer" type="VBoxContainer" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/BidContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bid"
+horizontal_alignment = 1
+
+[node name="BidLabel" type="Label" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/BidContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_font_sizes/font_size = 20
+text = "200"
+
+[node name="TrumpContainer" type="VBoxContainer" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Header" type="Label" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/TrumpContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Trump"
+
+[node name="TrumpIcon" type="TextureRect" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/TrumpContainer"]
+modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("3_bp2kf")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="InfoOverlay/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RightPanel" type="PanelContainer" parent="InfoOverlay"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoOverlay/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ContainerA" type="VBoxContainer" parent="InfoOverlay/RightPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreLabelA" type="Label" parent="InfoOverlay/RightPanel/VBoxContainer/ContainerA"]
+layout_mode = 2
+text = "Score: 0"
+
+[node name="UserPanel" parent="InfoOverlay/RightPanel/VBoxContainer/ContainerA" instance=ExtResource("2_82hko")]
+layout_mode = 2
+
+[node name="UserPanel2" parent="InfoOverlay/RightPanel/VBoxContainer/ContainerA" instance=ExtResource("2_82hko")]
+layout_mode = 2
+
+[node name="ContainerB" type="VBoxContainer" parent="InfoOverlay/RightPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreLabelB" type="Label" parent="InfoOverlay/RightPanel/VBoxContainer/ContainerB"]
+layout_mode = 2
+text = "Score: 0"
+
+[node name="UserPanel3" parent="InfoOverlay/RightPanel/VBoxContainer/ContainerB" instance=ExtResource("2_82hko")]
+layout_mode = 2
+
+[node name="UserPanel4" parent="InfoOverlay/RightPanel/VBoxContainer/ContainerB" instance=ExtResource("2_82hko")]
+layout_mode = 2
+
+[node name="HideLabel" type="Label" parent="InfoOverlay/RightPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.466667)
+text = "(press h to hide)"
+horizontal_alignment = 1
+
+[node name="ChatContainer" type="PanelContainer" parent="InfoOverlay"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_hnb1v")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="InfoOverlay/ChatContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoOverlay/ChatContainer/ScrollContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Text" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Match started!"
+
+[node name="Text2" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text3" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text4" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text5" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text6" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text7" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text8" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text9" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text10" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="Text11" type="Label" parent="InfoOverlay/ChatContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "> Eric bid 100."
+
+[node name="BidMenu" type="Control" parent="." node_paths=PackedStringArray("bid_label", "add_button", "subtract_button", "confirm_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_pxbxi")
+bid_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer/BidLabel")
+add_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Add")
+subtract_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Subtract")
+confirm_button = NodePath("MarginContainer/VBoxContainer/ConfirmButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="BidMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.5
+offset_top = -82.0
+offset_right = 131.5
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BidMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 8
+
+[node name="Header" type="Label" parent="BidMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 20
+text = "Your bid"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BidMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="BidLabel" type="Label" parent="BidMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(114, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_outline_color = Color(0.0941176, 0.443137, 0.658824, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 64
+text = "200"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BidMenu/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="Add" type="Button" parent="BidMenu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "▲"
+
+[node name="Subtract" type="Button" parent="BidMenu/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+disabled = true
+text = "▼"
+
+[node name="ConfirmButton" type="Button" parent="BidMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Bid it!"

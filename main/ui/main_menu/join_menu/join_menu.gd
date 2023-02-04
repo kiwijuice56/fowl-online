@@ -1,5 +1,5 @@
 class_name JoinMenu
-extends Submenu
+extends Menu
 
 @export var go_button: Button
 @export var quit_button: Button

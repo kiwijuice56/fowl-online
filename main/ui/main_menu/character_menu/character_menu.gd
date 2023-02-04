@@ -1,5 +1,5 @@
 class_name CharacterMenu
-extends Submenu
+extends Menu
 
 @export var go_button: Button
 @export var left_button: Button
