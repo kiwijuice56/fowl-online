@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8a5ku7vaec2u"
-path.s3tc="res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.s3tc.ctex"
-path.etc2="res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.etc2.ctex"
+uid="uid://c781cvs4e7w6j"
+path.s3tc="res://.godot/imported/profile6.png-22d1c111c207ea518e0b4672f3d34667.s3tc.ctex"
+path.etc2="res://.godot/imported/profile6.png-22d1c111c207ea518e0b4672f3d34667.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://main/ui/profile_images/profile2.png"
-dest_files=["res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.s3tc.ctex", "res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.etc2.ctex"]
+source_file="res://main/ui/profile_images/profile6.png"
+dest_files=["res://.godot/imported/profile6.png-22d1c111c207ea518e0b4672f3d34667.s3tc.ctex", "res://.godot/imported/profile6.png-22d1c111c207ea518e0b4672f3d34667.etc2.ctex"]
 
 [params]
 

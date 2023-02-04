@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8a5ku7vaec2u"
-path.s3tc="res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.s3tc.ctex"
-path.etc2="res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.etc2.ctex"
+uid="uid://dlo5s6nnejr6t"
+path.s3tc="res://.godot/imported/bubble_2.png-1a3c75c890689e6f6fa09cbc8d469589.s3tc.ctex"
+path.etc2="res://.godot/imported/bubble_2.png-1a3c75c890689e6f6fa09cbc8d469589.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc", "etc2"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://main/ui/profile_images/profile2.png"
-dest_files=["res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.s3tc.ctex", "res://.godot/imported/profile2.png-e5cf7b1d3f22534ea722a140c0541069.etc2.ctex"]
+source_file="res://main/game/player_sprite/thought_bubble/bubble_2.png"
+dest_files=["res://.godot/imported/bubble_2.png-1a3c75c890689e6f6fa09cbc8d469589.s3tc.ctex", "res://.godot/imported/bubble_2.png-1a3c75c890689e6f6fa09cbc8d469589.etc2.ctex"]
 
 [params]
 

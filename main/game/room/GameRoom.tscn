@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bdlkibjajsmej"]
+[gd_scene load_steps=22 format=3 uid="uid://bdlkibjajsmej"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://main/game/room/deck.gd" id="4_nadv1"]
 [ext_resource type="Script" path="res://main/game/room/random_sound_spawner.gd" id="4_qibf6"]
 [ext_resource type="AudioStream" uid="uid://x2omfkrnbwb0" path="res://main/game/room/sounds/card_deal_1.wav" id="5_emmj7"]
+[ext_resource type="PackedScene" uid="uid://cnqljd1tuy57" path="res://main/game/player_sprite/PlayerSprite.tscn" id="6_b2dqn"]
 [ext_resource type="AudioStream" uid="uid://dblbwo1dh4xmp" path="res://main/game/room/sounds/card_deal_3.wav" id="7_q2g0r"]
 [ext_resource type="AudioStream" uid="uid://chapd4iye23r8" path="res://main/game/room/sounds/card_deal_4.wav" id="8_xlafy"]
 [ext_resource type="AudioStream" uid="uid://biaoj6tsyvug7" path="res://main/game/room/sounds/card_deal_5.wav" id="9_afdb7"]
@@ -14,28 +15,28 @@
 [ext_resource type="Script" path="res://main/game/player_camera/player_camera.gd" id="11_aaxfr"]
 [ext_resource type="Texture2D" uid="uid://chhwmypr1pku6" path="res://main/game/player_camera/crosshair.png" id="13_sikfx"]
 
-[sub_resource type="Animation" id="Animation_6ussn"]
+[sub_resource type="Animation" id="Animation_31df1"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body3:rotation")
+tracks/0/path = NodePath("Fan/Body3:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.0872666, 0)]
+"values": [Vector3(0, 0.0872665, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_k1q14"]
+[sub_resource type="Animation" id="Animation_wy4ou"]
 resource_name = "spin"
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body3:rotation")
+tracks/0/path = NodePath("Fan/Body3:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -45,10 +46,10 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xvsr4"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0o78c"]
 _data = {
-"RESET": SubResource("Animation_6ussn"),
-"spin": SubResource("Animation_k1q14")
+"RESET": SubResource("Animation_31df1"),
+"spin": SubResource("Animation_wy4ou")
 }
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
@@ -86,8 +87,17 @@ camera = NodePath("PlayerHead/PlayerCamera")
 [node name="Scenery" parent="." instance=ExtResource("2_5ahit")]
 transform = Transform3D(-0.2, 0, -3.01992e-08, 0, 0.2, 0, 3.01992e-08, 0, -0.2, 0, 0.382299, 0.351153)
 
-[node name="Camera" parent="Scenery" index="9"]
+[node name="Camera" parent="Scenery" index="10"]
 current = true
+
+[node name="CardboardBox1" parent="Scenery" index="38"]
+transform = Transform3D(-0.715082, -0.00337745, 0.68206, -0.00598393, 0.98819, -0.00138027, -0.682042, -0.00512887, -0.715088, -8.34085, 0.828196, 7.82297)
+
+[node name="CardboardBox2" parent="Scenery" index="39"]
+transform = Transform3D(-0.168046, -0.00233861, 0.663293, -0.00401691, 0.68424, 0.00139478, -0.663285, -0.00355132, -0.168056, -6.00905, 0.604492, 7.87872)
+
+[node name="Doll1" parent="Scenery" index="46"]
+transform = Transform3D(-0.500932, 0.246898, 0.00190877, -0.00299364, -0.0017563, -0.558465, -0.246887, -0.500933, 0.0028988, -8.34368, 2.06984, 7.08868)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Scenery"]
 transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, -3.72529e-09, 3.89637, 0.062)
@@ -131,11 +141,11 @@ transform = Transform3D(0.243228, 0, 0.0212797, 0, 0.244157, 0, -0.0212797, 0, 0
 [node name="Blade2" parent="Scenery/Fan/Body3" index="2"]
 transform = Transform3D(-0.981936, 0, -1.73015, 0, 0.789162, 0, 2.10577, 0, -0.806779, -3.63258, -0.126627, 7.79009)
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="Scenery/Fan"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Scenery"]
 autoplay = "spin"
 speed_scale = 0.3
 libraries = {
-"": SubResource("AnimationLibrary_xvsr4")
+"": SubResource("AnimationLibrary_0o78c")
 }
 
 [node name="GameDeck" type="Node3D" parent="." node_paths=PackedStringArray("sounds", "timer")]
@@ -163,15 +173,29 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.4761
 transform = Transform3D(-1, 8.21506e-08, -2.99004e-08, 0, -0.34202, -0.939693, -8.74228e-08, -0.939693, 0.34202, 0, 1.28984, 1.17374)
 
 [node name="Hand2" type="Marker3D" parent="GameDeck"]
-transform = Transform3D(0.625687, 0.674201, -0.392388, -0.00436332, -0.499981, -0.866025, -0.780063, 0.543572, -0.309889, -0.429119, 1.34461, 0.388416)
+transform = Transform3D(0.403718, 0.791437, -0.458953, -0.00436335, -0.499981, -0.866025, -0.914874, 0.351632, -0.198397, -0.673673, 1.28696, 0.403515)
 
 [node name="Hand3" type="Marker3D" parent="GameDeck"]
-transform = Transform3D(1, 0, 0, 0, -0.34202, -0.939693, 0, 0.939693, -0.34202, -0.00123369, 1.31587, -0.166175)
+transform = Transform3D(1, 0, 0, 0, -0.34202, -0.939693, 0, 0.939693, -0.34202, 0.0234097, 1.20629, -0.295712)
 
 [node name="Hand4" type="Marker3D" parent="GameDeck"]
-transform = Transform3D(0.690882, -0.626107, 0.361483, -4.37114e-08, -0.499999, -0.866025, 0.722967, 0.598321, -0.345441, 0.470638, 1.34461, 0.348245)
+transform = Transform3D(0.430637, -0.781609, 0.451262, -2.31215e-08, -0.499999, -0.866025, 0.902525, 0.372942, -0.215319, 0.747099, 1.25683, 0.394074)
 
 [node name="Timer" type="Timer" parent="GameDeck"]
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="PlayerSprite1" parent="Players" instance=ExtResource("6_b2dqn")]
+transform = Transform3D(0.347296, 0, 0.937756, 0, 1, 0, -0.937756, 0, 0.347296, -2.70961, 1.26162, 0.397608)
+
+[node name="PlayerSprite2" parent="Players" instance=ExtResource("6_b2dqn")]
+transform = Transform3D(0.347296, 0, 0.937756, 0, 1, 0, -0.937756, 0, 0.347296, -0.696217, 1.26162, 0.397608)
+
+[node name="PlayerSprite3" parent="Players" instance=ExtResource("6_b2dqn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0065, 1.24033, -0.366221)
+
+[node name="PlayerSprite4" parent="Players" instance=ExtResource("6_b2dqn")]
+transform = Transform3D(0.305862, 0, -0.952076, 0, 1, 0, 0.952076, 0, 0.305862, 0.762086, 1.26162, 0.397608)
 
 [node name="Sounds" type="Node" parent="."]
 

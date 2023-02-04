@@ -20,11 +20,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
-stretch_shrink = 4
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
-size = Vector2i(200, 150)
+size = Vector2i(800, 600)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
@@ -41,6 +40,9 @@ theme = ExtResource("2_550ex")
 [node name="GameMenu" parent="UI" instance=ExtResource("3_a44c0")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
+
+[node name="BidMenu" parent="UI/GameMenu" index="1"]
+visible = false
 
 [node name="MainMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
 layout_mode = 1

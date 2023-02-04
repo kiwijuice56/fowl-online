@@ -1,3 +1,4 @@
 .godot/
 assets/*
 run-server.bat
+*.png~

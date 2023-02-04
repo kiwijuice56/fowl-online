@@ -15,6 +15,8 @@ signal synced
 
 ## Game state variables
 
+var current_player: int = -1
+
 # Should store the dealer at index 0 and hold players in clockwise order
 var players: Array
 var decks: Array
@@ -49,8 +51,9 @@ func start_game(code: String) -> void:
 		game_loop()
 	else:
 		local_player = get_node(str(multiplayer.get_unique_id()))
-		game_room.player_idx = local_player.get_index() - 2
 		game_room.lobby = self
+		game_room.player_idx = local_player.get_index() - 2
+		game_room.initialize_players(players)
 		
 		await main_menu.mini_lobby_menu.exit()
 		await main_menu.exit()
@@ -69,37 +72,34 @@ func play_hand() -> void:
 	
 	current_bid = 65
 	bid_winner = 0
-	var bidder: int = 0
-	
-	rpc("update_state", {"bid": 65, "bid_winner": -1})
-	await sync_players(true)
-	
-	while current_bid < 200 and len(passed_players) < 3:
-		if not bidder in passed_players:
-			var previous_bid: int = current_bid
-			rpc("puppet_get_bid", players[bidder].id)
-			print(code + ": Getting bid from " + players[bidder].username)
-			await sync_players(true)
-			print(code + ": Bid gotten from " + players[bidder].username)
-			
-			if current_bid == previous_bid:
-				passed_players[bidder] = true
-			else:
-				bid_winner = bidder
-			
-			rpc("update_state", {"bid": current_bid, "bid_winner": bid_winner})
-			await sync_players(true)
-			# TODO: Play animations of the current bid
-		bidder = (bidder + 1) % len(players)
-		print(bidder, " ", current_bid)
-	# TODO: Play animations for the bid winner, including giving the bid data again
-	
+	current_player = 0
 	initialize_decks()
-	rpc("update_state", {"decks": decks})
+	rpc("update_state", {"bid": 65, "bid_winner": -1, "decks": decks})
 	await sync_players(true)
 	
 	rpc("puppet_take_deck")
 	await sync_players(false)
+	
+	while current_bid < 200 and len(passed_players) < 3:
+		if not current_player in passed_players:
+			rpc("update_state", {"current_player": current_player})
+			await sync_players(true)
+			
+			var previous_bid: int = current_bid
+			rpc("puppet_get_bid", players[current_player].id)
+			await sync_players(true)
+			
+			if current_bid == previous_bid:
+				passed_players[current_player] = true
+			else:
+				bid_winner = current_player
+			
+			rpc("update_state", {"bid": current_bid, "bid_winner": bid_winner})
+			await sync_players(true)
+			# TODO: Play animations of the current bid
+		current_player = (current_player + 1) % len(players)
+		print(current_player, " ", current_bid)
+	
 
 func initialize_decks() -> void:
 	var cards: Array = []
@@ -147,7 +147,12 @@ func update_state(info: Dictionary) -> void:
 	if multiplayer.get_unique_id() != get_multiplayer_authority():
 		if "bid_winner" in info: 
 			game_menu.info_overlay.set_bid_information(players[info.bid_winner] if info.bid_winner != -1 else null, info.bid)
-		# other ui things, here
+		if "current_player" in info:
+			if current_player != -1:
+				game_room.player_sprites[current_player].set_current_player(false)
+			current_player = info.current_player
+			game_room.player_sprites[current_player].set_current_player(true)
+		# other ui things here
 
 @rpc("any_peer", "call_local")
 func increment_synced() -> void:

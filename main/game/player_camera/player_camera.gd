@@ -32,12 +32,12 @@ func _on_area_exited(area: Area3D) -> void:
 		selected_card.get_parent().deselect()
 		selected_card = null
 
-func lock_movement() -> void:
+func unlock_movement() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(cursor, "modulate:a", 0.5, 0.1)
 
-func unlock_movement() -> void:
+func lock_movement() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(cursor, "modulate:a", 0.0, 0.1)

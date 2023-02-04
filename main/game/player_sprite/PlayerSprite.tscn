@@ -1,0 +1,285 @@
+[gd_scene load_steps=21 format=3 uid="uid://cnqljd1tuy57"]
+
+[ext_resource type="Script" path="res://main/game/player_sprite/player_sprite.gd" id="2_6c7kx"]
+[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="2_ppoup"]
+[ext_resource type="Texture2D" uid="uid://vkeia5sjrbvc" path="res://main/game/player_sprite/thought_bubble/bubble_3.png" id="3_skjfw"]
+[ext_resource type="Texture2D" uid="uid://ex8iu2iuu1r2" path="res://main/game/player_sprite/thought_bubble/bubble_1.png" id="4_10a3i"]
+[ext_resource type="Texture2D" uid="uid://dlo5s6nnejr6t" path="res://main/game/player_sprite/thought_bubble/bubble_2.png" id="5_jxv13"]
+[ext_resource type="Texture2D" uid="uid://cjif6yqoegl8u" path="res://main/game/player_sprite/thought_bubble/bubble_4.png" id="6_eprsy"]
+[ext_resource type="Texture2D" uid="uid://c0jtunonq7r1b" path="res://main/game/player_sprite/thought_bubble/bubble_5.png" id="7_qhyaa"]
+[ext_resource type="Texture2D" uid="uid://bep2axpj7sfgv" path="res://main/game/player_sprite/thought_bubble/bubble_6.png" id="8_a71yy"]
+
+[sub_resource type="Animation" id="Animation_3062s"]
+resource_name = "start_thought"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_10a3i"), ExtResource("5_jxv13"), ExtResource("3_skjfw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_d0kry"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_skjfw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6v1up"]
+resource_name = "thought_loop"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_skjfw"), ExtResource("6_eprsy"), ExtResource("7_qhyaa"), ExtResource("8_a71yy")]
+}
+
+[sub_resource type="Animation" id="Animation_5ubx0"]
+resource_name = "end_thought"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_skjfw"), ExtResource("5_jxv13"), ExtResource("4_10a3i")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43fdj"]
+_data = {
+"RESET": SubResource("Animation_d0kry"),
+"end_thought": SubResource("Animation_5ubx0"),
+"start_thought": SubResource("Animation_3062s"),
+"thought_loop": SubResource("Animation_6v1up")
+}
+
+[sub_resource type="Animation" id="Animation_bdxwi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_qwhqq"]
+resource_name = "idle"
+length = 2.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1), Vector3(0.102, 0.105, 0.1), Vector3(0.1, 0.1, 0.1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_la0ib"]
+_data = {
+"RESET": SubResource("Animation_bdxwi"),
+"idle": SubResource("Animation_qwhqq")
+}
+
+[sub_resource type="Animation" id="Animation_16lbi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Icon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6lwxy"]
+resource_name = "cheat"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.65, 0.9, 1.2, 1.45, 1.85, 2.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.610865, 0), Vector3(0, -0.610865, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0.610865, 0), Vector3(0, 0.610865, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.7, 1.2, 1.45, 1.7, 1.85, 2.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1, 1.1, 1), Vector3(1, 1.1, 1), Vector3(1, 1, 1), Vector3(1, 1, 1), Vector3(1, 1.1, 1), Vector3(1, 1.1, 1), Vector3(1, 1, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aetmp"]
+resource_name = "hop"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.005, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0), Vector3(0, -0.005, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ih7qs"]
+_data = {
+"RESET": SubResource("Animation_16lbi"),
+"cheat": SubResource("Animation_6lwxy"),
+"hop": SubResource("Animation_aetmp")
+}
+
+[node name="PlayerSprite" type="Sprite3D" node_paths=PackedStringArray("icon", "gag_timer", "gag_anim", "thought_anim")]
+visible = false
+script = ExtResource("2_6c7kx")
+icon = NodePath("Icon")
+gag_timer = NodePath("IdleGagTimer")
+gag_anim = NodePath("GagAnimationPlayer")
+thought_anim = NodePath("ThoughtBubble/AnimationPlayer")
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform3D(0.100437, 0, 0, 0, 0.101093, 0, 0, 0, 0.1, 0, 0, 0)
+texture_filter = 0
+texture = ExtResource("2_ppoup")
+
+[node name="ThoughtBubble" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.177979, 0.291456, 0.106496)
+visible = false
+billboard = 2
+texture = ExtResource("3_skjfw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ThoughtBubble"]
+autoplay = "RESET"
+libraries = {
+"": SubResource("AnimationLibrary_43fdj")
+}
+
+[node name="IdleAnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_la0ib")
+}
+
+[node name="GagAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ih7qs")
+}
+
+[node name="IdleGagTimer" type="Timer" parent="."]
+one_shot = true

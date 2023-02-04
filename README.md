@@ -6,7 +6,7 @@ Fowl is an online recreation of the classic card game, Rook, using Godot 4. The 
 
 2. If you plan to invite your friends, click "Create Game". A three-word code will be automatically generated. Copy this code and send it to your friends! Instruct them to click "Join Game" from the main menu, paste the code into the box, and press "Go". When all four players are in the game, the host must press "Start Game".
 
-## Overview
+## Overview and rules
 The goal of Fowl is to be the first team to reach 500 points winning tricks and bidding (see definitions below). Before the game starts, four players are split into two teams. 
 
 The gameplay of Fowl is organized into rounds consisting of a bidding and playing stage. Points are earned by collecting counters within tricks in the playing stage.
