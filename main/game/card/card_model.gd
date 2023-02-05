@@ -11,10 +11,10 @@ func set_text(suit: Card.Suit, number: int) -> void:
 	
 	var col_text: String
 	match suit:
-		1: col_text = "red"
+		1: col_text = "pink"
 		2: col_text = "yellow"
 		3: col_text = "blue"
-		4: col_text = "green"
+		4: col_text = "violet"
 	if suit == 0:
 		$HelpNumber1.text = "fowl"
 		$HelpNumber2.text = "fowl"

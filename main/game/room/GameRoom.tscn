@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://bdlkibjajsmej"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
-[ext_resource type="PackedScene" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
+[ext_resource type="PackedScene" uid="uid://bbvj5lkewvs76" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
 [ext_resource type="PackedScene" uid="uid://da1p1jp6v4ggc" path="res://main/game/room/GameRoomScenery.tscn" id="2_5ahit"]
 [ext_resource type="PackedScene" uid="uid://cwxdlamjqxi85" path="res://main/game/room/Fan.blend" id="3_cnc32"]
 [ext_resource type="Script" path="res://main/game/room/deck.gd" id="4_nadv1"]
@@ -53,10 +53,10 @@ _data = {
 }
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g31ks"]
-sky_top_color = Color(0.705882, 0.796078, 0.992157, 1)
+sky_top_color = Color(0.694118, 0.886275, 0.988235, 1)
 sky_horizon_color = Color(1, 1, 1, 1)
 sky_curve = 0.0699775
-ground_bottom_color = Color(0.388235, 0.333333, 0.27451, 1)
+ground_bottom_color = Color(0.505882, 0.333333, 0.27451, 1)
 
 [sub_resource type="Sky" id="Sky_3s3kw"]
 sky_material = SubResource("ProceduralSkyMaterial_g31ks")
@@ -67,10 +67,12 @@ sky = SubResource("Sky_3s3kw")
 ambient_light_color = Color(0.988235, 0.988235, 0.988235, 1)
 ambient_light_sky_contribution = 0.95
 ssao_enabled = true
+ssao_intensity = 0.71
 ssil_enabled = true
+ssil_intensity = 0.69
 glow_enabled = true
 glow_intensity = 0.98
-glow_bloom = 0.05
+glow_bloom = 0.01
 adjustment_enabled = true
 adjustment_contrast = 1.05
 adjustment_saturation = 1.3
@@ -100,37 +102,39 @@ transform = Transform3D(-0.168046, -0.00233861, 0.663293, -0.00401691, 0.68424, 
 transform = Transform3D(-0.500932, 0.246898, 0.00190877, -0.00299364, -0.0017563, -0.558465, -0.246887, -0.500933, 0.0028988, -8.34368, 2.06984, 7.08868)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Scenery"]
-transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, -3.72529e-09, 3.89637, 0.062)
+transform = Transform3D(-5, 0, 7.5498e-07, 0, 5, 0, -7.5498e-07, 0, -5, -3.53903e-08, 3.55708, 0.271657)
 light_color = Color(1, 0.980392, 0.941176, 1)
-light_energy = 16.0
+light_energy = 0.545
 light_specular = 0.024
 shadow_enabled = true
 shadow_bias = 0.05
-shadow_blur = 3.059
+shadow_opacity = 0.31
+shadow_blur = 3.132
 distance_fade_begin = 0.0
-omni_range = 0.806
+omni_range = 1.277
+omni_attenuation = 0.68302
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Scenery"]
-transform = Transform3D(-5, 4.37114e-07, 0, -2.67307e-07, -3.05764, 3.95612, 3.45855e-07, 3.95612, 3.05764, -1.33457, 11.8499, 23.4599)
+transform = Transform3D(-5, 7.5498e-07, 3.41061e-13, -4.6169e-07, -3.05764, 3.95612, 5.97357e-07, 3.95612, 3.05764, -1.33457, 11.8499, 23.4599)
 light_color = Color(1, 0.843137, 0.478431, 1)
-light_energy = 31.168
-light_size = 0.114
-light_specular = 0.182
+light_energy = 31.363
+light_size = 0.2
+light_specular = 0.068
 shadow_enabled = true
 shadow_bias = 0.0
-shadow_reverse_cull_face = true
-shadow_opacity = 0.9
+shadow_opacity = 0.85
 shadow_blur = 2.596
 spot_range = 11.119
+spot_angle = 54.3
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Scenery"]
-transform = Transform3D(-2.43065, -1.10915, -4.22632, -0.333896, -4.77494, 1.44516, -4.35666, 0.984766, 2.24717, 1.53668e-06, 12.7256, -10.1692)
+transform = Transform3D(-2.39984, -1.9699, -3.91922, 0.389525, -4.54549, 2.04616, -4.3691, 0.676766, 2.33516, 1.53668e-06, 12.7256, -10.1692)
 light_color = Color(1, 0.94902, 0.839216, 1)
-light_energy = 0.5
+light_energy = 1.085
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_normal_bias = 10.0
-shadow_blur = 2.043
+shadow_blur = 2.143
 
 [node name="Fan" parent="Scenery" instance=ExtResource("3_cnc32")]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 7.25698, 0.00170064)
@@ -187,15 +191,19 @@ transform = Transform3D(0.430637, -0.781609, 0.451262, -2.31215e-08, -0.499999, 
 
 [node name="PlayerSprite1" parent="Players" instance=ExtResource("6_b2dqn")]
 transform = Transform3D(0.347296, 0, 0.937756, 0, 1, 0, -0.937756, 0, 0.347296, -2.70961, 1.26162, 0.397608)
+visible = true
 
 [node name="PlayerSprite2" parent="Players" instance=ExtResource("6_b2dqn")]
 transform = Transform3D(0.347296, 0, 0.937756, 0, 1, 0, -0.937756, 0, 0.347296, -0.696217, 1.26162, 0.397608)
+visible = true
 
 [node name="PlayerSprite3" parent="Players" instance=ExtResource("6_b2dqn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0065, 1.24033, -0.366221)
+visible = true
 
 [node name="PlayerSprite4" parent="Players" instance=ExtResource("6_b2dqn")]
 transform = Transform3D(0.305862, 0, -0.952076, 0, 1, 0, 0.952076, 0, 0.305862, 0.762086, 1.26162, 0.397608)
+visible = true
 
 [node name="Sounds" type="Node" parent="."]
 
