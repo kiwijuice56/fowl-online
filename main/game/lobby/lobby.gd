@@ -17,8 +17,12 @@ signal synced
 
 var current_player: int = -1
 
-# Should store the dealer at index 0 and hold players in clockwise order
+# Should store the host/dealer at index 0 and the other players in clockwise order
 var players: Array
+
+# 3D array of card suits and numbers
+# The deck at index 0 belongs to the host/dealer of a lobby
+# Note that this is different from the GameDeck representation, which has the local player at index 0
 var decks: Array
 
 var tricks: Array[Array]
@@ -74,7 +78,7 @@ func play_hand() -> void:
 	bid_winner = 0
 	current_player = 0
 	initialize_decks()
-	rpc("update_state", {"bid": 65, "bid_winner": -1, "decks": decks})
+	rpc("update_state", {"bid": 65, "bid_winner": -1, "decks": decks, "center_swap": center_swap})
 	await sync_players(true)
 	
 	rpc("puppet_take_deck")
@@ -98,7 +102,13 @@ func play_hand() -> void:
 			await sync_players(true)
 			# TODO: Play animations of the current bid
 		current_player = (current_player + 1) % len(players)
-		print(current_player, " ", current_bid)
+	decks[bid_winner].append(center_swap)
+	rpc("update_state", {"current_player": bid_winner, "decks": decks})
+	await sync_players(true)
+	
+	rpc("puppet_take_center", players[bid_winner].id)
+	await sync_players(true)
+	decks[bid_winner].remove(discard)
 	
 
 func initialize_decks() -> void:
@@ -129,11 +139,40 @@ func puppet_get_bid(id: int) -> void:
 		rpc("update_state", {"bid": current_bid})
 
 @rpc
+func puppet_get_trump(id: int) -> void:
+	if lobby_manager.local_lobby_code != code:
+		return
+	if id == lobby_manager.local_id:
+		trump = await game_menu.trump_menu.get_player_trump()
+		rpc("update_state", {trump: trump})
+
+@rpc
 func puppet_take_deck() -> void:
+	if lobby_manager.local_lobby_code != code:
+		return
 	game_room.deck.create_stack()
 	await game_room.deck.deal_stack()
 	await game_room.deck.hold_hand()
 	rpc("increment_synced")
+
+@rpc
+func puppet_take_center(id: int) -> void:
+	if lobby_manager.local_lobby_code != code:
+		return
+	
+	# We need to shift the index from [1, 2, 3, 4] to [2, 3, 4 1] or [3, 4, 1, 2] or [4, 1, 2, 3]
+	# Put the local player as index 0
+	var translated_idx: int = bid_winner - local_player.get_index()
+	if translated_idx < 0:
+		translated_idx += 4
+	
+	game_room.deck.decks[translated_idx].append(game_room.cards[0])
+	await game_room.deck.update_hand(translated_idx)
+	
+	if id == lobby_manager.local_id:
+		decks[local_player.get_index()].append(center_swap)
+		var discard: Array = await game_menu.camera.select_card(-1, -1, false)
+		rpc("update_state", {"discard": discard})
 
 @rpc("any_peer", "call_local")
 func update_state(info: Dictionary) -> void:
@@ -143,6 +182,12 @@ func update_state(info: Dictionary) -> void:
 		current_bid = info.bid
 	if "decks" in info:
 		decks = info.decks
+	if "trump" in info:
+		trump = info.trump
+	if "discard" in info:
+		discard = info.discard
+	if "center_swap" in info:
+		center_swap = info.center_swap
 	
 	if multiplayer.get_unique_id() != get_multiplayer_authority():
 		if "bid_winner" in info: 
@@ -152,7 +197,9 @@ func update_state(info: Dictionary) -> void:
 				game_room.player_sprites[current_player].set_current_player(false)
 			current_player = info.current_player
 			game_room.player_sprites[current_player].set_current_player(true)
-		# other ui things here
+		if "trump" in info:
+			game_menu.info_overlay.set_trump(trump)
+		# Other UI updates would go here
 
 @rpc("any_peer", "call_local")
 func increment_synced() -> void:

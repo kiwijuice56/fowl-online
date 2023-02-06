@@ -7,7 +7,7 @@ extends MarginContainer
 
 @export var bidder_container: VBoxContainer
 @export var bid_container: VBoxContainer
-@export var trump_container: VBoxContainer
+@export var trump_icon: TextureRect
 
 @export var container_a: VBoxContainer
 @export var container_b: VBoxContainer
@@ -45,3 +45,9 @@ func set_bid_information(bid_winner: Player, bid: int) -> void:
 		var new_panel: UserPanel = player_panel_scene.instantiate()
 		new_panel.initialize(bid_winner.username, bid_winner.icon)
 		bidder_container.add_child(new_panel)
+
+func set_trump(trump: Card.Suit) -> void:
+	if trump == -1:
+		trump_icon.modulate.a = 0
+	else:
+		trump_icon.modulate = StyleConstants.card_colors[trump - 1]

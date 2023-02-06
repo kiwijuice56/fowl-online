@@ -25,11 +25,14 @@ extends Node3D
 @export var reposition_duration: float = 0.12
 
 var cards: Array[MeshInstance3D]
+
+# 2D array containing references to the CardModels for each player's deck
+# The deck at index 0 belongs to the local player
 var decks: Array[Array]
 
 # Create all of the cards in the center of the table
 func create_stack() -> void:
-	for i in range(56):
+	for i in range(57):
 		var new_card: MeshInstance3D = card_scene.instantiate()
 		cards.append(new_card)
 		add_child(new_card)
@@ -38,14 +41,16 @@ func create_stack() -> void:
 		new_card.global_position.y += i * deck_offset.y
 	cards.reverse()
 
-# Deal the cards to each player
+# Deal the cards to each player, called after create_stack()
 func deal_stack():
 	for _i in range(4):
 		decks.append([])
+		
+	var player_deck: Array = game_room.lobby.decks[game_room.player_idx]
 	for i in range(56):
 		# Only the player cards should have text on them
 		if i % 4 == 0:
-			var card: Array = game_room.lobby.decks[game_room.player_idx][len(decks[i % 4])]
+			var card: Array = player_deck[len(decks[i % 4])]
 			cards[i].set_text(card[0], card[1])
 		
 		timer.start(deal_delay)
@@ -53,7 +58,10 @@ func deal_stack():
 		decks[i % 4].append(cards[i])
 		deal_card(i)
 		sounds.get_node("Deal").play_sound()
+	# The final card must stay at the center of the table until the bid winner picks it up
+	cards[0].set_text(game_room.lobby.center_swap[0], game_room.lobby.center_swap[1])
 
+# Put the cards in the hands of each player
 func hold_hand() -> void:
 	for i in range(56):
 		timer.start(hand_delay)
@@ -61,10 +69,12 @@ func hold_hand() -> void:
 		hold_card(int(i / 14.0), i % 14, hand_duration)
 	cards.clear()
 
+# Update the positions of each card in a player's hand, usually after they play a card
 func update_hand(deck: int) -> void:
 	for i in range(len(decks[deck])):
 		hold_card(deck, i, reposition_duration)
 
+# Place a card in a player's deck on the table
 func deal_card(card_idx: int) -> void:
 	var deal_marker: Marker3D = get_node("Deal" + str(card_idx % 4 + 1))
 	
@@ -95,6 +105,7 @@ func get_held_card_position(deck: int, deck_idx: int) -> Vector3:
 	initial_ray = initial_ray.rotated(Vector3.UP, 2 * angle_change * (-1 if left_side else 1))
 	return hand_marker.global_position + initial_ray
 
+# Hold a card in a player's hand based on its index in the deck
 func hold_card(deck: int, deck_idx: int, duration: float) -> void:
 	var hand_marker: Marker3D = get_node("Hand" + str(deck + 1))
 	
@@ -113,6 +124,7 @@ func hold_card(deck: int, deck_idx: int, duration: float) -> void:
 	tween.tween_property(decks[deck][deck_idx], "global_position", new_pos, duration)
 	tween.parallel().tween_property(decks[deck][deck_idx], "rotation", new_rot, duration)
 
+# Place a card in a player's hand 
 func place_card(deck: int, card: MeshInstance3D) -> void:
 	var card_idx: int = decks[deck].find(card)
 	sounds.get_node("Deal").play_sound()
@@ -122,8 +134,11 @@ func place_card(deck: int, card: MeshInstance3D) -> void:
 	
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(decks[deck][card_idx], "global_position", new_pos, place_duration)
-	tween.parallel().tween_property(decks[deck][card_idx], "rotation", Vector3(), place_duration)
+	tween.parallel().tween_property(decks[deck][card_idx], "rotation", Vector3(0, 0, 180), place_duration)
 	
 	decks[deck].remove_at(card_idx)
 	await tween.finished
 	update_hand(deck)
+
+func get_card(card: MeshInstance3D) -> Array:
+	return game_room.lobby.decks[game_room.player_idx][decks[0].find(card)]

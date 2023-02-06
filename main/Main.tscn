@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsrdb5x5wst11"]
+[gd_scene load_steps=10 format=3 uid="uid://dsrdb5x5wst11"]
 
 [ext_resource type="PackedScene" uid="uid://6wefijj51jly" path="res://main/ui/main_menu/InitialMenu.tscn" id="1_5gjkg"]
-[ext_resource type="PackedScene" uid="uid://bdlkibjajsmej" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
+[ext_resource type="Script" path="res://main/input_forwarder.gd" id="1_283oo"]
+[ext_resource type="PackedScene" path="res://main/game/room/GameRoom.tscn" id="2_6rs61"]
 [ext_resource type="Theme" uid="uid://bh7vxw1ci2lww" path="res://main/ui/theme/main_theme.tres" id="2_550ex"]
 [ext_resource type="PackedScene" uid="uid://c5f1tnwwspmwa" path="res://main/ui/game_menu/GameMenu.tscn" id="3_a44c0"]
 [ext_resource type="Script" path="res://main/ui/fps_label.gd" id="3_dvomx"]
@@ -11,7 +12,7 @@
 
 [node name="Main" type="Node"]
 
-[node name="ViewportContainer" type="SubViewportContainer" parent="."]
+[node name="ViewportContainer" type="SubViewportContainer" parent="." node_paths=PackedStringArray("game_room")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,10 +21,14 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
+stretch_shrink = 5
+script = ExtResource("1_283oo")
+game_room = NodePath("SubViewport/GameRoom")
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
-size = Vector2i(800, 600)
+physics_object_picking = true
+size = Vector2i(160, 120)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
@@ -40,14 +45,20 @@ theme = ExtResource("2_550ex")
 [node name="GameMenu" parent="UI" instance=ExtResource("3_a44c0")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
+mouse_filter = 2
 
 [node name="BidMenu" parent="UI/GameMenu" index="1"]
+mouse_filter = 2
+
+[node name="TrumpMenu" parent="UI/GameMenu" index="2"]
 visible = false
+mouse_filter = 2
 
 [node name="MainMenu" parent="UI" node_paths=PackedStringArray("lobby_manager") instance=ExtResource("1_5gjkg")]
 layout_mode = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 lobby_manager = NodePath("../../Lobbies")
 
 [node name="ColorRect" parent="UI/MainMenu" index="0"]

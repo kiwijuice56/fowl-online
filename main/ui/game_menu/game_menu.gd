@@ -2,12 +2,12 @@ class_name GameMenu
 extends Menu
 
 @export var bid_menu: BidMenu
+@export var trump_menu: TrumpMenu
 @export var info_overlay: InfoOverlay
 
 func _ready() -> void:
-	pass
-	#visible = false
-	#modulate.a = 0
+	visible = false
+	modulate.a = 0
 
 func exit() -> void:
 	super.exit()

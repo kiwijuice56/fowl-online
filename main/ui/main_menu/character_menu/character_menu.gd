@@ -18,8 +18,8 @@ func _ready() -> void:
 	right_button.pressed.connect(shift_icon.bind(1))
 
 func shift_icon(shift: int) -> void:
-	selected_icon = (selected_icon + shift) % len(ProfileImages.images)
-	player_icon.texture = ProfileImages.images[selected_icon]
+	selected_icon = (selected_icon + shift) % len(StyleConstants.profile_images)
+	player_icon.texture = StyleConstants.profile_images[selected_icon]
 
 func exit() -> void:
 	super.exit()

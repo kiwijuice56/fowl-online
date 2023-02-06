@@ -63,7 +63,7 @@ script = ExtResource("1_rlvnq")
 bid_menu = NodePath("BidMenu")
 info_overlay = NodePath("InfoOverlay")
 
-[node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "bidder_container", "bid_container", "trump_container", "container_a", "container_b")]
+[node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "bidder_container", "bid_container", "trump_icon", "container_a", "container_b")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,7 +79,7 @@ player_panel_scene = ExtResource("2_82hko")
 scoreboard = NodePath("RightPanel")
 bidder_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/BidderContainer")
 bid_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/BidContainer")
-trump_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/TrumpContainer")
+trump_icon = NodePath("VBoxContainer/TopPanel/HBoxContainer/TrumpContainer/TrumpIcon")
 container_a = NodePath("RightPanel/VBoxContainer/ContainerA")
 container_b = NodePath("RightPanel/VBoxContainer/ContainerB")
 
