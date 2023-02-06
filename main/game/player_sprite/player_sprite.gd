@@ -18,7 +18,7 @@ func _gag_started() -> void:
 
 func initialize(player: Player) -> void:
 	visible = true
-	icon.texture = ProfileImages.images[player.icon]
+	icon.texture = StyleConstants.profile_images[player.icon]
 
 func set_current_player(is_current: bool) -> void:
 	if is_current:

@@ -28,7 +28,6 @@ mesh = ExtResource("1_v6l54")
 surface_material_override/0 = SubResource("StandardMaterial3D_o3dck")
 surface_material_override/1 = SubResource("StandardMaterial3D_wtb5f")
 script = ExtResource("4_icirg")
-colors = [Color(1, 0.270588, 0.588235, 1), Color(1, 0.858824, 0.290196, 1), Color(0, 0.772549, 0.811765, 1), Color(0.443137, 0.313726, 0.831373, 1)]
 
 [node name="MainNumber" type="Label3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.00215811, 0)

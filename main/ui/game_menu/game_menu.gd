@@ -5,8 +5,9 @@ extends Menu
 @export var info_overlay: InfoOverlay
 
 func _ready() -> void:
-	visible = false
-	modulate.a = 0
+	pass
+	#visible = false
+	#modulate.a = 0
 
 func exit() -> void:
 	super.exit()

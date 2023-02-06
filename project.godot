@@ -17,7 +17,7 @@ config/icon="res://main/ui/profile_images/profile1.png"
 
 [autoload]
 
-ProfileImages="*res://main/ui/profile_images/profile_images.gd"
+StyleConstants="*res://main/ui/theme/style_constants.gd"
 
 [debug]
 

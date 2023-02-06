@@ -1,7 +1,6 @@
 class_name CardModel
 extends MeshInstance3D
 
-@export var colors: Array[Color]
 @export var select_time: float = 0.1
 
 var selected: bool = false
@@ -22,9 +21,9 @@ func set_text(suit: Card.Suit, number: int) -> void:
 		$HelpNumber1.text = str(number) + " " + col_text
 		$HelpNumber2.text = str(number) + " " + col_text
 		
-		$MainNumber.modulate = colors[suit - 1]
-		$HelpNumber1.modulate = colors[suit - 1]
-		$HelpNumber2.modulate = colors[suit - 1]
+		$MainNumber.modulate = StyleConstants.card_colors[suit - 1]
+		$HelpNumber1.modulate = StyleConstants.card_colors[suit - 1]
+		$HelpNumber2.modulate = StyleConstants.card_colors[suit - 1]
 
 func select() -> void:
 	if selected:

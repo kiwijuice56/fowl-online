@@ -67,7 +67,7 @@ sky = SubResource("Sky_3s3kw")
 ambient_light_color = Color(0.988235, 0.988235, 0.988235, 1)
 ambient_light_sky_contribution = 0.95
 ssao_enabled = true
-ssao_intensity = 0.71
+ssao_intensity = 0.56
 ssil_enabled = true
 ssil_intensity = 0.69
 glow_enabled = true
@@ -111,7 +111,7 @@ shadow_bias = 0.05
 shadow_opacity = 0.31
 shadow_blur = 3.132
 distance_fade_begin = 0.0
-omni_range = 1.277
+omni_range = 1.362
 omni_attenuation = 0.68302
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Scenery"]

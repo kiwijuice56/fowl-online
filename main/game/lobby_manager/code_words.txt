@@ -46,7 +46,6 @@ art
 ash
 ask
 asp
-ass
 ate
 auk
 ave
@@ -137,7 +136,6 @@ cry
 cub
 cud
 cue
-cum
 cup
 cur
 cut
@@ -226,7 +224,6 @@ ewe
 eye
 fab
 fad
-fag
 fah
 fan
 far
@@ -273,7 +270,6 @@ gap
 gar
 gas
 gat
-gay
 gee
 gel
 gem
@@ -704,7 +700,6 @@ sen
 ser
 set
 sew
-sex
 sey
 sez
 sha

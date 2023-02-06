@@ -51,4 +51,3 @@ func get_player_bid(bid: int) -> int:
 	visible = false
 	
 	return current_bid
-	

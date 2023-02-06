@@ -12,7 +12,7 @@ The goal of Fowl is to be the first team to reach 500 points winning tricks and 
 The gameplay of Fowl is organized into rounds consisting of a bidding and playing stage. Points are earned by collecting counters within tricks in the playing stage.
 
 ### Bidding Stage
-Before the round starts, each player receives  a hand of 14 cards that must be kept secret, even from their own team. Because the deck has 57 cards, the final card is placed face-down in the center of the table.
+Before the round starts, each player receives a hand of 14 cards that must be kept secret, even from their own team. Because the deck has 57 cards, the final card is placed face-down in the center of the table.
 
 In the bidding stage, each player must make a wager of how many points their team can collect in the playing stage by assessing their hand. The player who offers the highest bid gets more power to strategically earn points, but risks losing score if they underperform in the playing stage. Players make sequentially higher bids, attempting to either force a risky bid on their opponents or take the bid for themselves.
 
