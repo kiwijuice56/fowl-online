@@ -32,7 +32,8 @@ script = ExtResource("4_icirg")
 [node name="MainNumber" type="Label3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.00215811, 0)
 double_sided = false
-render_priority = 2
+alpha_cut = 1
+render_priority = 1
 modulate = Color(1, 0, 0.266667, 1)
 font = ExtResource("4_qrkjh")
 font_size = 256
@@ -40,7 +41,7 @@ font_size = 256
 [node name="HelpNumber1" type="Label3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0.839555, -0.028209, -1.11505)
 double_sided = false
-render_priority = 2
+alpha_cut = 1
 modulate = Color(1, 0, 0.266667, 1)
 outline_modulate = Color(0, 0, 0, 0)
 font = ExtResource("4_qrkjh")
@@ -52,7 +53,7 @@ horizontal_alignment = 0
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.865913, -0.0282027, 1.10921)
 visible = false
 double_sided = false
-render_priority = 1
+alpha_cut = 1
 modulate = Color(1, 0, 0.266667, 1)
 outline_modulate = Color(0, 0, 0, 0)
 text = "1 red

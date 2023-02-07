@@ -58,28 +58,29 @@ func select_card(suit: Card.Suit, trump: Card.Suit, counter_allowed: bool) -> Ar
 	var card_model: MeshInstance3D
 	while true:
 		card_model = await card_selected
-		card = game_room.deck.get_card(card_model)
+		card = [card_model.suit, card_model.number]
 		
 		var valid_suit: bool = true
 		
+		if card[0] == suit or suit == -1:
+			pass
 		# If a trump is played, ensure that no cards of the main suit exist in the deck
-		if suit != -1 and card[0] == trump:
+		elif card[0] == trump or card[0] == 0:
 			for player_card in game_room.lobby.decks[game_room.player_idx]:
 				if player_card == card:
 					continue
 				if player_card[0] == suit:
 					valid_suit = false
 					break
-		# If a non-suit and non-trump is played, ensure that there are no cards of the trump or 
-		# main suit in the deck
-		if suit != -1 and card[0] != suit and card[0] != trump:
+		# If a non-suit and non-trump is played, ensure that there are no cards of the trump or main suit in the deck
+		else:
 			for player_card in game_room.lobby.decks[game_room.player_idx]:
 				if player_card == card:
 					continue
-				if player_card[0] == suit or player_card[0] == trump:
+				if player_card[0] == suit or player_card[0] == trump or player_card[0] == 0:
 					valid_suit = false
 					break
 		
-		if valid_suit and (counter_allowed or not card[1] in [5, 10, 14, 15, 1]):
+		if valid_suit and (counter_allowed or not card[1] in [5, 10, 14, 1, 0]):
 			break
 	return [card_model, card]

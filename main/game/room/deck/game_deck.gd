@@ -9,7 +9,7 @@ extends Node3D
 
 @export var card_scene: PackedScene
 
-@export var deck_offset: Vector2 = Vector2(0.01, 0.0045)
+@export var deck_offset: Vector2 = Vector2(0.01, 0.0032)
 @export var deck_imperfection: float = 0.01
 @export var deal_duration: float = 0.3
 @export var deal_delay: float = 0.06
@@ -44,6 +44,7 @@ func create_stack() -> void:
 		
 		new_card.global_position = get_node("DeckSpawn").global_position
 		new_card.global_position.y += i * deck_offset.y
+	tricks = [[], []]
 
 # Deal the cards to each player's spot on the table, called after create_stack()
 func deal_stack():
@@ -60,7 +61,7 @@ func deal_stack():
 		timer.start(deal_delay)
 		await timer.timeout
 		decks[i % 4].append(cards[i])
-		deal_card(i)
+		deal_card(i, i % 4, (56 - i) / 4.0 * deck_offset.y)
 		sounds.get_node("Deal").play_sound()
 
 # Put the cards in the hands of each player
@@ -80,18 +81,19 @@ func update_hand(deck: int) -> void:
 		hold_card(deck, i, reposition_duration)
 
 # Place a card in a player's deck on the table
-func deal_card(card_idx: int) -> void:
-	var deal_marker: Marker3D = get_node("Deal" + str(card_idx % 4 + 1))
+func deal_card(card_idx: int, target: int, y_pos: int) -> void:
+	var deal_marker: Marker3D = get_node("Deal" + str(target + 1))
 	
 	var new_pos: Vector3 = deal_marker.global_position
 	var new_rot: Vector3 = deal_marker.rotation
 	
-	new_pos.y += (56 - card_idx) / 4.0 * deck_offset.y
+	new_pos.y += y_pos 
 	new_rot.y += randf_range(-deck_imperfection, deck_imperfection)
 	
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(cards[card_idx], "global_position", new_pos, deal_duration)
 	tween.parallel().tween_property(cards[card_idx], "rotation", new_rot, deal_duration)
+	await tween.finished
 
 # Return the global position that a card would be in within its hand
 func get_held_card_position(deck: int, deck_idx: int) -> Vector3:
@@ -147,9 +149,6 @@ func place_card(deck: int, card: MeshInstance3D, face_down: bool) -> void:
 	await tween.finished
 	update_hand(deck)
 
-func get_card(card: MeshInstance3D) -> Array:
-	return game_room.lobby.decks[game_room.player_idx][decks[0].find(card)]
-
 func stash_trick(winner: int) -> void:
 	var trick_marker: Marker3D = get_node("Trick" + str(winner + 1))
 	for card in cards:
@@ -157,8 +156,9 @@ func stash_trick(winner: int) -> void:
 		new_pos.y += len(tricks[winner]) * deck_offset.y
 		tricks[winner].append(card)
 		
-		var tween: Tween = get_tree().create_tween()
+		var tween: Tween = get_tree().create_tween().set_parallel(true)
 		tween.tween_property(card, "global_position", new_pos, trick_duration)
+		tween.tween_property(card, "rotation", Vector3(), trick_duration)
 		
 		timer.start(trick_delay)
 		await timer.timeout

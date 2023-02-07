@@ -4,8 +4,12 @@ extends MeshInstance3D
 @export var select_time: float = 0.1
 
 var selected: bool = false
+var suit: int
+var number: int
 
-func set_text(suit: Card.Suit, number: int) -> void:
+func set_text(new_suit: Card.Suit, new_number: int) -> void:
+	suit = new_suit
+	number = new_number
 	$MainNumber.text = str(number)
 	
 	var col_text: String

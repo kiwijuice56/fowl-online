@@ -158,15 +158,19 @@ sounds = NodePath("../Sounds")
 timer = NodePath("Timer")
 card_scene = ExtResource("1_e8h6y")
 hand_radius = 0.4
+hand_delay = 0.015
+reposition_duration = 0.15
+trick_duration = 0.1
+trick_delay = 0.07
 
 [node name="DeckSpawn" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.299453)
 
 [node name="Trick1" type="Marker3D" parent="GameDeck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.555193)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.388674, 0.95646, 0.724173)
 
 [node name="Trick2" type="Marker3D" parent="GameDeck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.0959589)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35328, 0.95646, 0.062565)
 
 [node name="Deal1" type="Marker3D" parent="GameDeck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95646, 0.836373)

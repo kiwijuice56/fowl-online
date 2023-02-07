@@ -64,7 +64,7 @@ bid_menu = NodePath("BidMenu")
 trump_menu = NodePath("TrumpMenu")
 info_overlay = NodePath("InfoOverlay")
 
-[node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "bidder_container", "bid_container", "trump_icon", "container_a", "container_b")]
+[node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "score_label_a", "score_label_b", "bidder_container", "bid_container", "trump_icon", "container_a", "container_b")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,6 +78,8 @@ theme_override_constants/margin_bottom = 16
 script = ExtResource("2_pdwke")
 player_panel_scene = ExtResource("2_82hko")
 scoreboard = NodePath("RightPanel")
+score_label_a = NodePath("RightPanel/VBoxContainer/ContainerA/ScoreLabelA")
+score_label_b = NodePath("RightPanel/VBoxContainer/ContainerB/ScoreLabelB")
 bidder_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/BidderContainer")
 bid_container = NodePath("VBoxContainer/TopPanel/HBoxContainer/BidContainer")
 trump_icon = NodePath("VBoxContainer/TopPanel/HBoxContainer/TrumpContainer/TrumpIcon")
@@ -139,7 +141,7 @@ theme_override_font_sizes/font_size = 20
 text = "Trump"
 
 [node name="TrumpIcon" type="TextureRect" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/TrumpContainer"]
-modulate = Color(1, 0, 0, 1)
+modulate = Color(1, 0, 0, 0)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -266,6 +268,15 @@ text = "> Eric bid 100."
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "> Eric bid 100."
+
+[node name="Label" type="Label" parent="InfoOverlay"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0.109804, 0.219608, 0.321569, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 64
+text = "My turn"
 
 [node name="BidMenu" type="Control" parent="." node_paths=PackedStringArray("bid_label", "add_button", "subtract_button", "confirm_button")]
 visible = false

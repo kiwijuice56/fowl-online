@@ -4,6 +4,8 @@ extends MarginContainer
 @export var player_panel_scene: PackedScene
 
 @export var scoreboard: PanelContainer
+@export var score_label_a: Label
+@export var score_label_b: Label
 
 @export var bidder_container: VBoxContainer
 @export var bid_container: VBoxContainer
@@ -51,3 +53,7 @@ func set_trump(trump: Card.Suit) -> void:
 		trump_icon.modulate.a = 0
 	else:
 		trump_icon.modulate = StyleConstants.card_colors[trump - 1]
+
+func set_scores(scores: Array) -> void:
+	score_label_a.text = "Score: " + str(scores[0])
+	score_label_b.text = "Score: " + str(scores[1])
