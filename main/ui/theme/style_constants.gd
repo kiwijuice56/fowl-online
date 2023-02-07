@@ -14,3 +14,4 @@ func _ready() -> void:
 	card_colors.append(Color("ffdb4a"))
 	card_colors.append(Color("00c5cf"))
 	card_colors.append(Color("7150d4"))
+	card_colors.append(Color("000000"))

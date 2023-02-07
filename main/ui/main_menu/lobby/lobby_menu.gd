@@ -49,6 +49,8 @@ func _on_player_left(code: String, id: int) -> void:
 		new_panel.name = str(id)
 
 func _on_game_started() -> void:
+	if player_list.get_child_count() < 4:
+		return
 	game_started.emit(lobby_manager.local_lobby_code)
 
 func exit() -> void:

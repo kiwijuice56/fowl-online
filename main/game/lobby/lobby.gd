@@ -9,13 +9,13 @@ extends Node
 
 var local_player: Player
 var code: String
-var synced_count: int = 0
+var synced_count: int = 0 # Used to track how many clients are up-to-date on the multiplayer authority
 
 signal synced
 
 ## Game state variables
 
-var current_player: int = -1
+var current_player: int = 0
 
 # Should store the host/dealer at index 0 and the other players in clockwise order
 var players: Array
@@ -31,6 +31,7 @@ var scores: Array[int]
 var current_bid: int
 var bid_winner: int
 var trump: Card.Suit
+var suit: Card.Suit
 
 var center_deck: Array[Array]
 
@@ -51,9 +52,9 @@ func start_game(code: String) -> void:
 	
 	if lobby_manager.local_id == get_multiplayer_authority():
 		await sync_players(false)
-		print(code + ": Game loop started")
 		game_loop()
 	else:
+		# Initialize game data for all players
 		local_player = get_node(str(multiplayer.get_unique_id()))
 		game_room.lobby = self
 		game_room.player_idx = local_player.get_index() - 2
@@ -63,27 +64,27 @@ func start_game(code: String) -> void:
 		await main_menu.exit()
 		game_menu.info_overlay.set_bid_information(null, 0)
 		game_menu.info_overlay.initialize_scoreboard(players)
+		tricks = [[], []]
+		scores = []
 		await game_menu.enter()
 		rpc("increment_synced")
 
 func game_loop() -> void:
-	while true:
-		print(code + ": Hand started")
-		await play_hand()
+	await play_hand()
 
 func play_hand() -> void:
 	var passed_players: Dictionary = {}
 	
-	current_bid = 65
-	bid_winner = 0
-	current_player = 0
+	# Initialize hand data for all players
 	initialize_decks()
-	rpc("update_state", {"bid": 65, "bid_winner": -1, "decks": decks, "center_swap": center_swap})
+	rpc("update_state", {"current_bid": 65, "bid_winner": -1, "decks": decks, "center_swap": center_swap, "center_deck": [], "trump": -1, 
+	"suit": -1, "discard": []})
 	await sync_players(true)
 	
 	rpc("puppet_take_deck")
 	await sync_players(false)
 	
+	current_player = 0
 	while current_bid < 200 and len(passed_players) < 3:
 		if not current_player in passed_players:
 			rpc("update_state", {"current_player": current_player})
@@ -98,18 +99,39 @@ func play_hand() -> void:
 			else:
 				bid_winner = current_player
 			
-			rpc("update_state", {"bid": current_bid, "bid_winner": bid_winner})
+			rpc("update_state", {"current_bid": current_bid, "bid_winner": bid_winner})
 			await sync_players(true)
-			# TODO: Play animations of the current bid
 		current_player = (current_player + 1) % len(players)
 	decks[bid_winner].append(center_swap)
 	rpc("update_state", {"current_player": bid_winner, "decks": decks})
 	await sync_players(true)
 	
 	rpc("puppet_take_center", players[bid_winner].id)
-	await sync_players(true)
-	decks[bid_winner].remove(discard)
+	await sync_players(false)
 	
+	rpc("puppet_other_place_card", players[bid_winner].id, discard, true)
+	await sync_players(false)
+	
+	rpc("puppet_get_trump", players[bid_winner].id)
+	await sync_players(true)
+	
+	current_player = bid_winner
+	for _i in range(14):
+		for j in range(4):
+			if j != 0:
+				rpc("update_state", {"current_player": current_player, "suit": center_deck[len(center_deck) - 1][0]})
+			else:
+				rpc("update_state", {"current_player": current_player, "suit": -1})
+			await sync_players(true)
+			
+			rpc("puppet_place_card", players[current_player].id)
+			await sync_players(true)
+			
+			rpc("puppet_other_place_card", players[current_player].id, center_deck[len(center_deck) - 1], false)
+			await sync_players(false)
+			
+			current_player = (current_player + 1) % len(players)
+		# Get the winner of the trick, move the cards, continue
 
 func initialize_decks() -> void:
 	var cards: Array = []
@@ -123,7 +145,7 @@ func initialize_decks() -> void:
 			new_card[0] = Card.Suit.values()[suit_idx]
 			new_card[1] = card_idx
 			cards.append(new_card)
-	cards.append([0, 16])
+	cards.append([0, 0])
 	
 	cards.shuffle()
 	for player_idx in range(4):
@@ -136,7 +158,7 @@ func puppet_get_bid(id: int) -> void:
 		return
 	if id == lobby_manager.local_id:
 		current_bid = await game_menu.bid_menu.get_player_bid(current_bid)
-		rpc("update_state", {"bid": current_bid})
+		rpc("update_state", {"current_bid": current_bid})
 
 @rpc
 func puppet_get_trump(id: int) -> void:
@@ -144,7 +166,7 @@ func puppet_get_trump(id: int) -> void:
 		return
 	if id == lobby_manager.local_id:
 		trump = await game_menu.trump_menu.get_player_trump()
-		rpc("update_state", {trump: trump})
+		rpc("update_state", {"trump": trump})
 
 @rpc
 func puppet_take_deck() -> void:
@@ -159,43 +181,66 @@ func puppet_take_deck() -> void:
 func puppet_take_center(id: int) -> void:
 	if lobby_manager.local_lobby_code != code:
 		return
+		
+	var translated_idx: int = shift_index(bid_winner)
 	
-	# We need to shift the index from [1, 2, 3, 4] to [2, 3, 4 1] or [3, 4, 1, 2] or [4, 1, 2, 3]
-	# Put the local player as index 0
-	var translated_idx: int = bid_winner - local_player.get_index()
-	if translated_idx < 0:
-		translated_idx += 4
-	
-	game_room.deck.decks[translated_idx].append(game_room.cards[0])
+	# Add the card model to the correct player
+	if id == lobby_manager.local_id:
+		game_room.deck.cards[0].set_text(center_swap[0], center_swap[1])
+	game_room.deck.decks[translated_idx].append(game_room.deck.cards[0])
 	await game_room.deck.update_hand(translated_idx)
 	
 	if id == lobby_manager.local_id:
-		decks[local_player.get_index()].append(center_swap)
-		var discard: Array = await game_menu.camera.select_card(-1, -1, false)
-		rpc("update_state", {"discard": discard})
+		# The lobby has two children that aren't players, so we must offset
+		decks[local_player.get_index() - 2].append(center_swap)
+		var discard_data: Array = await game_room.camera.select_card(-1, -1, false)
+		await game_room.deck.place_card(0, discard_data[0], true)
+		decks[bid_winner].remove_at(decks[bid_winner].find(discard_data[1]))
+		rpc("update_state", {"discard": discard_data[1], "decks": decks})
+
+@rpc
+func puppet_place_card(id: int) -> void:
+	if lobby_manager.local_lobby_code != code:
+		return
+	if id == lobby_manager.local_id:
+		var card_data: Array = await game_room.camera.select_card(suit, trump, true)
+		await game_room.deck.place_card(0, card_data[0], false)
+		decks[local_player.get_index() - 2].remove_at(decks[local_player.get_index() - 2].find(card_data[1]))
+		center_deck.append(card_data[1])
+		rpc("update_state", {"decks": decks, "center_deck": center_deck})
+
+# Places down a random card model from the id player, drawing the card data onto it 
+# This is used so that other players can see another player place a card
+# The id player will have to find the actual selected card to place it, but the specific card doesn't matter
+# for other players because they never see the decks of other players
+@rpc
+func puppet_other_place_card(id: int, card: Array, face_down: bool) -> void:
+	if lobby_manager.local_lobby_code != code or multiplayer.get_unique_id() == get_multiplayer_authority():
+		return
+	if id == lobby_manager.local_id:
+		rpc("increment_synced")
+		return
+	var translated_idx: int = shift_index(get_node(str(id)).get_index() - 2)
+	if not face_down:
+		game_room.deck.decks[translated_idx][0].set_text(card[0], card[1])
+	await game_room.deck.place_card(translated_idx, game_room.deck.decks[translated_idx][0], face_down)
+	rpc("increment_synced")
 
 @rpc("any_peer", "call_local")
 func update_state(info: Dictionary) -> void:
 	rpc("increment_synced")
 	
-	if "bid" in info:
-		current_bid = info.bid
-	if "decks" in info:
-		decks = info.decks
-	if "trump" in info:
-		trump = info.trump
-	if "discard" in info:
-		discard = info.discard
-	if "center_swap" in info:
-		center_swap = info.center_swap
+	var past_player: int = current_player
+	
+	for property in info.keys():
+		set(property, info[property])
 	
 	if multiplayer.get_unique_id() != get_multiplayer_authority():
 		if "bid_winner" in info: 
-			game_menu.info_overlay.set_bid_information(players[info.bid_winner] if info.bid_winner != -1 else null, info.bid)
+			game_menu.info_overlay.set_bid_information(players[info.bid_winner] if info.bid_winner != -1 else null, info.current_bid)
 		if "current_player" in info:
-			if current_player != -1:
-				game_room.player_sprites[current_player].set_current_player(false)
-			current_player = info.current_player
+			if past_player != -1:
+				game_room.player_sprites[past_player].set_current_player(false)
 			game_room.player_sprites[current_player].set_current_player(true)
 		if "trump" in info:
 			game_menu.info_overlay.set_trump(trump)
@@ -207,6 +252,17 @@ func increment_synced() -> void:
 		return
 	synced_count += 1
 	synced.emit()
+
+func rank(card: Array) -> int:
+	# TODO
+	return 0
+
+# Shift indices leftward, where 0 is the local player index
+func shift_index(idx: int) -> int:
+	idx = idx - (local_player.get_index() - 2)
+	if idx < 0:
+		idx += 4
+	return idx
 
 func sync_players(consider_authority: bool) -> void:
 	while synced_count < (5 if consider_authority else 4):

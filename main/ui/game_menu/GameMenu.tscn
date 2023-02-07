@@ -52,7 +52,7 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
-[node name="GameMenu" type="Control" node_paths=PackedStringArray("bid_menu", "info_overlay")]
+[node name="GameMenu" type="Control" node_paths=PackedStringArray("bid_menu", "trump_menu", "info_overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,6 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rlvnq")
 bid_menu = NodePath("BidMenu")
+trump_menu = NodePath("TrumpMenu")
 info_overlay = NodePath("InfoOverlay")
 
 [node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "bidder_container", "bid_container", "trump_icon", "container_a", "container_b")]
@@ -139,7 +140,6 @@ text = "Trump"
 
 [node name="TrumpIcon" type="TextureRect" parent="InfoOverlay/VBoxContainer/TopPanel/HBoxContainer/TrumpContainer"]
 modulate = Color(1, 0, 0, 1)
-self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4

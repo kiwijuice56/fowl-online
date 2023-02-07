@@ -17,6 +17,9 @@ func set_text(suit: Card.Suit, number: int) -> void:
 	if suit == 0:
 		$HelpNumber1.text = "fowl"
 		$HelpNumber2.text = "fowl"
+		$MainNumber.modulate = StyleConstants.card_colors[4]
+		$HelpNumber1.modulate = StyleConstants.card_colors[4]
+		$HelpNumber2.modulate = StyleConstants.card_colors[4]
 	else:
 		$HelpNumber1.text = str(number) + " " + col_text
 		$HelpNumber2.text = str(number) + " " + col_text
