@@ -2,3 +2,4 @@
 assets/*
 run-server.bat
 *.png~
+out/*

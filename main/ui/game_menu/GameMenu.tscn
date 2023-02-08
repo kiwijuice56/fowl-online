@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5f1tnwwspmwa"]
+[gd_scene load_steps=13 format=3 uid="uid://c5f1tnwwspmwa"]
 
 [ext_resource type="Script" path="res://main/ui/game_menu/game_menu.gd" id="1_rlvnq"]
 [ext_resource type="PackedScene" uid="uid://cgebjfbasv5nu" path="res://main/ui/main_menu/lobby/UserPanel.tscn" id="2_82hko"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dy6a7voe7vla4" path="res://main/ui/game_menu/card_icon.png" id="3_bp2kf"]
 [ext_resource type="Script" path="res://main/ui/game_menu/bid_menu.gd" id="4_pxbxi"]
 [ext_resource type="Script" path="res://main/ui/game_menu/trump_menu.gd" id="6_5asr1"]
+[ext_resource type="Script" path="res://main/game/room/sounds/random_sound_spawner.gd" id="7_u6waj"]
+[ext_resource type="AudioStream" uid="uid://dturfm1rdfed3" path="res://main/ui/sounds/jingle.wav" id="8_hpp2w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnb1v"]
 content_margin_left = 8.0
@@ -52,7 +54,7 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
-[node name="GameMenu" type="Control" node_paths=PackedStringArray("bid_menu", "trump_menu", "info_overlay")]
+[node name="GameMenu" type="Control" node_paths=PackedStringArray("bid_menu", "trump_menu", "info_overlay", "turn_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,6 +65,7 @@ script = ExtResource("1_rlvnq")
 bid_menu = NodePath("BidMenu")
 trump_menu = NodePath("TrumpMenu")
 info_overlay = NodePath("InfoOverlay")
+turn_label = NodePath("InfoOverlay/TurnLabel")
 
 [node name="InfoOverlay" type="MarginContainer" parent="." node_paths=PackedStringArray("scoreboard", "score_label_a", "score_label_b", "bidder_container", "bid_container", "trump_icon", "container_a", "container_b")]
 layout_mode = 1
@@ -269,14 +272,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "> Eric bid 100."
 
-[node name="Label" type="Label" parent="InfoOverlay"]
+[node name="TurnLabel" type="Label" parent="InfoOverlay"]
+modulate = Color(1, 1, 1, 0)
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0.109804, 0.219608, 0.321569, 1)
 theme_override_constants/outline_size = 12
-theme_override_font_sizes/font_size = 64
-text = "My turn"
+theme_override_font_sizes/font_size = 48
+text = "Eric's turn!"
 
 [node name="BidMenu" type="Control" parent="." node_paths=PackedStringArray("bid_label", "add_button", "subtract_button", "confirm_button")]
 visible = false
@@ -472,3 +476,10 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.466667)
 text = "(press L to look around)"
 horizontal_alignment = 1
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="NextTurn" type="Node" parent="Sounds"]
+script = ExtResource("7_u6waj")
+sounds = [ExtResource("8_hpp2w")]
+volume = -4.0

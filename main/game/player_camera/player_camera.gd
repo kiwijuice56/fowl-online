@@ -23,7 +23,10 @@ func _input(event) -> void:
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and selected_card != null:
 		_on_card_selected()
 	if event.is_action_pressed("lock", false):
-		locked = not locked
+		if locked:
+			unlock_movement()
+		else:
+			lock_movement()
 
 func _on_area_entered(area: Area3D) -> void:
 	area.get_parent().select()
@@ -42,11 +45,13 @@ func _on_card_selected() -> void:
 	selected_card = null
 
 func unlock_movement() -> void:
+	locked = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(cursor, "modulate:a", 0.5, 0.1)
 
 func lock_movement() -> void:
+	locked = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(cursor, "modulate:a", 0.0, 0.1)

@@ -37,6 +37,17 @@ var tricks: Array[Array]
 
 # Create all of the cards in the center of the table
 func create_stack() -> void:
+	for card in cards:
+		card.queue_free()
+	for deck in decks:
+		for card in deck:
+			card.queue_free()
+	for trick_stack in tricks:
+		for card in trick_stack:
+			card.queue_free()
+	cards = []
+	tricks = [[], []]
+	decks.clear()
 	for i in range(57):
 		var new_card: MeshInstance3D = card_scene.instantiate()
 		cards.append(new_card)
@@ -44,7 +55,6 @@ func create_stack() -> void:
 		
 		new_card.global_position = get_node("DeckSpawn").global_position
 		new_card.global_position.y += i * deck_offset.y
-	tricks = [[], []]
 
 # Deal the cards to each player's spot on the table, called after create_stack()
 func deal_stack():
@@ -162,3 +172,4 @@ func stash_trick(winner: int) -> void:
 		
 		timer.start(trick_delay)
 		await timer.timeout
+	cards.clear()

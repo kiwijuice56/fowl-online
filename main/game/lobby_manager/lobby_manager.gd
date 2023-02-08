@@ -27,9 +27,14 @@ signal player_joined_lobby(code, id, username, icon)
 signal player_left_lobby(code, id)
 
 func _enter_tree() -> void:
-	var file: FileAccess = FileAccess.open("res://main/game/lobby_manager/code_words.txt", FileAccess.READ)
-	var content: String = file.get_as_text()
-	code_words = content.split("\n")
+	code_words = ["aah", "aba", "abs", "ace", "ach", "act", "add", "ado", 
+	"adz", "aft", "aga", "age", "ago", "aha", "ahi", "aid", "ail", "aim", 
+	"ain", "air", "ait", "ala", "alb", "ale", "all", "alp", "alt", "amp", 
+	"amu", "ana", "and", "ane", "ani", "ant", "any", "ape", "app", "apt", 
+	"arb", "arc", "are", "arf", "ark", "arm", "art", "ash", "ask", "asp",
+	"ate", "auk", "ave", "avo", "awe", "awl", "awn", "axe", "aye", "azo",
+	"baa", "bad", "bag", "bah", "ban", "bap", "bar", "bat", "bay", "bed", 
+	"bee", "beg", "bel", "ben", "bet", "bey", "bib", "bid", "big", "bin"]
 	
 	start_network("--server" in OS.get_cmdline_args())
 
@@ -46,9 +51,9 @@ func start_network(is_server: bool) -> void:
 		multiplayer.peer_disconnected.connect(_on_disconnected)
 		peer.create_server(2004)
 		
-		print("Server listening on localhost 2004")
+		print("Server listening on 45.33.15.210 port 2004")
 	else:
-		peer.create_client("localhost", 2004)
+		peer.create_client("45.33.15.210", 2004)
 	local_id = peer.get_unique_id()
 	multiplayer.set_multiplayer_peer(peer)
 

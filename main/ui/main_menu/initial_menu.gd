@@ -55,7 +55,7 @@ func _on_join_abandoned() -> void:
 
 # Called when the host clicks "Start Game" from the lobby menu
 func _on_game_started(code: String) -> void:
-	lobby_manager.get_node(code).rpc("start_game", code)
+	lobby_manager.get_node(code).rpc("start_game")
 
 # Called when the host/user clicks "Leave Game" from the lobby menu
 func _on_game_abandoned() -> void:

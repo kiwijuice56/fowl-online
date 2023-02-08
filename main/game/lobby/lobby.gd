@@ -6,6 +6,7 @@ extends Node
 @onready var game_room: GameRoom = get_tree().get_root().get_node("Main/ViewportContainer/SubViewport/GameRoom")
 @onready var main_menu: MainMenu = get_tree().get_root().get_node("Main/UI/MainMenu")
 @onready var game_menu: GameMenu = get_tree().get_root().get_node("Main/UI/GameMenu")
+@onready var results_menu: ResultsMenu = get_tree().get_root().get_node("Main/UI/ResultsMenu")
 
 var local_player: Player
 var code: String
@@ -16,7 +17,7 @@ signal synced
 ## Game state variables
 
 const SCORE_MAP: Dictionary = {5: 5, 10: 10, 14: 10, 1: 15, 0: 20}
-var current_player: int = 0
+var current_player: int = -1
 
 # Should store the host/dealer at index 0 and the other players in clockwise order
 var players: Array
@@ -40,7 +41,7 @@ var center_swap: Array[int]
 var discard: Array[int]
 
 @rpc("any_peer", "call_local")
-func start_game(code: String) -> void:
+func start_game() -> void:
 	# Due to the nature of RPC, this method is called for this lobby node on ALL clients, so we need
 	# to ensure that we don't start a game for a client that isn't in this lobby
 	
@@ -63,6 +64,7 @@ func start_game(code: String) -> void:
 		game_room.lobby = self
 		game_room.player_idx = local_player.get_index() - 2
 		game_room.initialize_players(players)
+		game_room.camera.unlock_movement()
 		
 		await main_menu.mini_lobby_menu.exit()
 		await main_menu.exit()
@@ -73,7 +75,10 @@ func start_game(code: String) -> void:
 		rpc("increment_synced")
 
 func game_loop() -> void:
-	await play_hand()
+	while scores[0] < 30 and scores[1] < 30:
+		await play_hand()
+		await get_tree().create_timer(4).timeout
+	rpc("puppet_finish_game")
 
 func play_hand() -> void:
 	var passed_players: Dictionary = {}
@@ -123,13 +128,14 @@ func play_hand() -> void:
 		var winning_player: int = 0
 		var highest_rank: int = -1
 		for player in range(4):
-			if player == 1: # Declare the leading suit
-				suit = center_deck.back()[0]
-				if suit == 0:
-					suit = trump 
-				rpc("update_state", {"current_player": current_player, "suit": suit})
-			elif player == 0: # No suit allows for the player to place anything
+			if player == 0: # No suit allows for the player to place anything
 				rpc("update_state", {"current_player": current_player, "suit": -1})
+			else:
+				if player == 1: # Declare the leading suit
+					suit = center_deck.back()[0]
+					if suit == 0:
+						suit = trump 
+				rpc("update_state", {"current_player": current_player, "suit": suit})
 			await sync_players(true)
 			
 			rpc("puppet_place_card", players[current_player].id)
@@ -153,11 +159,13 @@ func play_hand() -> void:
 			if card[0] in SCORE_MAP:
 				new_score += SCORE_MAP[card[0]]
 		scores[winning_team] += new_score
-		rpc("update_state", {"scores": scores, "tricks": tricks})
+		rpc("update_state", {"tricks": tricks})
 		await sync_players(true)
 		
 		rpc("puppet_take_tricks", winning_team)
 		await sync_players(false)
+	rpc("update_state", {"scores": scores})
+	await sync_players(false) 
 
 func initialize_decks() -> void:
 	var cards: Array = []
@@ -183,12 +191,16 @@ func initialize_decks() -> void:
 @rpc
 func puppet_get_bid(id: int) -> void:
 	if id == lobby_manager.local_id:
+		game_room.camera.lock_movement()
 		rpc("update_state", {"current_bid": await game_menu.bid_menu.get_player_bid(current_bid)})
+		game_room.camera.unlock_movement()
 
 @rpc
 func puppet_get_trump(id: int) -> void:
 	if id == lobby_manager.local_id:
+		game_room.camera.lock_movement()
 		rpc("update_state", {"trump": await game_menu.trump_menu.get_player_trump()})
+		game_room.camera.unlock_movement()
 
 @rpc
 func puppet_take_deck() -> void:
@@ -256,6 +268,13 @@ func puppet_take_tricks(winner: int) -> void:
 	await game_room.deck.stash_trick(winner)
 	rpc("increment_synced")
 
+@rpc
+func puppet_finish_game() -> void:
+	if scores[(local_player.get_index() - 2) % 2] > scores[1 - (local_player.get_index() - 2) % 2]:
+		results_menu.declare_winner()
+	else:
+		results_menu.declare_loser()
+
 ## State methods
 
 @rpc("any_peer", "call_local")
@@ -275,6 +294,8 @@ func update_state(info: Dictionary) -> void:
 			if past_player != -1:
 				game_room.player_sprites[past_player].set_current_player(false)
 			game_room.player_sprites[current_player].set_current_player(true)
+			if past_player != current_player:
+				game_menu.show_current_player(players[current_player].username)
 		if "trump" in info:
 			game_menu.info_overlay.set_trump(trump)
 		if "scores" in info:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6wefijj51jly"]
+[gd_scene load_steps=15 format=3 uid="uid://6wefijj51jly"]
 
 [ext_resource type="Theme" uid="uid://bh7vxw1ci2lww" path="res://main/ui/theme/main_theme.tres" id="1_u61rs"]
 [ext_resource type="Script" path="res://main/ui/main_menu/initial_menu.gd" id="2_dxs23"]
@@ -30,6 +30,10 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pqn2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gruhd"]
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("character_menu", "main_menu", "join_menu", "mini_lobby_menu")]
 layout_mode = 3
@@ -257,8 +261,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Go"
 
-[node name="NexusMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button")]
-visible = false
+[node name="NexusMenu" type="VBoxContainer" parent="." node_paths=PackedStringArray("title", "join_button", "create_button", "profile_button", "music_button", "gfx_button")]
 layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -277,6 +280,8 @@ title = NodePath("Label")
 join_button = NodePath("JoinButton")
 create_button = NodePath("CreateButton")
 profile_button = NodePath("ProfileButton")
+music_button = NodePath("HBoxContainer/MusicButton")
+gfx_button = NodePath("HBoxContainer/GFXButton")
 
 [node name="Label" type="Label" parent="NexusMenu"]
 layout_mode = 2
@@ -313,3 +318,31 @@ layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Change user"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NexusMenu"]
+layout_mode = 2
+
+[node name="MusicButton" type="CheckButton" parent="NexusMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_pqn2i")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_pqn2i")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pqn2i")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pqn2i")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_pqn2i")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pqn2i")
+button_pressed = true
+text = "Music"
+flat = true
+
+[node name="GFXButton" type="CheckButton" parent="NexusMenu/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gruhd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gruhd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gruhd")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gruhd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gruhd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gruhd")
+text = "Low GFX"
+flat = true

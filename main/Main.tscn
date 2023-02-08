@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsrdb5x5wst11"]
+[gd_scene load_steps=12 format=3 uid="uid://dsrdb5x5wst11"]
 
 [ext_resource type="PackedScene" uid="uid://6wefijj51jly" path="res://main/ui/main_menu/InitialMenu.tscn" id="1_5gjkg"]
 [ext_resource type="Script" path="res://main/input_forwarder.gd" id="1_283oo"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://main/game/lobby_manager/lobby_manager.gd" id="4_p3qgt"]
 [ext_resource type="PackedScene" uid="uid://by5gc3r3jtvhh" path="res://main/game/lobby/Lobby.tscn" id="5_qhve4"]
 [ext_resource type="PackedScene" uid="uid://bc2ryj1yvja3j" path="res://main/game/lobby/player/Player.tscn" id="6_8f3qx"]
+[ext_resource type="Script" path="res://main/ui/results_menu/results_menu.gd" id="6_tyqjs"]
+[ext_resource type="AudioStream" uid="uid://brme2h0a3lht" path="res://main/elevator_music_Bohoman.mp3" id="10_e6sig"]
 
 [node name="Main" type="Node"]
 
@@ -21,14 +23,13 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
-stretch_shrink = 4
 script = ExtResource("1_283oo")
 game_room = NodePath("SubViewport/GameRoom")
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
 physics_object_picking = true
-size = Vector2i(200, 150)
+size = Vector2i(800, 600)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]
@@ -94,14 +95,51 @@ offset_bottom = 174.5
 [node name="Icon" parent="UI/MainMenu/CharacterMenu/MarginContainer/HBoxContainer/VBoxContainer" index="0"]
 size_flags_horizontal = 4
 
-[node name="NexusMenu" parent="UI/MainMenu" index="4"]
-visible = true
-
-[node name="Label" parent="UI/MainMenu/NexusMenu" index="0"]
-theme_override_colors/font_outline_color = Color(0.109804, 0.219608, 0.321569, 1)
-
 [node name="Spacing" parent="UI/MainMenu/NexusMenu" index="1"]
 theme_override_constants/margin_top = 64
+
+[node name="ResultsMenu" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_tyqjs")
+
+[node name="ColorRect" type="ColorRect" parent="UI/ResultsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.219608, 0.376471, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ResultsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.5
+offset_top = -4.0
+offset_right = 8.5
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="UI/ResultsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "You win!"
+
+[node name="DescriptionLabel" type="Label" parent="UI/ResultsMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Hooray! This is a temporary screen until I add flashy win/loss animations. Close and reopen the program to start another game!"
+autowrap_mode = 2
 
 [node name="FpsContainer" type="MarginContainer" parent="UI"]
 layout_mode = 0
@@ -127,6 +165,11 @@ player_scene = ExtResource("6_8f3qx")
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Lobbies"]
 _spawnable_scenes = PackedStringArray("res://main/game/lobby/Lobby.tscn")
 spawn_path = NodePath("..")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_e6sig")
+volume_db = -22.0
+autoplay = true
 
 [editable path="UI/GameMenu"]
 [editable path="UI/MainMenu"]
