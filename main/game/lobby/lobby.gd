@@ -75,7 +75,7 @@ func start_game() -> void:
 		rpc("increment_synced")
 
 func game_loop() -> void:
-	while scores[0] < 30 and scores[1] < 30:
+	while scores[0] < 150 and scores[1] < 150:
 		await play_hand()
 		await get_tree().create_timer(4).timeout
 	rpc("puppet_finish_game")
@@ -111,6 +111,7 @@ func play_hand() -> void:
 			await sync_players(true)
 		current_player = (current_player + 1) % len(players)
 	decks[bid_winner].append(center_swap)
+	print(decks)
 	rpc("update_state", {"current_player": bid_winner, "decks": decks})
 	await sync_players(true)
 	
@@ -153,17 +154,32 @@ func play_hand() -> void:
 		var winning_team: int = winning_player % 2
 		tricks[winning_team].append(center_deck.slice(len(center_deck) - 5))
 		
-		var new_score: int = 0
+		var new_scores: Array[int] = [0, 0]
 		
-		for card in tricks[winning_team].back():
-			if card[0] in SCORE_MAP:
-				new_score += SCORE_MAP[card[0]]
-		scores[winning_team] += new_score
+		if len(tricks[0]) > 0:
+			for card in tricks[0].back():
+				if card[0] in SCORE_MAP:
+					new_scores[0] += SCORE_MAP[card[0]]
+		if len(tricks[1]) > 0:
+			for card in tricks[1].back():
+				if card[0] in SCORE_MAP:
+					new_scores[1] += SCORE_MAP[card[0]]
+		
+		if new_scores[bid_winner % 2] < current_bid:
+			new_scores[bid_winner % 2] *= -1
+		
+		scores[0] += new_scores[0]
+		scores[1] += new_scores[1]
+		
 		rpc("update_state", {"tricks": tricks})
 		await sync_players(true)
 		
 		rpc("puppet_take_tricks", winning_team)
 		await sync_players(false)
+	if len(tricks[0]) > len(tricks[1]):
+		scores[0] += 20
+	elif len(tricks[1]) > len(tricks[0]):
+		scores[1] += 20
 	rpc("update_state", {"scores": scores})
 	await sync_players(false) 
 
@@ -179,6 +195,7 @@ func initialize_decks() -> void:
 			new_card[1] = card_idx
 			cards.append(new_card)
 	cards.append([0, 0]) # The fowl card
+	decks.clear()
 	
 	cards.shuffle()
 	for player_idx in range(4):
@@ -312,7 +329,7 @@ func rank(card: Array) -> int:
 	var initial_rank: int = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 1].find(card[1])
 	if card[0] == trump:
 		initial_rank *= 2
-	elif card[0] != trump:
+	elif card[0] != suit and card[0] != trump:
 		initial_rank *= -1
 	return initial_rank
 

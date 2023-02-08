@@ -53,7 +53,7 @@ func start_network(is_server: bool) -> void:
 		
 		print("Server listening on 45.33.15.210 port 2004")
 	else:
-		peer.create_client("45.33.15.210", 2004)
+		peer.create_client("localhost", 2004)
 	local_id = peer.get_unique_id()
 	multiplayer.set_multiplayer_peer(peer)
 
