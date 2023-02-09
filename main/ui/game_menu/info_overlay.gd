@@ -14,7 +14,7 @@ extends MarginContainer
 @export var container_a: VBoxContainer
 @export var container_b: VBoxContainer
 
-func _input(event) -> void:
+func _unhandled_input(event) -> void:
 	if event.is_action_pressed("hide", false):
 		scoreboard.visible = !scoreboard.visible
 

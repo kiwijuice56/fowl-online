@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cgro4xbeuxkxc"]
+[gd_scene load_steps=21 format=3 uid="uid://cgro4xbeuxkxc"]
 
 [ext_resource type="Script" path="res://main/game/room/game_room.gd" id="1_7akt0"]
 [ext_resource type="PackedScene" uid="uid://bbvj5lkewvs76" path="res://main/game/card/CardModel.tscn" id="1_e8h6y"]
@@ -13,7 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://biaoj6tsyvug7" path="res://main/game/room/sounds/card_deal_5.wav" id="9_afdb7"]
 [ext_resource type="AudioStream" uid="uid://cwjrbfdptymp" path="res://main/game/room/sounds/card_deal_6.wav" id="10_x1pay"]
 [ext_resource type="Script" path="res://main/game/player_camera/player_camera.gd" id="11_aaxfr"]
-[ext_resource type="Texture2D" uid="uid://chhwmypr1pku6" path="res://main/game/player_camera/crosshair.png" id="13_sikfx"]
 
 [sub_resource type="Animation" id="Animation_31df1"]
 length = 0.001
@@ -160,7 +159,7 @@ card_scene = ExtResource("1_e8h6y")
 hand_span = 1.813
 hand_radius = 0.4
 hand_duration = 0.15
-hand_delay = 0.06
+hand_delay = 0.03
 reposition_duration = 0.02
 trick_duration = 0.1
 trick_delay = 0.07
@@ -227,7 +226,7 @@ environment = SubResource("Environment_i25mw")
 [node name="PlayerHead" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39, 1.15195)
 
-[node name="PlayerCamera" type="Camera3D" parent="PlayerHead" node_paths=PackedStringArray("game_room", "hitbox", "cursor")]
+[node name="PlayerCamera" type="Camera3D" parent="PlayerHead" node_paths=PackedStringArray("game_room", "hitbox")]
 current = true
 fov = 65.0
 size = 1.256
@@ -236,7 +235,6 @@ far = 40.0
 script = ExtResource("11_aaxfr")
 game_room = NodePath("../..")
 hitbox = NodePath("VisionSelector")
-cursor = NodePath("Cursor")
 mouse_sensitivity = 0.003
 
 [node name="VisionSelector" type="Area3D" parent="PlayerHead/PlayerCamera"]
@@ -246,23 +244,6 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerHead/PlayerCamera/VisionSelector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.242683)
 shape = SubResource("BoxShape3D_qp1iu")
-
-[node name="Cursor" type="TextureRect" parent="PlayerHead/PlayerCamera"]
-modulate = Color(1, 1, 1, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-texture = ExtResource("13_sikfx")
 
 [editable path="Scenery"]
 [editable path="Scenery/Fan"]

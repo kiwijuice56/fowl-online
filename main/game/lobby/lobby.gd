@@ -75,7 +75,7 @@ func start_game() -> void:
 		rpc("increment_synced")
 
 func game_loop() -> void:
-	while scores[0] < 150 and scores[1] < 150:
+	while scores[0] < 500 and scores[1] < 500:
 		await play_hand()
 		await get_tree().create_timer(4).timeout
 	rpc("puppet_finish_game")
@@ -111,7 +111,6 @@ func play_hand() -> void:
 			await sync_players(true)
 		current_player = (current_player + 1) % len(players)
 	decks[bid_winner].append(center_swap)
-	print(decks)
 	rpc("update_state", {"current_player": bid_winner, "decks": decks})
 	await sync_players(true)
 	
@@ -132,63 +131,63 @@ func play_hand() -> void:
 			if player == 0: # No suit allows for the player to place anything
 				rpc("update_state", {"current_player": current_player, "suit": -1})
 			else:
-				if player == 1: # Declare the leading suit
-					suit = center_deck.back()[0]
-					if suit == 0:
-						suit = trump 
 				rpc("update_state", {"current_player": current_player, "suit": suit})
 			await sync_players(true)
 			
 			rpc("puppet_place_card", players[current_player].id)
 			await sync_players(true)
 			
+			if player == 0: # Declare the leading suit
+				suit = center_deck.back()[0]
+				if suit == 0:
+					suit = trump 
+			
 			var placed_card_rank: int = rank(center_deck.back())
 			if placed_card_rank > highest_rank:
 				highest_rank = placed_card_rank
-				winning_player = player
+				winning_player = current_player
 			
 			rpc("puppet_other_place_card", players[current_player].id, center_deck.back(), false)
 			await sync_players(false)
 			
 			current_player = (current_player + 1) % len(players)
 		var winning_team: int = winning_player % 2
-		tricks[winning_team].append(center_deck.slice(len(center_deck) - 5))
-		
-		var new_scores: Array[int] = [0, 0]
-		
-		if len(tricks[0]) > 0:
-			for card in tricks[0].back():
-				if card[0] in SCORE_MAP:
-					new_scores[0] += SCORE_MAP[card[0]]
-		if len(tricks[1]) > 0:
-			for card in tricks[1].back():
-				if card[0] in SCORE_MAP:
-					new_scores[1] += SCORE_MAP[card[0]]
-		
-		if new_scores[bid_winner % 2] < current_bid:
-			new_scores[bid_winner % 2] *= -1
-		
-		scores[0] += new_scores[0]
-		scores[1] += new_scores[1]
-		
+		tricks[winning_team].append(center_deck.slice(len(center_deck) - 4))
 		rpc("update_state", {"tricks": tricks})
 		await sync_players(true)
 		
 		rpc("puppet_take_tricks", winning_team)
 		await sync_players(false)
+	
+	var new_scores: Array[int] = [0, 0]
+	for trick in tricks[0]:
+		for card in trick:
+			if card[1] in SCORE_MAP:
+				new_scores[0] += SCORE_MAP[card[1]]
+	for trick in tricks[1]:
+		for card in trick:
+			if card[1] in SCORE_MAP:
+				new_scores[1] += SCORE_MAP[card[1]]
+	
+	if new_scores[bid_winner % 2] < current_bid:
+		new_scores[bid_winner % 2] *= -1
+	scores[0] += new_scores[0]
+	scores[1] += new_scores[1]
+	
 	if len(tricks[0]) > len(tricks[1]):
 		scores[0] += 20
 	elif len(tricks[1]) > len(tricks[0]):
 		scores[1] += 20
-	rpc("update_state", {"scores": scores})
-	await sync_players(false) 
+	tricks = [[], []]
+	rpc("update_state", {"scores": scores, "tricks": tricks})
+	await sync_players(true) 
 
 func initialize_decks() -> void:
 	var cards: Array = []
 	
 	# Create the deck with every possible card
 	for suit_idx in range(4):
-		for card_idx in range(1, 16):
+		for card_idx in range(1, 15): 
 			# Cards are represented through an array of [suit, number] because Objects are not easily sent over RPC
 			var new_card: Array[int] = [0, 0]
 			new_card[0] = Card.Suit.values()[suit_idx]
@@ -200,7 +199,7 @@ func initialize_decks() -> void:
 	cards.shuffle()
 	for player_idx in range(4):
 		decks.append(cards.slice(player_idx * 14, (player_idx + 1) * 14))
-	center_swap = cards[0]
+	center_swap = cards[len(cards) - 1]
 
 ## Puppet methods
 # These are used to prompt game events on clients, such as getting a bid or playing a card

@@ -9,4 +9,4 @@ func _input(event):
 	if event is InputEventMouse:
 		var mouse_event: InputEventMouse = event.duplicate()
 		mouse_event.position = get_global_transform_with_canvas().affine_inverse() * event.position
-		game_room.camera._input(mouse_event)
+		game_room.camera._unhandled_input(mouse_event)

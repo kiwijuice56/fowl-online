@@ -3,8 +3,9 @@ extends Camera3D
 
 @export var game_room: GameRoom
 @export var hitbox: Area3D
-@export var cursor: TextureRect
 @export var mouse_sensitivity = 0.002
+
+@onready var cursor: Control = get_tree().get_root().get_node("Main/UI/CursorMenu")
 
 var selected_card: Area3D
 var locked: bool = true
@@ -15,7 +16,7 @@ func _ready() -> void:
 	hitbox.area_entered.connect(_on_area_entered)
 	hitbox.area_exited.connect(_on_area_exited)
 
-func _input(event) -> void:
+func _unhandled_input(event) -> void:
 	if not locked and event is InputEventMouseMotion:
 		get_parent().rotate_y(-event.relative.x * mouse_sensitivity)
 		rotate_x(-event.relative.y * mouse_sensitivity)
