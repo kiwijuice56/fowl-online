@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnqljd1tuy57"]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://main/game/player_sprite/player_sprite.gd" id="2_6c7kx"]
-[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="2_ppoup"]
+[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/theme/profile_images/profile1.png" id="2_ppoup"]
 [ext_resource type="Texture2D" uid="uid://vkeia5sjrbvc" path="res://main/game/player_sprite/thought_bubble/bubble_3.png" id="3_skjfw"]
 [ext_resource type="Texture2D" uid="uid://ex8iu2iuu1r2" path="res://main/game/player_sprite/thought_bubble/bubble_1.png" id="4_10a3i"]
 [ext_resource type="Texture2D" uid="uid://dlo5s6nnejr6t" path="res://main/game/player_sprite/thought_bubble/bubble_2.png" id="5_jxv13"]

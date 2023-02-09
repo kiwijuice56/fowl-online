@@ -1,5 +1,7 @@
 class_name MainMenu
 extends Menu
+# This file should be called main_menu, but it created some serious errors trying to rename...
+
 # Manager for all of the sub-menus seen at the start of the game, such as the lobby
 # and character select screens
 

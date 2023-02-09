@@ -1,13 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgrcqvme4xsl"]
+[gd_scene load_steps=13 format=3 uid="uid://cr0y4mk0fw6m3"]
 
 [ext_resource type="Script" path="res://main/ui/game_menu/game_menu.gd" id="1_rlvnq"]
-[ext_resource type="PackedScene" uid="uid://cgebjfbasv5nu" path="res://main/ui/main_menu/lobby/UserPanel.tscn" id="2_82hko"]
+[ext_resource type="PackedScene" uid="uid://dq8wxv0kcsejv" path="res://main/ui/components/user_panel/UserPanel.tscn" id="2_82hko"]
 [ext_resource type="Script" path="res://main/ui/game_menu/info_overlay.gd" id="2_pdwke"]
 [ext_resource type="Texture2D" uid="uid://dy6a7voe7vla4" path="res://main/ui/game_menu/card_icon.png" id="3_bp2kf"]
 [ext_resource type="Script" path="res://main/ui/game_menu/bid_menu.gd" id="4_pxbxi"]
 [ext_resource type="Script" path="res://main/ui/game_menu/trump_menu.gd" id="6_5asr1"]
-[ext_resource type="Script" path="res://main/game/room/sounds/random_sound_spawner.gd" id="7_u6waj"]
-[ext_resource type="AudioStream" uid="uid://dturfm1rdfed3" path="res://main/ui/sounds/jingle.wav" id="8_hpp2w"]
+[ext_resource type="Script" path="res://main/game/room/game_sounds/random_sound_spawner.gd" id="7_u6waj"]
+[ext_resource type="AudioStream" uid="uid://dturfm1rdfed3" path="res://main/ui/theme/ui_sounds/next_turn_jingle.wav" id="8_hpp2w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnb1v"]
 content_margin_left = 8.0

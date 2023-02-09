@@ -1,12 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://6wefijj51jly"]
+[gd_scene load_steps=15 format=3 uid="uid://dyd1v64lu1anu"]
 
-[ext_resource type="Theme" uid="uid://bh7vxw1ci2lww" path="res://main/ui/theme/main_theme.tres" id="1_u61rs"]
+[ext_resource type="Theme" uid="uid://dyy8wlpx0mmsi" path="res://main/ui/theme/main_theme.tres" id="1_u61rs"]
 [ext_resource type="Script" path="res://main/ui/main_menu/initial_menu.gd" id="2_dxs23"]
 [ext_resource type="Script" path="res://main/ui/main_menu/join_menu/join_menu.gd" id="3_3gs3r"]
-[ext_resource type="Script" path="res://main/ui/main_menu/lobby/lobby_menu.gd" id="4_b1iyr"]
-[ext_resource type="PackedScene" uid="uid://cgebjfbasv5nu" path="res://main/ui/main_menu/lobby/UserPanel.tscn" id="5_jchd1"]
+[ext_resource type="Script" path="res://main/ui/main_menu/lobby_menu/lobby_menu.gd" id="4_b1iyr"]
+[ext_resource type="PackedScene" uid="uid://dq8wxv0kcsejv" path="res://main/ui/components/user_panel/UserPanel.tscn" id="5_jchd1"]
 [ext_resource type="Script" path="res://main/ui/main_menu/character_menu/character_menu.gd" id="6_s3xr4"]
-[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/profile_images/profile1.png" id="7_8icet"]
+[ext_resource type="Texture2D" uid="uid://bqcv0aq6xgelq" path="res://main/ui/theme/profile_images/profile1.png" id="7_8icet"]
 [ext_resource type="Script" path="res://main/ui/main_menu/nexus_menu/nexus_menu.gd" id="8_84tca"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h0qmb"]

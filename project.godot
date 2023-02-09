@@ -13,7 +13,7 @@ config_version=5
 config/name="Fowl!"
 run/main_scene="res://main/Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
-config/icon="res://main/ui/profile_images/profile1.png"
+config/icon="res://main/ui/theme/profile_images/profile1.png"
 
 [autoload]
 
