@@ -9,6 +9,7 @@ var player_sprites: Array[PlayerSprite]
 var lobby: Lobby
 
 var player_idx: int:
+	# Shift the array of player sprites to fit the client as the first player
 	set(val):
 		player_idx = val
 		for i in range(player_idx):

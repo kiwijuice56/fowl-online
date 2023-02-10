@@ -1,5 +1,6 @@
 class_name GameMenu
 extends Menu
+# Manager for all submenus within regular gameplay, such as bidding menu
 
 @export var bid_menu: BidMenu
 @export var trump_menu: TrumpMenu
@@ -24,6 +25,7 @@ func enter() -> void:
 	tween.tween_property(self, "modulate:a", 1.0, 0.1)
 	await tween.finished
 
+# Show a pop-up of the current player
 func show_current_player(player_name: String) -> void:
 	turn_label.text = player_name + "'s turn!"
 	turn_label.modulate.a = 0

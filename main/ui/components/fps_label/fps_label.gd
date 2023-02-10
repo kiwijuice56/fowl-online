@@ -1,6 +1,6 @@
 class_name FpsLabel
 extends Label
-# Updates the FPS label every second
+# Displays the current FPS every second
 
 @onready var timer: Timer = $Timer
 

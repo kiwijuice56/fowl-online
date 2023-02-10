@@ -24,13 +24,14 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
+stretch_shrink = 4
 script = ExtResource("1_283oo")
 game_room = NodePath("SubViewport/GameRoom")
 
 [node name="SubViewport" type="SubViewport" parent="ViewportContainer"]
 handle_input_locally = false
 physics_object_picking = true
-size = Vector2i(800, 600)
+size = Vector2i(200, 150)
 render_target_update_mode = 4
 
 [node name="GameRoom" parent="ViewportContainer/SubViewport" instance=ExtResource("2_6rs61")]

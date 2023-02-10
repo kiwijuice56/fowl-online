@@ -29,22 +29,22 @@ signal player_left_lobby(code, id)
 func _enter_tree() -> void:
 	# This is much smaller than the original list of 1000 words, but my Linode server
 	# seems unable to locate files... this will have to do!
-	code_words = ["aah", "aba", "abs", "ace", "ach", "act", "add", "ado", 
-	"adz", "aft", "aga", "age", "ago", "aha", "ahi", "aid", "ail", "aim", 
-	"ain", "air", "ait", "ala", "alb", "ale", "all", "alp", "alt", "amp", 
-	"amu", "ana", "and", "ane", "ani", "ant", "any", "ape", "app", "apt", 
-	"arb", "arc", "are", "arf", "ark", "arm", "art", "ash", "ask", "asp",
-	"ate", "auk", "ave", "avo", "awe", "awl", "awn", "axe", "aye", "azo",
-	"baa", "bad", "bag", "bah", "ban", "bap", "bar", "bat", "bay", "bed", 
-	"bee", "beg", "bel", "ben", "bet", "bey", "bib", "bid", "big", "bin"]
+	code_words = ['pun', 'roc', 'ugh', 'bob', 'yas', 'udo', 'her', 'yar', 'jee', 'tux', 'guy', 
+	'sin', 'goy', 'don', 'saw', 'yob', 'tau', 'oak', 'cam', 'vex', 'met', 'big', 'she', 'pea', 
+	'tom', 'wee', 'wok', 'tap', 'eld', 'roo', 'tee', 'kep', 'oft', 'zea', 'him', 'web', 'hap', 
+	'tup', 'lea', 'fab', 'zax', 'wap', 'lob', 'sou', 'tog', 'aha', 'fop', 'gab', 'pah', 'zig', 
+	'sup', 'cru', 'feu', 'saz', 'ted', 'tor', 'zap', 'upo', 'dak', 'cox', 'sos', 'mot', 'out', 
+	'bit', 'joe', 'div', 'utu', 'aba', 'pro', 'zol', 'ash', 'del', 'meg', 'och', 'soh', 'cor', 
+	'boo', 'nor', 'mar', 'gym', 'aye', 'pot', 'rap', 'ego', 'jot', 'poi', 'law', 'ilk', 'ell', 
+	'sky', 'lit', 'pen', 'fie', 'jam', 'leg', 'ran', 'daw', 'tar', 'sed', 'tam']
 	
 	start_network("--server" in OS.get_cmdline_args())
 
 func _on_connected(id: int) -> void:
-	print(id, " connected")
+	print("Client ", id, " connected to the server")
 
 func _on_disconnected(id: int) -> void:
-	print(id, " disconnected")
+	print("Client ", id, " disconnected from the server")
 
 func start_network(is_server: bool) -> void:
 	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
@@ -68,7 +68,7 @@ func create_lobby(code: String) -> void:
 	new_lobby.code = code
 	new_lobby.name = code
 	add_child(new_lobby)
-	print(str(local_id) + ": Lobby " + code + " created")
+	print("Lobby ", code, " created")
 
 @rpc("any_peer")
 func delete_lobby(code: String) -> void:
@@ -80,7 +80,7 @@ func delete_lobby(code: String) -> void:
 			leave_lobby(code, int(player.name))
 	
 	remove_child(get_node(code))
-	print(str(local_id) + ": Lobby " + code + " deleted")
+	print("Lobby ", code, " deleted")
 
 @rpc("any_peer", "call_local")
 func join_lobby(code: String, player: int, username: String, icon: int) -> void:
@@ -91,7 +91,7 @@ func join_lobby(code: String, player: int, username: String, icon: int) -> void:
 		new_player.username = username
 		new_player.id = player
 		get_node(code).add_child(new_player)
-		print(str(local_id) + ": Player " + str(player) + " joined lobby " + code)
+		print("Player ", username, " (", player, ") joined lobby ", code)
 		# We need to update the UI for all clients only after the new player is added
 		# Hence, this method is necessary to stop race conditions with the authority
 		rpc("add_new_player", code, player, username, icon)
@@ -105,7 +105,7 @@ func leave_lobby(code: String, player: int) -> void:
 	if local_id == get_multiplayer_authority():
 		get_node(code).remove_child(get_node(code).get_node(str(player)))
 		
-		print(str(local_id) + ": Player " + str(player) + " left lobby " + code)
+		print("Player [username unknown] (", player, ") left lobby ", code)
 		if get_node(code).get_child_count() <= 1:
 			delete_lobby(code)
 	player_left_lobby.emit(code, player)
@@ -113,8 +113,9 @@ func leave_lobby(code: String, player: int) -> void:
 func lobby_exists(code: String) -> bool:
 	return has_node(code)
 
+# Creates a 3-word code from the predefined list at the start of this file
 func generate_code() -> String:
 	var words: PackedStringArray = []
 	for _i in range(3):
 		words.append(code_words[randi() % len(code_words)].strip_edges())
-	return "-".join(words)
+	return " ".join(words)
